@@ -89,16 +89,18 @@ namespace FaultTreeEditor.Views
 
             if ((bool)Add_Connection_Toggle_Button.IsChecked)
             {
-                ViewModel.Connections.Add(new Connection
-                {
-                    From = ViewModel.SelectedCanvasElement,
-                    To = myListBoxSelectedItem
-                });
-                ViewModel.SelectedCanvasElement.Children.Add(myListBoxSelectedItem);
-                myListBoxSelectedItem.Parents.Add(ViewModel.SelectedCanvasElement);
+                if(ViewModel.SelectedCanvasElement != myListBoxSelectedItem){
+                    ViewModel.Connections.Add(new Connection
+                    {
+                        From = ViewModel.SelectedCanvasElement,
+                        To = myListBoxSelectedItem
+                    });
+                    ViewModel.SelectedCanvasElement.Children.Add(myListBoxSelectedItem);
+                    myListBoxSelectedItem.Parents.Add(ViewModel.SelectedCanvasElement);
 
-                Add_Connection_Toggle_Button.IsChecked = false;
-                DarwLines();
+                    Add_Connection_Toggle_Button.IsChecked = false;
+                    DarwLines();
+                }
             }
             else if ((bool)Remove_Connection_Toggle_Button.IsChecked)
             {
