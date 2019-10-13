@@ -83,20 +83,69 @@ namespace FaultTreeEditor.Views
 
         private void myListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Element myListBoxSelectedItem = myListBox.SelectedItem as Element;
             if (myListBox.SelectedIndex == -1)
                 return;
 
-            ViewModel.SelectedCanvasElement = myListBox.SelectedItem as Element;
+            if ((bool)Add_Connection_Toggle_Button.IsChecked)
+            {
+                ViewModel.Connections.Add(new Connection
+                {
+                    From = ViewModel.SelectedCanvasElement,
+                    To = myListBoxSelectedItem
+                });
+                ViewModel.SelectedCanvasElement.Children.Add(myListBoxSelectedItem);
+                myListBoxSelectedItem.Parents.Add(ViewModel.SelectedCanvasElement);
 
+                Add_Connection_Toggle_Button.IsChecked = false;
+                DarwLines();
+            }
+            else if ((bool)Remove_Connection_Toggle_Button.IsChecked)
+            {
+                var toRemove = new List<Connection>();
+                foreach (var v in ViewModel.Connections)
+                {
+                    if((v.From == ViewModel.SelectedCanvasElement && v.To == myListBoxSelectedItem) || (v.From == myListBoxSelectedItem && v.To == ViewModel.SelectedCanvasElement))
+                    {
+                        toRemove.Add(v);
+                    }
+                }
+                foreach (var v in toRemove)
+                {
+                    ViewModel.Connections.Remove(v);
+                }
+
+                ViewModel.SelectedCanvasElement.Children.Remove(myListBoxSelectedItem);
+                ViewModel.SelectedCanvasElement.Parents.Remove(myListBoxSelectedItem);
+                myListBoxSelectedItem.Children.Remove(ViewModel.SelectedCanvasElement);
+                myListBoxSelectedItem.Parents.Remove(ViewModel.SelectedCanvasElement);
+
+                Remove_Connection_Toggle_Button.IsChecked = false;
+                DarwLines();
+            }
+            else
+            {
+                ViewModel.SelectedCanvasElement = myListBoxSelectedItem;
+            }
             myListBox.SelectedIndex = -1;
         }
 
         private void Delete_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            if (ViewModel.SelectedCanvasElement.ElementType == ElementType.TopLevelEvent)
+            {
+                return;
+            }
+
             ViewModel.CanvasElements.Remove(ViewModel.SelectedCanvasElement);
 
-            var toRemove = new List<Connection>();
+            foreach (var v in ViewModel.CanvasElements)
+            {
+                v.Children.Remove(ViewModel.SelectedCanvasElement);
+                v.Parents.Remove(ViewModel.SelectedCanvasElement);
+            }
 
+            var toRemove = new List<Connection>();
             foreach (var v in ViewModel.Connections)
             {
                 if (v.From == ViewModel.SelectedCanvasElement || v.To == ViewModel.SelectedCanvasElement)
@@ -104,7 +153,6 @@ namespace FaultTreeEditor.Views
                     toRemove.Add(v);
                 }
             }
-
             foreach (var v in toRemove)
             {
                 ViewModel.Connections.Remove(v);
@@ -120,6 +168,44 @@ namespace FaultTreeEditor.Views
             }
 
             DarwLines();
+        }
+
+        private void Remove_Connection_Toggle_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if ((bool)Remove_Connection_Toggle_Button.IsChecked)
+            {
+                Add_Connection_Toggle_Button.IsChecked = false;
+            }
+        }
+
+        private void Add_Connection_Toggle_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if ((bool)Add_Connection_Toggle_Button.IsChecked)
+            {
+                Remove_Connection_Toggle_Button.IsChecked = false;
+            }
+        }
+
+        private void Generate_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Output_TextBox.Text = "Generated output...";
+        }
+
+        private void List_Connections_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            string builder = "";
+            foreach (var v in ViewModel.Connections)
+            {
+                builder += v.From.Title + " -> " + v.To.Title + "\n";
+            }
+            if (String.IsNullOrWhiteSpace(builder))
+            {
+                Output_TextBox.Text = "No connections...";
+            }
+            else
+            {
+                Output_TextBox.Text = builder;
+            }
         }
     }
 }

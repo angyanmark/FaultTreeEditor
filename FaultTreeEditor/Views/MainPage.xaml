@@ -66,22 +66,22 @@
                 <TextBlock RelativePanel.AlignLeftWithPanel="True"
                            Style="{StaticResource PageTitleStyle}"
                            Text="Output" />
-                <Button HorizontalAlignment="Right"
-                        Content="Generate output"
-                        RelativePanel.AlignRightWithPanel="True" />
+                <StackPanel Orientation="Horizontal"
+                            RelativePanel.AlignRightWithPanel="True"
+                            Spacing="8">
+                    <Button Click="List_Connections_Button_Click" Content="List connections" />
+                    <Button Click="Generate_Button_Click" Content="Generate output" />
+                </StackPanel>
             </RelativePanel>
 
-            <Border Grid.Row="3"
-                    Padding="4"
-                    VerticalAlignment="Top"
-                    BorderBrush="Gray"
-                    BorderThickness="1">
-                <ScrollViewer Height="120" HorizontalAlignment="Stretch">
-                    <RichTextBlock x:Name="output">
-                        <Paragraph>Output.</Paragraph>
-                    </RichTextBlock>
-                </ScrollViewer>
-            </Border>
+            <ScrollViewer Grid.Row="3"
+                          Height="120"
+                          HorizontalAlignment="Stretch">
+                <TextBox x:Name="Output_TextBox"
+                         IsReadOnly="True"
+                         Text="Output"
+                         TextWrapping="Wrap" />
+            </ScrollViewer>
         </Grid>
 
         <Grid Grid.Column="1"
@@ -99,9 +99,21 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0"
-                           Style="{StaticResource PageTitleStyle}"
-                           Text="Items" />
+                <RelativePanel Grid.Row="0">
+                    <TextBlock RelativePanel.AlignLeftWithPanel="True"
+                               Style="{StaticResource PageTitleStyle}"
+                               Text="Items" />
+                    <StackPanel Orientation="Horizontal"
+                                RelativePanel.AlignRightWithPanel="True"
+                                Spacing="8">
+                        <ToggleButton x:Name="Remove_Connection_Toggle_Button"
+                                      Click="Remove_Connection_Toggle_Button_Click"
+                                      Content="Connection -" />
+                        <ToggleButton x:Name="Add_Connection_Toggle_Button"
+                                      Click="Add_Connection_Toggle_Button_Click"
+                                      Content="Connection +" />
+                    </StackPanel>
+                </RelativePanel>
 
                 <RelativePanel Grid.Row="1" Padding="60,0">
                     <StackPanel Orientation="Horizontal"

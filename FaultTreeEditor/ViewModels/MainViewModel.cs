@@ -206,55 +206,17 @@ namespace FaultTreeEditor.ViewModels
                 }
             });
 
-            ////////////////////////
-
-            Event addEvent1 = new Event
+            TopLevelEvent initialTopLevelEvent = new TopLevelEvent
             {
-                Title = "Event",
-                ElementType = ElementType.Event,
+                Title = "Top Level Event",
+                ElementType = ElementType.TopLevelEvent,
                 Children = new ObservableCollection<Element>(),
                 ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
                 Parents = new ObservableCollection<Element>(),
-                X = 150,
-                Y = 150,
+                X = 600,
+                Y = 0,
             };
-            CanvasElements.Add(addEvent1);
-
-            Event addEvent2 = new Event
-            {
-                Title = "Event",
-                ElementType = ElementType.Event,
-                Children = new ObservableCollection<Element>(),
-                ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
-                Parents = new ObservableCollection<Element>(),
-                X = 200,
-                Y = 200,
-            };
-            CanvasElements.Add(addEvent2);
-
-            Event addEvent3 = new Event
-            {
-                Title = "Event",
-                ElementType = ElementType.Event,
-                Children = new ObservableCollection<Element>(),
-                ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
-                Parents = new ObservableCollection<Element>(),
-                X = 250,
-                Y = 250,
-            };
-            CanvasElements.Add(addEvent3);
-
-            Connections.Add(new Connection
-            {
-                From = addEvent1,
-                To = addEvent2
-            });
-
-            Connections.Add(new Connection
-            {
-                From = addEvent2,
-                To = addEvent3
-            });
+            CanvasElements.Add(initialTopLevelEvent);
 
             SelectedCanvasElement = CanvasElements[0];
         }
