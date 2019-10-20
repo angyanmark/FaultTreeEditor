@@ -10,6 +10,12 @@ namespace FaultTreeEditor.ViewModels
 {
     public class MainViewModel : Observable
     {
+        private int eventCounter = 0;
+        private int basicEventCounter = 0;
+        private int andGateCounter = 0;
+        private int orGateCounter = 0;
+        private int voteGateCounter = 0;
+
         public List<Element> Elements { get; set; }
 
         private Element selectedElement;
@@ -45,7 +51,7 @@ namespace FaultTreeEditor.ViewModels
                 },*/
                 new Event
                 {
-                    ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
+                    ImageSource = "/Assets/Images/Elements/event.png",
                     ElementType = ElementType.Event,
                 },
                 new BasicEvent
@@ -55,12 +61,12 @@ namespace FaultTreeEditor.ViewModels
                 },
                 new AndGate
                 {
-                    ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
+                    ImageSource = "/Assets/Images/Elements/andgate.png",
                     ElementType = ElementType.AndGate,
                 },
                 new OrGate
                 {
-                    ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
+                    ImageSource = "/Assets/Images/Elements/orgate.png",
                     ElementType = ElementType.OrGate,
                 },
                 new VoteGate
@@ -84,7 +90,7 @@ namespace FaultTreeEditor.ViewModels
                             Title = "top_level_event",
                             ElementType = ElementType.TopLevelEvent,
                             Children = new ObservableCollection<Element>(),
-                            ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
+                            ImageSource = "/Assets/Images/Elements/event.png",
                             Parents = new ObservableCollection<Element>(),
                             X = 150,
                             Y = 150,
@@ -95,10 +101,10 @@ namespace FaultTreeEditor.ViewModels
                     case ElementType.Event:
                         Event addEvent = new Event
                         {
-                            Title = "event",
+                            Title = "event_" + ++eventCounter,
                             ElementType = ElementType.Event,
                             Children = new ObservableCollection<Element>(),
-                            ImageSource= "https://www.w3schools.com/w3css/img_lights.jpg",
+                            ImageSource= "/Assets/Images/Elements/event.png",
                             Parents = new ObservableCollection<Element>(),
                             X = 150,
                             Y = 150,
@@ -109,7 +115,7 @@ namespace FaultTreeEditor.ViewModels
                     case ElementType.BasicEvent:
                         BasicEvent addLeafEvent = new BasicEvent
                         {
-                            Title = "basic_event",
+                            Title = "basic_event_" + ++basicEventCounter,
                             ElementType = ElementType.BasicEvent,
                             Children = new ObservableCollection<Element>(),
                             ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
@@ -124,10 +130,10 @@ namespace FaultTreeEditor.ViewModels
                     case ElementType.AndGate:
                         AndGate addAndGate = new AndGate
                         {
-                            Title = "and_gate",
+                            Title = "and_gate_" + ++andGateCounter,
                             ElementType = ElementType.AndGate,
                             Children = new ObservableCollection<Element>(),
-                            ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
+                            ImageSource = "/Assets/Images/Elements/andgate.png",
                             Parents = new ObservableCollection<Element>(),
                             X = 150,
                             Y = 150,
@@ -138,10 +144,10 @@ namespace FaultTreeEditor.ViewModels
                     case ElementType.OrGate:
                         OrGate addOrGate = new OrGate
                         {
-                            Title = "or_gate",
+                            Title = "or_gate_" + ++orGateCounter,
                             ElementType = ElementType.OrGate,
                             Children = new ObservableCollection<Element>(),
-                            ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
+                            ImageSource = "/Assets/Images/Elements/orgate.png",
                             Parents = new ObservableCollection<Element>(),
                             X = 150,
                             Y = 150,
@@ -152,7 +158,7 @@ namespace FaultTreeEditor.ViewModels
                     case ElementType.VoteGate:
                         VoteGate addVoteGate = new VoteGate
                         {
-                            Title = "vote_gate",
+                            Title = "vote_gate_" + ++voteGateCounter,
                             ElementType = ElementType.VoteGate,
                             Children = new ObservableCollection<Element>(),
                             ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
@@ -211,7 +217,7 @@ namespace FaultTreeEditor.ViewModels
                 Title = "top_level_event",
                 ElementType = ElementType.TopLevelEvent,
                 Children = new ObservableCollection<Element>(),
-                ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
+                ImageSource = "/Assets/Images/Elements/event.png",
                 Parents = new ObservableCollection<Element>(),
                 X = 600,
                 Y = 0,
@@ -219,6 +225,15 @@ namespace FaultTreeEditor.ViewModels
             CanvasElements.Add(initialTopLevelEvent);
 
             SelectedCanvasElement = CanvasElements[0];
+        }
+
+        public void ResetCounters()
+        {
+            eventCounter = 0;
+            basicEventCounter = 0;
+            andGateCounter = 0;
+            orGateCounter = 0;
+            voteGateCounter = 0;
         }
     }
 }

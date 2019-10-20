@@ -57,7 +57,7 @@
                                         ManipulationDelta="SP_ManipulationDelta"
                                         ManipulationMode="TranslateX, TranslateY, System"
                                         ManipulationStarted="SP_ManipulationStarted">
-                                <Image Width="100" Source="{Binding ImageSource}" />
+                                <Image Height="80" Source="{Binding ImageSource}" />
                                 <TextBlock HorizontalAlignment="Center" Text="{Binding Title}" />
                                 <TextBlock HorizontalAlignment="Center" Text="{Binding Probability}" />
 
@@ -129,7 +129,7 @@
                                 RelativePanel.AlignLeftWithPanel="True"
                                 RelativePanel.AlignVerticalCenterWithPanel="True"
                                 Spacing="8">
-                        <Image Width="100" Source="{Binding SelectedElement.ImageSource}" />
+                        <Image Height="80" Source="{Binding SelectedElement.ImageSource}" />
                         <TextBlock VerticalAlignment="Center" Text="{Binding SelectedElement.ElementType, Converter={StaticResource ElementTypeToTitleStringConverter}}" />
                     </StackPanel>
                     <Button Width="100"
@@ -146,7 +146,7 @@
                     <GridView.ItemTemplate>
                         <DataTemplate x:Name="myDataTemplate" x:DataType="models:Element">
                             <StackPanel Padding="8" Spacing="8">
-                                <Image Width="140"
+                                <Image Height="76"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Source="{Binding ImageSource}" />
@@ -229,7 +229,7 @@
                                         <StackPanel Padding="4"
                                                     Orientation="Horizontal"
                                                     Spacing="8">
-                                            <Image Width="80" Source="{Binding ImageSource}" />
+                                            <Image Height="100" Source="{Binding ImageSource}" />
                                             <TextBlock VerticalAlignment="Center" Text="{Binding Title}" />
                                             <ToggleSwitch OffContent="Parent" OnContent="Not parent" />
                                         </StackPanel>

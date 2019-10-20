@@ -250,6 +250,7 @@ namespace FaultTreeEditor.Views
             {
                 ViewModel.SelectedCanvasElement = null;
             }
+            ViewModel.ResetCounters();
             DarwLines();
         }
 
