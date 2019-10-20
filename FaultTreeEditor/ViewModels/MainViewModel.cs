@@ -38,11 +38,11 @@ namespace FaultTreeEditor.ViewModels
         {
             Elements = new List<Element>
             {
-                new TopLevelEvent
+                /*new TopLevelEvent
                 {
                     ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
                     ElementType = ElementType.TopLevelEvent,
-                },
+                },*/
                 new Event
                 {
                     ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
@@ -78,10 +78,10 @@ namespace FaultTreeEditor.ViewModels
             {
                 switch (SelectedElement.ElementType)
                 {
-                    case ElementType.TopLevelEvent:
+                    /*case ElementType.TopLevelEvent:
                         TopLevelEvent addTopLevelEvent = new TopLevelEvent
                         {
-                            Title = "Top level event",
+                            Title = "top_level_event",
                             ElementType = ElementType.TopLevelEvent,
                             Children = new ObservableCollection<Element>(),
                             ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
@@ -91,11 +91,11 @@ namespace FaultTreeEditor.ViewModels
                         };
                         CanvasElements.Add(addTopLevelEvent);
                         SelectedCanvasElement = addTopLevelEvent;
-                        break;
+                        break;*/
                     case ElementType.Event:
                         Event addEvent = new Event
                         {
-                            Title = "Event",
+                            Title = "event",
                             ElementType = ElementType.Event,
                             Children = new ObservableCollection<Element>(),
                             ImageSource= "https://www.w3schools.com/w3css/img_lights.jpg",
@@ -109,7 +109,7 @@ namespace FaultTreeEditor.ViewModels
                     case ElementType.BasicEvent:
                         BasicEvent addLeafEvent = new BasicEvent
                         {
-                            Title = "Basic event",
+                            Title = "basic_event",
                             ElementType = ElementType.BasicEvent,
                             Children = new ObservableCollection<Element>(),
                             ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
@@ -124,7 +124,7 @@ namespace FaultTreeEditor.ViewModels
                     case ElementType.AndGate:
                         AndGate addAndGate = new AndGate
                         {
-                            Title = "AND gate",
+                            Title = "and_gate",
                             ElementType = ElementType.AndGate,
                             Children = new ObservableCollection<Element>(),
                             ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
@@ -138,7 +138,7 @@ namespace FaultTreeEditor.ViewModels
                     case ElementType.OrGate:
                         OrGate addOrGate = new OrGate
                         {
-                            Title = "OR gate",
+                            Title = "or_gate",
                             ElementType = ElementType.OrGate,
                             Children = new ObservableCollection<Element>(),
                             ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
@@ -152,7 +152,7 @@ namespace FaultTreeEditor.ViewModels
                     case ElementType.VoteGate:
                         VoteGate addVoteGate = new VoteGate
                         {
-                            Title = "Vote gate",
+                            Title = "vote_gate",
                             ElementType = ElementType.VoteGate,
                             Children = new ObservableCollection<Element>(),
                             ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
@@ -208,7 +208,7 @@ namespace FaultTreeEditor.ViewModels
 
             TopLevelEvent initialTopLevelEvent = new TopLevelEvent
             {
-                Title = "Top Level Event",
+                Title = "top_level_event",
                 ElementType = ElementType.TopLevelEvent,
                 Children = new ObservableCollection<Element>(),
                 ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",

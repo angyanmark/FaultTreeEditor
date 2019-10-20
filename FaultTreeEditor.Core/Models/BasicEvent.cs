@@ -7,5 +7,9 @@ namespace FaultTreeEditor.Core.Models
     public class BasicEvent : Event
     {
         public double Probability { get; set; }
+        public override string ToString()
+        {
+            return $"{Title} lambda={Probability};\n";
+        }
     }
 }

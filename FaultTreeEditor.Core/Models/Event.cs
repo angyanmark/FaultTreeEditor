@@ -6,6 +6,9 @@ namespace FaultTreeEditor.Core.Models
 {
     public class Event : Element
     {
-        
+        public override string ToString()
+        {
+            return "";
+        }
     }
 }

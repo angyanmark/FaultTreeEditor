@@ -190,7 +190,19 @@ namespace FaultTreeEditor.Views
 
         private void Generate_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            Output_TextBox.Text = "Generated output...";
+            string builder = "";
+            foreach (var v in ViewModel.CanvasElements)
+            {
+                builder += v;
+            }
+            if (String.IsNullOrWhiteSpace(builder))
+            {
+                Output_TextBox.Text = "No output...";
+            }
+            else
+            {
+                Output_TextBox.Text = builder;
+            }
         }
 
         private void List_Connections_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -208,6 +220,47 @@ namespace FaultTreeEditor.Views
             {
                 Output_TextBox.Text = builder;
             }
+        }
+
+        private void Clear_Canvas_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            ViewModel.Connections.Clear();
+            var toRemove = new List<Element>();
+            foreach (var v in ViewModel.CanvasElements)
+            {
+                if(v.ElementType != ElementType.TopLevelEvent)
+                {
+                    toRemove.Add(v);
+                }
+                else
+                {
+                    v.Parents.Clear();
+                    v.Children.Clear();
+                }
+            }
+            foreach(var v in toRemove)
+            {
+                ViewModel.CanvasElements.Remove(v);
+            }
+            if (ViewModel.CanvasElements.Count > 0)
+            {
+                ViewModel.SelectedCanvasElement = ViewModel.CanvasElements[0];
+            }
+            else
+            {
+                ViewModel.SelectedCanvasElement = null;
+            }
+            DarwLines();
+        }
+
+        private void Load_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+
+        }
+
+        private void Save_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+
         }
     }
 }

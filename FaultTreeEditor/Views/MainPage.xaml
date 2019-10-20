@@ -18,7 +18,7 @@
             <ColumnDefinition Width="500" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
+        <Grid Grid.Column="0" Padding="8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -26,9 +26,17 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0"
-                       Style="{StaticResource PageTitleStyle}"
-                       Text="Canvas" />
+            <RelativePanel Grid.Row="0">
+                <TextBlock Style="{StaticResource PageTitleStyle}" Text="Canvas" />
+                <StackPanel Padding="0,0,0,8"
+                            Orientation="Horizontal"
+                            RelativePanel.AlignRightWithPanel="True"
+                            Spacing="8">
+                    <Button Click="Clear_Canvas_Button_Click" Content="Clear canvas" />
+                    <Button Click="Load_Button_Click" Content="Load" />
+                    <Button Click="Save_Button_Click" Content="Save" />
+                </StackPanel>
+            </RelativePanel>
 
             <Grid Grid.Row="1">
                 <Canvas x:Name="Canvas1" Background="Black" />
@@ -66,16 +74,17 @@
                 <TextBlock RelativePanel.AlignLeftWithPanel="True"
                            Style="{StaticResource PageTitleStyle}"
                            Text="Output" />
-                <StackPanel Orientation="Horizontal"
+                <StackPanel Padding="0,0,0,8"
+                            Orientation="Horizontal"
                             RelativePanel.AlignRightWithPanel="True"
                             Spacing="8">
                     <Button Click="List_Connections_Button_Click" Content="List connections" />
-                    <Button Click="Generate_Button_Click" Content="Generate output" />
+                    <Button Click="Generate_Button_Click" Content="Generate Galileo" />
                 </StackPanel>
             </RelativePanel>
 
             <ScrollViewer Grid.Row="3"
-                          Height="120"
+                          Height="160"
                           HorizontalAlignment="Stretch">
                 <TextBox x:Name="Output_TextBox"
                          IsReadOnly="True"

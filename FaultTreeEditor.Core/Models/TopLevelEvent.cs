@@ -6,6 +6,9 @@ namespace FaultTreeEditor.Core.Models
 {
     public class TopLevelEvent : Event
     {
-        public double Probability { get; set; }
+        public override string ToString()
+        {
+            return $"toplevel {Title};\n";
+        }
     }
 }
