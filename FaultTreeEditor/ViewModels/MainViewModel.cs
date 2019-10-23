@@ -86,6 +86,7 @@ namespace FaultTreeEditor.ViewModels
         public ICommand SaveElementCommand { get; set; }
         public ICommand GenerateOutputCommand { get; set; }
         public ICommand ListConnectionsCommand { get; set; }
+        public ICommand RemoveConnectionsCommand { get; set; }
         public ICommand DeleteElementCommand { get; set; }
         public ICommand CopyCommand { get; set; }
         public ICommand LoadCommand { get; set; }
@@ -206,31 +207,16 @@ namespace FaultTreeEditor.ViewModels
 
             DeleteElementCommand = new RelayCommand(() =>
             {
-                if (SelectedCanvasElement.DisplayTitle == "Top level event")
+                var tempElement = SelectedCanvasElement;
+
+                if (tempElement.DisplayTitle == "Top level event")
                 {
                     return;
                 }
 
-                CanvasElements.Remove(SelectedCanvasElement);
+                CanvasElements.Remove(tempElement);
 
-                foreach (var v in CanvasElements)
-                {
-                    v.Children.Remove(SelectedCanvasElement);
-                    v.Parents.Remove(SelectedCanvasElement);
-                }
-
-                var toRemove = new List<Connection>();
-                foreach (var v in Connections)
-                {
-                    if (v.From == SelectedCanvasElement || v.To == SelectedCanvasElement)
-                    {
-                        toRemove.Add(v);
-                    }
-                }
-                foreach (var v in toRemove)
-                {
-                    Connections.Remove(v);
-                }
+                RemoveConnections(tempElement);
 
                 if (CanvasElements.Count > 0)
                 {
@@ -240,6 +226,11 @@ namespace FaultTreeEditor.ViewModels
                 {
                     SelectedCanvasElement = null;
                 }
+            });
+
+            RemoveConnectionsCommand = new RelayCommand(() =>
+            {
+                RemoveConnections(SelectedCanvasElement);
             });
 
             CopyCommand = new RelayCommand(() =>
@@ -266,6 +257,28 @@ namespace FaultTreeEditor.ViewModels
             andGateCounter = 0;
             orGateCounter = 0;
             voteGateCounter = 0;
+        }
+
+        private void RemoveConnections(Element element)
+        {
+            foreach (var v in CanvasElements)
+            {
+                v.Children.Remove(element);
+                v.Parents.Remove(element);
+            }
+
+            var toRemove = new List<Connection>();
+            foreach (var v in Connections)
+            {
+                if (v.From == element || v.To == element)
+                {
+                    toRemove.Add(v);
+                }
+            }
+            foreach (var v in toRemove)
+            {
+                Connections.Remove(v);
+            }
         }
     }
 }

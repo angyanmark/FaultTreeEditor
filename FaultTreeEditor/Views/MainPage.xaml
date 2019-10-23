@@ -78,6 +78,11 @@
 
                                 <StackPanel.ContextFlyout>
                                     <MenuFlyout>
+                                        <MenuFlyoutItem Click="Remove_Connections_MenuFlyoutItem_Click" Text="Remove connections">
+                                            <MenuFlyoutItem.Icon>
+                                                <SymbolIcon Symbol="Remove" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
                                         <MenuFlyoutItem Click="Delete_MenuFlyoutItem_Click" Text="Delete">
                                             <MenuFlyoutItem.Icon>
                                                 <SymbolIcon Symbol="Delete" />
@@ -196,8 +201,9 @@
                                RelativePanel.AlignVerticalCenterWithPanel="True"
                                Style="{StaticResource BodyTextBlockStyle}"
                                Text="{Binding SelectedCanvasElement.DisplayTitle}" />
-                    <ComboBox Width="240"
+                    <ComboBox Width="200"
                               DisplayMemberPath="Title"
+                              Header="Selected item"
                               ItemsSource="{Binding CanvasElements, Mode=TwoWay}"
                               RelativePanel.AlignRightWithPanel="True"
                               RelativePanel.AlignVerticalCenterWithPanel="True"
@@ -246,9 +252,12 @@
                                 <StackPanel HorizontalAlignment="Right"
                                             Orientation="Horizontal"
                                             Spacing="8">
-                                    <Button Width="100"
-                                            Click="Delete_Button_Click"
-                                            Content="Delete" />
+                                    <Button Width="100" Click="Delete_Button_Click">
+                                        <StackPanel Orientation="Horizontal" Spacing="8">
+                                            <SymbolIcon Symbol="Delete" />
+                                            <TextBlock Text="Delete" />
+                                        </StackPanel>
+                                    </Button>
                                 </StackPanel>
                             </StackPanel>
                         </PivotItem>

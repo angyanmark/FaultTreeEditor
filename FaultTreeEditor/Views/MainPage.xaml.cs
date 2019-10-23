@@ -137,8 +137,7 @@ namespace FaultTreeEditor.Views
 
         private void Delete_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            if (ViewModel.DeleteElementCommand.CanExecute(null))
-                ViewModel.DeleteElementCommand.Execute(null);
+            ViewModel.DeleteElementCommand.Execute(null);
 
             DarwLines();
         }
@@ -181,8 +180,20 @@ namespace FaultTreeEditor.Views
 
             ViewModel.SelectedCanvasElement = element;
 
-            if (ViewModel.DeleteElementCommand.CanExecute(null))
-                ViewModel.DeleteElementCommand.Execute(null);
+            ViewModel.DeleteElementCommand.Execute(null);
+
+            DarwLines();
+        }
+
+        private void Remove_Connections_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Element element = (sender as MenuFlyoutItem).DataContext as Element;
+
+            ViewModel.SelectedCanvasElement = element;
+
+            ViewModel.RemoveConnectionsCommand.Execute(null);
+
+            DarwLines();
         }
     }
 }
