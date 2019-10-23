@@ -1,27 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace FaultTreeEditor.Core.Models
 {
     public abstract class Element
     {
-        public ObservableCollection<Element> Parents { get; set; }
-        public ObservableCollection<Element> Children { get; set; }
-        public string Title { get; set; }
-        public string ImageSource { get; set; }
-        public double X { get; set; }
-        public double Y { get; set; }
-        public ElementType ElementType { get; set; }
+        public ObservableCollection<Element> Parents { get; set; } = new ObservableCollection<Element>();
+        public ObservableCollection<Element> Children { get; set; } = new ObservableCollection<Element>();
+        private string title;
+        public string Title
+        {
+            get { return title; }
+            set { Set(ref title, value); }
+        }
+        public abstract string ImageSource
+        {
+            get;
+        }
+        public double X { get; set; } = 150;
+        public double Y { get; set; } = 150;
         public string getChildrenString()
         {
-            List<string> children = new List<string>();
-            foreach(var v in Children)
-            {
-                children.Add(v.Title);
-            }
-            return string.Join(" ", children);
+            return string.Join(" ", Children.Select(c => c.Title));
+        }
+        public abstract string ToGalileo();
+        public abstract string DisplayTitle
+        {
+            get;
         }
     }
 }

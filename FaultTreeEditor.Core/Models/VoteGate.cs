@@ -8,7 +8,21 @@ namespace FaultTreeEditor.Core.Models
     {
         public int K { get; set; }
         public int M { get; set; }
-        public override string ToString()
+        public override string ImageSource
+        {
+            get
+            {
+                return "https://www.w3schools.com/w3css/img_lights.jpg";
+            }
+        }
+        public override string DisplayTitle
+        {
+            get
+            {
+                return "Vote gate";
+            }
+        }
+        public override string ToGalileo()
         {
             string builder = "";
             if (M == 0)

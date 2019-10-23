@@ -4,7 +4,8 @@ using System.Text;
 
 namespace FaultTreeEditor.Core.Models
 {
-    public class Gate : Element
+    public abstract class Gate : Element
     {
+
     }
 }

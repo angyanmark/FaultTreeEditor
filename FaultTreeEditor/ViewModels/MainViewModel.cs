@@ -4,12 +4,16 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using FaultTreeEditor.Core.Models;
 using FaultTreeEditor.Helpers;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml.Shapes;
 
 namespace FaultTreeEditor.ViewModels
 {
     public class MainViewModel : Observable
     {
+        #region Field and Properties
+        readonly DataPackage dataPackage = new DataPackage();
+
         private int eventCounter = 0;
         private int basicEventCounter = 0;
         private int andGateCounter = 0;
@@ -25,7 +29,12 @@ namespace FaultTreeEditor.ViewModels
             set { Set(ref selectedElement, value); }
         }
 
-        public ObservableCollection<Element> CanvasElements { get; set; } = new ObservableCollection<Element>();
+        private ObservableCollection<Element> canvasElements = new ObservableCollection<Element>();
+        public ObservableCollection<Element> CanvasElements
+        {
+            get { return canvasElements; }
+            set { Set(ref canvasElements, value); }
+        }
 
         private Element selectedCanvasElement;
         public Element SelectedCanvasElement
@@ -36,135 +45,121 @@ namespace FaultTreeEditor.ViewModels
 
         public ObservableCollection<Connection> Connections { get; set; } = new ObservableCollection<Connection>();
 
+        private string outputText = "";
+        public string OutputText
+        {
+            get { return outputText; }
+            set { Set(ref outputText, value); }
+        }
+
+        private bool isAddConnectionToggled;
+        public bool IsAddConnectionToggled
+        {
+            get { return isAddConnectionToggled; }
+            set
+            {
+                if (value)
+                {
+                    IsRemoveConnectionToggled = false;
+                }
+                Set(ref isAddConnectionToggled, value);
+            }
+        }
+
+        private bool isRemoveConnectionToggled;
+        public bool IsRemoveConnectionToggled
+        {
+            get { return isRemoveConnectionToggled; }
+            set
+            {
+                if (value)
+                {
+                    IsAddConnectionToggled = false;
+                }
+                Set(ref isRemoveConnectionToggled, value);
+            }
+        }
+        #endregion
+
+        #region Commands
         public ICommand AddItemToCanvasCommand { get; set; }
-        public ICommand PropertySaveCommand { get; set; }
-        public ICommand PropertyDeleteCommand { get; set; }
+        public ICommand SaveElementCommand { get; set; }
+        public ICommand GenerateOutputCommand { get; set; }
+        public ICommand ListConnectionsCommand { get; set; }
+        public ICommand CopyCommand { get; set; }
+        public ICommand LoadCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
+        #endregion
 
         public MainViewModel()
         {
+            InitializeCanvas();
+            InitializeCommands();
+        }
+
+        private void InitializeCanvas()
+        {
             Elements = new List<Element>
             {
-                /*new TopLevelEvent
-                {
-                    ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
-                    ElementType = ElementType.TopLevelEvent,
-                },*/
-                new Event
-                {
-                    ImageSource = "/Assets/Images/Elements/event.png",
-                    ElementType = ElementType.Event,
-                },
-                new BasicEvent
-                {
-                    ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
-                    ElementType = ElementType.BasicEvent,
-                },
-                new AndGate
-                {
-                    ImageSource = "/Assets/Images/Elements/andgate.png",
-                    ElementType = ElementType.AndGate,
-                },
-                new OrGate
-                {
-                    ImageSource = "/Assets/Images/Elements/orgate.png",
-                    ElementType = ElementType.OrGate,
-                },
-                new VoteGate
-                {
-                    ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
-                    ElementType = ElementType.VoteGate,
-                },
+                new Event(),
+                new BasicEvent(),
+                new AndGate(),
+                new OrGate(),
+                new VoteGate(),
             };
-
             SelectedElement = Elements[0];
 
-            SelectedCanvasElement = null;
+            CanvasElements.Add(new TopLevelEvent
+            {
+                Title = "top_level_event",
+                X = 600,
+                Y = 0,
+            });
+            SelectedCanvasElement = CanvasElements[0];
+        }
 
+        private void InitializeCommands()
+        {
             AddItemToCanvasCommand = new RelayCommand(() =>
             {
-                switch (SelectedElement.ElementType)
+                switch (SelectedElement.DisplayTitle)
                 {
-                    /*case ElementType.TopLevelEvent:
-                        TopLevelEvent addTopLevelEvent = new TopLevelEvent
-                        {
-                            Title = "top_level_event",
-                            ElementType = ElementType.TopLevelEvent,
-                            Children = new ObservableCollection<Element>(),
-                            ImageSource = "/Assets/Images/Elements/event.png",
-                            Parents = new ObservableCollection<Element>(),
-                            X = 150,
-                            Y = 150,
-                        };
-                        CanvasElements.Add(addTopLevelEvent);
-                        SelectedCanvasElement = addTopLevelEvent;
-                        break;*/
-                    case ElementType.Event:
+                    case "Event":
                         Event addEvent = new Event
                         {
                             Title = "event_" + ++eventCounter,
-                            ElementType = ElementType.Event,
-                            Children = new ObservableCollection<Element>(),
-                            ImageSource= "/Assets/Images/Elements/event.png",
-                            Parents = new ObservableCollection<Element>(),
-                            X = 150,
-                            Y = 150,
                         };
                         CanvasElements.Add(addEvent);
                         SelectedCanvasElement = addEvent;
                         break;
-                    case ElementType.BasicEvent:
+                    case "Basic event":
                         BasicEvent addLeafEvent = new BasicEvent
                         {
                             Title = "basic_event_" + ++basicEventCounter,
-                            ElementType = ElementType.BasicEvent,
-                            Children = new ObservableCollection<Element>(),
-                            ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
-                            Parents = new ObservableCollection<Element>(),
-                            X = 150,
-                            Y = 150,
-                            Probability = 0.0,
                         };
                         CanvasElements.Add(addLeafEvent);
                         SelectedCanvasElement = addLeafEvent;
                         break;
-                    case ElementType.AndGate:
+                    case "AND gate":
                         AndGate addAndGate = new AndGate
                         {
                             Title = "and_gate_" + ++andGateCounter,
-                            ElementType = ElementType.AndGate,
-                            Children = new ObservableCollection<Element>(),
-                            ImageSource = "/Assets/Images/Elements/andgate.png",
-                            Parents = new ObservableCollection<Element>(),
-                            X = 150,
-                            Y = 150,
                         };
                         CanvasElements.Add(addAndGate);
                         SelectedCanvasElement = addAndGate;
                         break;
-                    case ElementType.OrGate:
+                    case "OR gate":
                         OrGate addOrGate = new OrGate
                         {
                             Title = "or_gate_" + ++orGateCounter,
-                            ElementType = ElementType.OrGate,
-                            Children = new ObservableCollection<Element>(),
-                            ImageSource = "/Assets/Images/Elements/orgate.png",
-                            Parents = new ObservableCollection<Element>(),
-                            X = 150,
-                            Y = 150,
                         };
                         CanvasElements.Add(addOrGate);
                         SelectedCanvasElement = addOrGate;
                         break;
-                    case ElementType.VoteGate:
+                    case "Vote gate":
                         VoteGate addVoteGate = new VoteGate
                         {
                             Title = "vote_gate_" + ++voteGateCounter,
-                            ElementType = ElementType.VoteGate,
-                            Children = new ObservableCollection<Element>(),
-                            ImageSource = "https://www.w3schools.com/w3css/img_lights.jpg",
-                            Parents = new ObservableCollection<Element>(),
-                            X = 150,
-                            Y = 150,
                         };
                         CanvasElements.Add(addVoteGate);
                         SelectedCanvasElement = addVoteGate;
@@ -174,7 +169,7 @@ namespace FaultTreeEditor.ViewModels
                 }
             });
 
-            PropertySaveCommand = new RelayCommand(() =>
+            SaveElementCommand = new RelayCommand(() =>
             {
                 if (SelectedCanvasElement != null)
                 {
@@ -183,48 +178,55 @@ namespace FaultTreeEditor.ViewModels
                 }
             });
 
-            PropertyDeleteCommand = new RelayCommand(() =>
+            GenerateOutputCommand = new RelayCommand(() =>
             {
-                CanvasElements.Remove(SelectedCanvasElement);
-
-                var toRemove = new List<Connection>();
-
-                foreach(var v in Connections)
+                string builder = "";
+                foreach (var v in CanvasElements)
                 {
-                    if (v.From == SelectedCanvasElement || v.To == SelectedCanvasElement)
-                    {
-                        toRemove.Add(v);
-                    }
+                    builder += v.ToGalileo();
                 }
-
-                foreach(var v in toRemove)
+                if (String.IsNullOrWhiteSpace(builder))
                 {
-                    Connections.Remove(v);
-                }
-
-                if (CanvasElements.Count > 0)
-                {
-                    SelectedCanvasElement = CanvasElements[0];
+                    OutputText = "No output...";
                 }
                 else
                 {
-                    SelectedCanvasElement = null;
+                    OutputText = builder;
                 }
             });
 
-            TopLevelEvent initialTopLevelEvent = new TopLevelEvent
+            ListConnectionsCommand = new RelayCommand(() =>
             {
-                Title = "top_level_event",
-                ElementType = ElementType.TopLevelEvent,
-                Children = new ObservableCollection<Element>(),
-                ImageSource = "/Assets/Images/Elements/event.png",
-                Parents = new ObservableCollection<Element>(),
-                X = 600,
-                Y = 0,
-            };
-            CanvasElements.Add(initialTopLevelEvent);
+                string builder = "";
+                foreach (var v in Connections)
+                {
+                    builder += $"{v.From.Title} -> {v.To.Title}\n";
+                }
+                if (String.IsNullOrWhiteSpace(builder))
+                {
+                    OutputText = "No connections...";
+                }
+                else
+                {
+                    OutputText = builder;
+                }
+            });
 
-            SelectedCanvasElement = CanvasElements[0];
+            CopyCommand = new RelayCommand(() =>
+            {
+                dataPackage.SetText(OutputText);
+                Clipboard.SetContent(dataPackage);
+            });
+
+            LoadCommand = new RelayCommand(() =>
+            {
+                
+            });
+
+            SaveCommand = new RelayCommand(() =>
+            {
+                
+            });
         }
 
         public void ResetCounters()

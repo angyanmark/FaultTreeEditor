@@ -15,6 +15,8 @@ namespace FaultTreeEditor.Views
     {
         public MainViewModel ViewModel { get; } = new MainViewModel();
 
+        private int lineEdgeOffset = 40;
+
         public MainPage()
         {
             InitializeComponent();
@@ -65,15 +67,13 @@ namespace FaultTreeEditor.Views
         {
             Canvas1.Children.Clear();
 
-            int offset = 40;
-
             foreach(var v in ViewModel.Connections)
             {
                 Line line = new Line();
-                line.X1 = offset + v.From.X;
-                line.X2 = offset + v.To.X;
-                line.Y1 = offset + v.From.Y;
-                line.Y2 = offset + v.To.Y;
+                line.X1 = lineEdgeOffset + v.From.X;
+                line.X2 = lineEdgeOffset + v.To.X;
+                line.Y1 = lineEdgeOffset + v.From.Y;
+                line.Y2 = lineEdgeOffset + v.To.Y;
                 line.Stroke = new SolidColorBrush(Colors.White);
                 line.StrokeThickness = 2;
                 Canvas.SetZIndex(line, 1);
@@ -134,7 +134,7 @@ namespace FaultTreeEditor.Views
 
         private void Delete_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            if (ViewModel.SelectedCanvasElement.ElementType == ElementType.TopLevelEvent)
+            if (ViewModel.SelectedCanvasElement.DisplayTitle == "Top level event")
             {
                 return;
             }
@@ -172,63 +172,13 @@ namespace FaultTreeEditor.Views
             DarwLines();
         }
 
-        private void Remove_Connection_Toggle_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            if ((bool)Remove_Connection_Toggle_Button.IsChecked)
-            {
-                Add_Connection_Toggle_Button.IsChecked = false;
-            }
-        }
-
-        private void Add_Connection_Toggle_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            if ((bool)Add_Connection_Toggle_Button.IsChecked)
-            {
-                Remove_Connection_Toggle_Button.IsChecked = false;
-            }
-        }
-
-        private void Generate_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            string builder = "";
-            foreach (var v in ViewModel.CanvasElements)
-            {
-                builder += v;
-            }
-            if (String.IsNullOrWhiteSpace(builder))
-            {
-                Output_TextBox.Text = "No output...";
-            }
-            else
-            {
-                Output_TextBox.Text = builder;
-            }
-        }
-
-        private void List_Connections_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            string builder = "";
-            foreach (var v in ViewModel.Connections)
-            {
-                builder += v.From.Title + " -> " + v.To.Title + "\n";
-            }
-            if (String.IsNullOrWhiteSpace(builder))
-            {
-                Output_TextBox.Text = "No connections...";
-            }
-            else
-            {
-                Output_TextBox.Text = builder;
-            }
-        }
-
         private void Clear_Canvas_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             ViewModel.Connections.Clear();
             var toRemove = new List<Element>();
             foreach (var v in ViewModel.CanvasElements)
             {
-                if(v.ElementType != ElementType.TopLevelEvent)
+                if(v.DisplayTitle != "Top level event")
                 {
                     toRemove.Add(v);
                 }
@@ -252,16 +202,6 @@ namespace FaultTreeEditor.Views
             }
             ViewModel.ResetCounters();
             DarwLines();
-        }
-
-        private void Load_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-
-        }
-
-        private void Save_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-
         }
     }
 }

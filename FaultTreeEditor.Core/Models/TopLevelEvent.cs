@@ -6,7 +6,21 @@ namespace FaultTreeEditor.Core.Models
 {
     public class TopLevelEvent : Event
     {
-        public override string ToString()
+        public override string ImageSource
+        {
+            get
+            {
+                return "/Assets/Images/Elements/event.png";
+            }
+        }
+        public override string DisplayTitle
+        {
+            get
+            {
+                return "Top level event";
+            }
+        }
+        public override string ToGalileo()
         {
             return $"toplevel {Title};\n";
         }

@@ -6,7 +6,21 @@ namespace FaultTreeEditor.Core.Models
 {
     public class OrGate : Gate
     {
-        public override string ToString()
+        public override string ImageSource
+        {
+            get
+            {
+                return "/Assets/Images/Elements/orgate.png";
+            }
+        }
+        public override string DisplayTitle
+        {
+            get
+            {
+                return "OR gate";
+            }
+        }
+        public override string ToGalileo()
         {
             string builder = "";
             foreach (var v in Parents)

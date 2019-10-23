@@ -6,7 +6,21 @@ namespace FaultTreeEditor.Core.Models
 {
     public class Event : Element
     {
-        public override string ToString()
+        public override string ImageSource
+        {
+            get
+            {
+                return "/Assets/Images/Elements/event.png";
+            }
+        }
+        public override string DisplayTitle
+        {
+            get
+            {
+                return "Event";
+            }
+        }
+        public override string ToGalileo()
         {
             return "";
         }
