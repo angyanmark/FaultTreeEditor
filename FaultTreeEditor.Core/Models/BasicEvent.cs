@@ -6,7 +6,12 @@ namespace FaultTreeEditor.Core.Models
 {
     public class BasicEvent : Event
     {
-        public double Probability { get; set; } = 0.0;
+        private double lambda = 0;
+        public double Lambda
+        {
+            get { return lambda; }
+            set { Set(ref lambda, value); }
+        }
         public override string ImageSource
         {
             get
@@ -23,7 +28,7 @@ namespace FaultTreeEditor.Core.Models
         }
         public override string ToGalileo()
         {
-            return $"{Title} lambda={Probability};\n";
+            return $"{Title} lambda={Lambda};\n";
         }
     }
 }

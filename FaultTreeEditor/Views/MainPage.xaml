@@ -28,9 +28,24 @@
                             Orientation="Horizontal"
                             RelativePanel.AlignRightWithPanel="True"
                             Spacing="8">
-                    <Button Click="Clear_Canvas_Button_Click" Content="Clear canvas" />
-                    <Button Command="{Binding LoadCommand}" Content="Load" />
-                    <Button Command="{Binding SaveCommand}" Content="Save" />
+                    <Button Width="100" Click="Clear_Canvas_Button_Click">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <SymbolIcon Symbol="Clear" />
+                            <TextBlock Text="Clear" />
+                        </StackPanel>
+                    </Button>
+                    <Button Width="100" Command="{Binding LoadCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <SymbolIcon Symbol="Import" />
+                            <TextBlock Text="Import" />
+                        </StackPanel>
+                    </Button>
+                    <Button Width="100" Command="{Binding SaveCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <SymbolIcon Symbol="Save" />
+                            <TextBlock Text="Save" />
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </RelativePanel>
 
@@ -55,11 +70,21 @@
                                         ManipulationStarted="SP_ManipulationStarted">
                                 <Image Height="80" Source="{Binding ImageSource}" />
                                 <TextBlock HorizontalAlignment="Center" Text="{Binding Title}" />
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Probability}" />
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Lambda}" />
 
                                 <StackPanel.RenderTransform>
                                     <TranslateTransform X="{Binding X, Mode=TwoWay}" Y="{Binding Y, Mode=TwoWay}" />
                                 </StackPanel.RenderTransform>
+
+                                <StackPanel.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Click="Delete_MenuFlyoutItem_Click" Text="Delete">
+                                            <MenuFlyoutItem.Icon>
+                                                <SymbolIcon Symbol="Delete" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </StackPanel.ContextFlyout>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -74,9 +99,15 @@
                             Orientation="Horizontal"
                             RelativePanel.AlignRightWithPanel="True"
                             Spacing="8">
-                    <Button Command="{Binding CopyCommand}" Content="Copy output" />
-                    <Button Command="{Binding ListConnectionsCommand}" Content="List connections" />
-                    <Button Command="{Binding GenerateOutputCommand}" Content="Generate Galileo" />
+                    <Button Width="140"
+                            Command="{Binding CopyCommand}"
+                            Content="Copy output" />
+                    <Button Width="140"
+                            Command="{Binding ListConnectionsCommand}"
+                            Content="List connections" />
+                    <Button Width="140"
+                            Command="{Binding GenerateOutputCommand}"
+                            Content="Generate Galileo" />
                 </StackPanel>
             </RelativePanel>
 
@@ -194,9 +225,9 @@
                                              Text="{Binding SelectedCanvasElement.Title, Mode=TwoWay}" />
                                     <TextBox Grid.Row="0"
                                              Grid.Column="1"
-                                             Header="Value"
+                                             Header="Lambda"
                                              InputScope="Number"
-                                             Text="{Binding SelectedCanvasElement.Probability, Mode=TwoWay}" />
+                                             Text="{Binding SelectedCanvasElement.Lambda, Mode=TwoWay}" />
 
                                     <TextBox x:Name="xValue"
                                              Grid.Row="1"
@@ -218,9 +249,6 @@
                                     <Button Width="100"
                                             Click="Delete_Button_Click"
                                             Content="Delete" />
-                                    <Button Width="100"
-                                            Command="{Binding SaveElementCommand}"
-                                            Content="Save" />
                                 </StackPanel>
                             </StackPanel>
                         </PivotItem>

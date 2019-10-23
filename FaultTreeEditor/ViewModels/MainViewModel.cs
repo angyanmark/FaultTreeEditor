@@ -86,6 +86,7 @@ namespace FaultTreeEditor.ViewModels
         public ICommand SaveElementCommand { get; set; }
         public ICommand GenerateOutputCommand { get; set; }
         public ICommand ListConnectionsCommand { get; set; }
+        public ICommand DeleteElementCommand { get; set; }
         public ICommand CopyCommand { get; set; }
         public ICommand LoadCommand { get; set; }
         public ICommand SaveCommand { get; set; }
@@ -169,15 +170,6 @@ namespace FaultTreeEditor.ViewModels
                 }
             });
 
-            SaveElementCommand = new RelayCommand(() =>
-            {
-                if (SelectedCanvasElement != null)
-                {
-                    CanvasElements.Remove(SelectedCanvasElement);
-                    CanvasElements.Add(SelectedCanvasElement);
-                }
-            });
-
             GenerateOutputCommand = new RelayCommand(() =>
             {
                 string builder = "";
@@ -209,6 +201,44 @@ namespace FaultTreeEditor.ViewModels
                 else
                 {
                     OutputText = builder;
+                }
+            });
+
+            DeleteElementCommand = new RelayCommand(() =>
+            {
+                if (SelectedCanvasElement.DisplayTitle == "Top level event")
+                {
+                    return;
+                }
+
+                CanvasElements.Remove(SelectedCanvasElement);
+
+                foreach (var v in CanvasElements)
+                {
+                    v.Children.Remove(SelectedCanvasElement);
+                    v.Parents.Remove(SelectedCanvasElement);
+                }
+
+                var toRemove = new List<Connection>();
+                foreach (var v in Connections)
+                {
+                    if (v.From == SelectedCanvasElement || v.To == SelectedCanvasElement)
+                    {
+                        toRemove.Add(v);
+                    }
+                }
+                foreach (var v in toRemove)
+                {
+                    Connections.Remove(v);
+                }
+
+                if (CanvasElements.Count > 0)
+                {
+                    SelectedCanvasElement = CanvasElements[0];
+                }
+                else
+                {
+                    SelectedCanvasElement = null;
                 }
             });
 

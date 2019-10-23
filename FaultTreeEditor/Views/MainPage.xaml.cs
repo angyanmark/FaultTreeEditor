@@ -26,6 +26,9 @@ namespace FaultTreeEditor.Views
         {
             StackPanel sp = sender as StackPanel;
             sp.Opacity = 0.4;
+
+            Element element = sp.DataContext as Element;
+            ViewModel.SelectedCanvasElement = element;
         }
 
         [Obsolete]
@@ -134,40 +137,8 @@ namespace FaultTreeEditor.Views
 
         private void Delete_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            if (ViewModel.SelectedCanvasElement.DisplayTitle == "Top level event")
-            {
-                return;
-            }
-
-            ViewModel.CanvasElements.Remove(ViewModel.SelectedCanvasElement);
-
-            foreach (var v in ViewModel.CanvasElements)
-            {
-                v.Children.Remove(ViewModel.SelectedCanvasElement);
-                v.Parents.Remove(ViewModel.SelectedCanvasElement);
-            }
-
-            var toRemove = new List<Connection>();
-            foreach (var v in ViewModel.Connections)
-            {
-                if (v.From == ViewModel.SelectedCanvasElement || v.To == ViewModel.SelectedCanvasElement)
-                {
-                    toRemove.Add(v);
-                }
-            }
-            foreach (var v in toRemove)
-            {
-                ViewModel.Connections.Remove(v);
-            }
-
-            if (ViewModel.CanvasElements.Count > 0)
-            {
-                ViewModel.SelectedCanvasElement = ViewModel.CanvasElements[0];
-            }
-            else
-            {
-                ViewModel.SelectedCanvasElement = null;
-            }
+            if (ViewModel.DeleteElementCommand.CanExecute(null))
+                ViewModel.DeleteElementCommand.Execute(null);
 
             DarwLines();
         }
@@ -202,6 +173,16 @@ namespace FaultTreeEditor.Views
             }
             ViewModel.ResetCounters();
             DarwLines();
+        }
+
+        private void Delete_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Element element = (sender as MenuFlyoutItem).DataContext as Element;
+
+            ViewModel.SelectedCanvasElement = element;
+
+            if (ViewModel.DeleteElementCommand.CanExecute(null))
+                ViewModel.DeleteElementCommand.Execute(null);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FaultTreeEditor.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace FaultTreeEditor.Core.Models
 {
-    public abstract class Element
+    public abstract class Element : Observable
     {
         public ObservableCollection<Element> Parents { get; set; } = new ObservableCollection<Element>();
         public ObservableCollection<Element> Children { get; set; } = new ObservableCollection<Element>();
@@ -20,8 +21,18 @@ namespace FaultTreeEditor.Core.Models
         {
             get;
         }
-        public double X { get; set; } = 150;
-        public double Y { get; set; } = 150;
+        private double x = 150;
+        public double X
+        {
+            get { return x; }
+            set { Set(ref x, value); }
+        }
+        private double y = 150;
+        public double Y
+        {
+            get { return y; }
+            set { Set(ref y, value); }
+        }
         public string getChildrenString()
         {
             return string.Join(" ", Children.Select(c => c.Title));
