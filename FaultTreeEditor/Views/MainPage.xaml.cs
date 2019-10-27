@@ -4,6 +4,8 @@ using FaultTreeEditor.Core.Models;
 using FaultTreeEditor.ViewModels;
 using Windows.Foundation;
 using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
@@ -15,11 +17,38 @@ namespace FaultTreeEditor.Views
     {
         public MainViewModel ViewModel { get; } = new MainViewModel();
 
-        private int lineEdgeOffset = 56;
+        private readonly UISettings uiSettings = new UISettings();
+
+        private Color lineColor = Colors.Black;
+        private readonly int lineEdgeOffset = 56;
 
         public MainPage()
         {
             InitializeComponent();
+            uiSettings.ColorValuesChanged += ColorValuesChanged;
+        }
+
+        private void ColorValuesChanged(UISettings sender, object args)
+        {
+            //Color accentColor = sender.GetColorValue(UIColorType.Accent);
+            //or
+            //Color accentColor = (Color)Resources["SystemAccentColor"];
+            var backgroundColor = sender.GetColorValue(UIColorType.Background);
+            var isDarkMode = backgroundColor == Colors.Black;
+            if (isDarkMode)
+            {
+                lineColor = Colors.White;
+            }
+            else
+            {
+                lineColor = Colors.Black;
+            }
+            _ = Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+                {
+                    DrawLines();
+                }
+            );
         }
 
         void SP_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
@@ -55,7 +84,7 @@ namespace FaultTreeEditor.Views
             xValue.Text = ViewModel.SelectedCanvasElement.X.ToString();
             yValue.Text = ViewModel.SelectedCanvasElement.Y.ToString();
 
-            DarwLines();
+            DrawLines();
         }
 
         void SP_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
@@ -63,10 +92,10 @@ namespace FaultTreeEditor.Views
             StackPanel sp = sender as StackPanel;
             sp.Opacity = 1;
 
-            DarwLines();
+            DrawLines();
         }
 
-        void DarwLines()
+        void DrawLines()
         {
             Canvas1.Children.Clear();
 
@@ -77,7 +106,7 @@ namespace FaultTreeEditor.Views
                 line.X2 = lineEdgeOffset + v.To.X;
                 line.Y1 = lineEdgeOffset + v.From.Y;
                 line.Y2 = lineEdgeOffset + v.To.Y;
-                line.Stroke = new SolidColorBrush(Colors.White);
+                line.Stroke = new SolidColorBrush(lineColor);
                 line.StrokeThickness = 2;
                 Canvas.SetZIndex(line, 1);
                 Canvas1.Children.Add(line);
@@ -102,7 +131,7 @@ namespace FaultTreeEditor.Views
                     myListBoxSelectedItem.Parents.Add(ViewModel.SelectedCanvasElement);
 
                     Add_Connection_Toggle_Button.IsChecked = false;
-                    DarwLines();
+                    DrawLines();
                 }
             }
             else if ((bool)Remove_Connection_Toggle_Button.IsChecked)
@@ -126,7 +155,7 @@ namespace FaultTreeEditor.Views
                 myListBoxSelectedItem.Parents.Remove(ViewModel.SelectedCanvasElement);
 
                 Remove_Connection_Toggle_Button.IsChecked = false;
-                DarwLines();
+                DrawLines();
             }
             else
             {
@@ -139,7 +168,7 @@ namespace FaultTreeEditor.Views
         {
             ViewModel.DeleteElementCommand.Execute(null);
 
-            DarwLines();
+            DrawLines();
         }
 
         private void Clear_Canvas_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -171,7 +200,7 @@ namespace FaultTreeEditor.Views
                 ViewModel.SelectedCanvasElement = null;
             }
             ViewModel.ResetCounters();
-            DarwLines();
+            DrawLines();
         }
 
         private void Delete_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -182,7 +211,7 @@ namespace FaultTreeEditor.Views
 
             ViewModel.DeleteElementCommand.Execute(null);
 
-            DarwLines();
+            DrawLines();
         }
 
         private void Remove_Connections_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -193,7 +222,7 @@ namespace FaultTreeEditor.Views
 
             ViewModel.RemoveConnectionsCommand.Execute(null);
 
-            DarwLines();
+            DrawLines();
         }
     }
 }

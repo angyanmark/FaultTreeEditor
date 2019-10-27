@@ -51,7 +51,7 @@
             </RelativePanel>
 
             <Grid Grid.Row="1">
-                <Canvas x:Name="Canvas1" Background="Black" />
+                <Canvas x:Name="Canvas1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                 <ListBox x:Name="myListBox"
                          Background="Transparent"
                          ItemsSource="{Binding CanvasElements}"
@@ -136,7 +136,7 @@
 
         <Grid Grid.Column="1"
               Padding="8"
-              Background="#FF222222">
+              Background="{ThemeResource SystemBaseLowColor}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="400" />
