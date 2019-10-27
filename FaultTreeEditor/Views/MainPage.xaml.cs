@@ -15,7 +15,7 @@ namespace FaultTreeEditor.Views
     {
         public MainViewModel ViewModel { get; } = new MainViewModel();
 
-        private int lineEdgeOffset = 40;
+        private int lineEdgeOffset = 56;
 
         public MainPage()
         {

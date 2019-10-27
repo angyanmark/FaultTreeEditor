@@ -156,8 +156,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\Elements\andgate.png" />
+    <Content Include="Assets\Images\Elements\basicevent.png" />
+    <Content Include="Assets\Images\Elements\basiceventempty.png" />
     <Content Include="Assets\Images\Elements\event.png" />
     <Content Include="Assets\Images\Elements\orgate.png" />
+    <Content Include="Assets\Images\Elements\votegate.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

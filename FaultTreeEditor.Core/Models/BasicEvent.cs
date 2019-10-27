@@ -16,7 +16,7 @@ namespace FaultTreeEditor.Core.Models
         {
             get
             {
-                return "https://www.w3schools.com/w3css/img_lights.jpg";
+                return "/Assets/Images/Elements/basicevent.png";
             }
         }
         public override string DisplayTitle
