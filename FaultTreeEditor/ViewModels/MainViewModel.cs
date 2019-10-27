@@ -5,6 +5,8 @@ using System.Windows.Input;
 using FaultTreeEditor.Core.Models;
 using FaultTreeEditor.Helpers;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Shapes;
 
 namespace FaultTreeEditor.ViewModels
@@ -190,19 +192,7 @@ namespace FaultTreeEditor.ViewModels
 
             ListConnectionsCommand = new RelayCommand(() =>
             {
-                string builder = "";
-                foreach (var v in Connections)
-                {
-                    builder += $"{v.From.Title} -> {v.To.Title}\n";
-                }
-                if (String.IsNullOrWhiteSpace(builder))
-                {
-                    OutputText = "No connections...";
-                }
-                else
-                {
-                    OutputText = builder;
-                }
+                OutputText = GetGalileoString();
             });
 
             DeleteElementCommand = new RelayCommand(() =>
@@ -244,9 +234,44 @@ namespace FaultTreeEditor.ViewModels
                 
             });
 
-            SaveCommand = new RelayCommand(() =>
+            SaveCommand = new RelayCommand(async () =>
             {
-                
+                var savePicker = new FileSavePicker
+                {
+                    SuggestedStartLocation = PickerLocationId.DocumentsLibrary,
+                };
+                // Dropdown of file types the user can save the file as
+                savePicker.FileTypeChoices.Add("Galileo", new List<string>() { ".dft" });
+                savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
+                // Default file name if the user does not type one in or select a file to replace
+                savePicker.SuggestedFileName = "NewFaultTreeDocument";
+
+                Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
+                if (file != null)
+                {
+                    // Prevent updates to the remote version of the file until
+                    // we finish making changes and call CompleteUpdatesAsync.
+                    Windows.Storage.CachedFileManager.DeferUpdates(file);
+                    // write to file
+                    await Windows.Storage.FileIO.WriteTextAsync(file, GetGalileoString());
+                    // Let Windows know that we're finished changing the file so
+                    // the other app can update the remote version of the file.
+                    // Completing updates may require Windows to ask for user input.
+                    Windows.Storage.Provider.FileUpdateStatus status =
+                        await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
+                    if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
+                    {
+                        OutputText = "File " + file.Name + " was saved.";
+                    }
+                    else
+                    {
+                        OutputText = "File " + file.Name + " couldn't be saved.";
+                    }
+                }
+                else
+                {
+                    OutputText = "Operation cancelled.";
+                }
             });
         }
 
@@ -257,6 +282,23 @@ namespace FaultTreeEditor.ViewModels
             andGateCounter = 0;
             orGateCounter = 0;
             voteGateCounter = 0;
+        }
+
+        private string GetGalileoString()
+        {
+            string builder = "";
+            foreach (var v in CanvasElements)
+            {
+                builder += v.ToGalileo();
+            }
+            if (String.IsNullOrWhiteSpace(builder))
+            {
+                return "No output...";
+            }
+            else
+            {
+                return builder;
+            }
         }
 
         private void RemoveConnections(Element element)

@@ -101,13 +101,15 @@ namespace FaultTreeEditor.Views
 
             foreach(var v in ViewModel.Connections)
             {
-                Line line = new Line();
-                line.X1 = lineEdgeOffset + v.From.X;
-                line.X2 = lineEdgeOffset + v.To.X;
-                line.Y1 = lineEdgeOffset + v.From.Y;
-                line.Y2 = lineEdgeOffset + v.To.Y;
-                line.Stroke = new SolidColorBrush(lineColor);
-                line.StrokeThickness = 2;
+                Line line = new Line
+                {
+                    X1 = lineEdgeOffset + v.From.X,
+                    X2 = lineEdgeOffset + v.To.X,
+                    Y1 = lineEdgeOffset + v.From.Y,
+                    Y2 = lineEdgeOffset + v.To.Y,
+                    Stroke = new SolidColorBrush(lineColor),
+                    StrokeThickness = 2
+                };
                 Canvas.SetZIndex(line, 1);
                 Canvas1.Children.Add(line);
             }
