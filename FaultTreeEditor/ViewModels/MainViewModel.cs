@@ -92,7 +92,7 @@ namespace FaultTreeEditor.ViewModels
         public ICommand DeleteElementCommand { get; set; }
         public ICommand CopyCommand { get; set; }
         public ICommand LoadCommand { get; set; }
-        public ICommand SaveCommand { get; set; }
+        public ICommand ToGalileoCommand { get; set; }
         #endregion
 
         public MainViewModel()
@@ -234,7 +234,7 @@ namespace FaultTreeEditor.ViewModels
                 
             });
 
-            SaveCommand = new RelayCommand(async () =>
+            ToGalileoCommand = new RelayCommand(async () =>
             {
                 var savePicker = new FileSavePicker
                 {
@@ -261,16 +261,16 @@ namespace FaultTreeEditor.ViewModels
                         await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
                     if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
                     {
-                        OutputText = "File " + file.Name + " was saved.";
+                        // File saved
                     }
                     else
                     {
-                        OutputText = "File " + file.Name + " couldn't be saved.";
+                        // File couldn't be saved
                     }
                 }
                 else
                 {
-                    OutputText = "Operation cancelled.";
+                    // Operation cancelled.
                 }
             });
         }

@@ -26,6 +26,14 @@ namespace FaultTreeEditor.Views
         {
             InitializeComponent();
             uiSettings.ColorValuesChanged += ColorValuesChanged;
+            InitializeLineColor();
+        }
+
+        private void InitializeLineColor()
+        {
+            var defaultTheme = new UISettings();
+            var uiThemeColor = defaultTheme.GetColorValue(UIColorType.Background);
+            SetLineColor(uiThemeColor);
         }
 
         private void ColorValuesChanged(UISettings sender, object args)
@@ -33,22 +41,31 @@ namespace FaultTreeEditor.Views
             //Color accentColor = sender.GetColorValue(UIColorType.Accent);
             //or
             //Color accentColor = (Color)Resources["SystemAccentColor"];
-            var backgroundColor = sender.GetColorValue(UIColorType.Background);
-            var isDarkMode = backgroundColor == Colors.Black;
-            if (isDarkMode)
-            {
-                lineColor = Colors.White;
-            }
-            else
-            {
-                lineColor = Colors.Black;
-            }
+            var uiThemeColor = sender.GetColorValue(UIColorType.Background);
+            SetLineColor(uiThemeColor);
+
             _ = Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
                 {
                     DrawLines();
                 }
             );
+        }
+
+        private void SetLineColor(Color color)
+        {
+            if (color == Colors.Black)
+            {
+                lineColor = Colors.White;
+            }
+            else if (color == Colors.White)
+            {
+                lineColor = Colors.Black;
+            }
+            else // some new theme color
+            {
+                lineColor = Colors.Black;
+            }
         }
 
         void SP_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)

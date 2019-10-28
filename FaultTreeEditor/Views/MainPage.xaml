@@ -1,6 +1,7 @@
 ﻿<Page x:Class="FaultTreeEditor.Views.MainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:converters="using:FaultTreeEditor.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:models="using:FaultTreeEditor.Core.Models"
@@ -8,7 +9,11 @@
       Style="{StaticResource PageStyle}"
       mc:Ignorable="d">
 
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+    <Page.Resources>
+        <converters:LambdaToVisibilityConverter x:Key="LambdaToVisibilityConverter" />
+    </Page.Resources>
+
+    <Grid x:Name="ContentArea">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="500" />
@@ -44,9 +49,17 @@
                     <AppBarButton Command="{Binding LoadCommand}"
                                   Icon="Import"
                                   Label="Import" />
-                    <AppBarButton Command="{Binding SaveCommand}"
-                                  Icon="Save"
-                                  Label="Save" />
+                    <AppBarButton Width="80" Label="Export">
+                        <AppBarButton.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEDE1;" />
+                        </AppBarButton.Icon>
+                        <AppBarButton.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Command="{Binding ToGalileoCommand}" Text="To Galileo" />
+                                <MenuFlyoutItem Command="{Binding ToGalileoCommand}" Text="To XML" />
+                            </MenuFlyout>
+                        </AppBarButton.Flyout>
+                    </AppBarButton>
                 </StackPanel>
             </RelativePanel>
 
@@ -245,7 +258,8 @@
                                              Grid.Column="1"
                                              Header="Lambda"
                                              InputScope="Number"
-                                             Text="{Binding SelectedCanvasElement.Lambda, Mode=TwoWay}" />
+                                             Text="{Binding SelectedCanvasElement.Lambda, Mode=TwoWay}"
+                                             Visibility="{Binding SelectedCanvasElement, Converter={StaticResource LambdaToVisibilityConverter}}" />
 
                                     <TextBox x:Name="xValue"
                                              Grid.Row="1"
