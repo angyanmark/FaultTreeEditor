@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using FaultTreeEditor.Core.Models;
 using FaultTreeEditor.Helpers;
+using Newtonsoft.Json;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -275,7 +276,19 @@ namespace FaultTreeEditor.ViewModels
 
         private string GetJsonString()
         {
-            return "JSON string";
+            Graph graph = new Graph()
+            {
+                Elements = new List<Element>(CanvasElements),
+                Connections = new List<Connection>(Connections)
+            };
+
+            string output = JsonConvert.SerializeObject(graph, Formatting.Indented,
+                new JsonSerializerSettings
+                {
+                    PreserveReferencesHandling = PreserveReferencesHandling.Objects
+                });
+
+            return output;
         }
 
         private void RemoveConnections(Element element)
