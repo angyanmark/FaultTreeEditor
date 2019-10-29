@@ -57,6 +57,7 @@
                             <MenuFlyout>
                                 <MenuFlyoutItem Command="{Binding ToGalileoCommand}" Text="To Galileo" />
                                 <MenuFlyoutItem Command="{Binding ToGalileoCommand}" Text="To XML" />
+                                <MenuFlyoutItem Command="{Binding ToJsonCommand}" Text="To JSON" />
                             </MenuFlyout>
                         </AppBarButton.Flyout>
                     </AppBarButton>

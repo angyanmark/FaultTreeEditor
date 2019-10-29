@@ -16,14 +16,18 @@ namespace FaultTreeEditor.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var v = value as Element;
-            if (v.DisplayTitle == "Basic event")
+            if(v != null)
             {
-                return Visibility.Visible;
+                if (v.DisplayTitle == "Basic event")
+                {
+                    return Visibility.Visible;
+                }
+                else
+                {
+                    return Visibility.Collapsed;
+                }
             }
-            else
-            {
-                return Visibility.Collapsed;
-            }
+            return Visibility.Collapsed;
         }
 
         // ConvertBack is not implemented for a OneWay binding.

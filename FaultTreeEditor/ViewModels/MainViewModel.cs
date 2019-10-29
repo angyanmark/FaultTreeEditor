@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using FaultTreeEditor.Core.Models;
 using FaultTreeEditor.Helpers;
@@ -93,6 +94,7 @@ namespace FaultTreeEditor.ViewModels
         public ICommand CopyCommand { get; set; }
         public ICommand LoadCommand { get; set; }
         public ICommand ToGalileoCommand { get; set; }
+        public ICommand ToJsonCommand { get; set; }
         #endregion
 
         public MainViewModel()
@@ -175,24 +177,24 @@ namespace FaultTreeEditor.ViewModels
 
             GenerateOutputCommand = new RelayCommand(() =>
             {
+                OutputText = GetGalileoString();
+            });
+
+            ListConnectionsCommand = new RelayCommand(() =>
+            {
                 string builder = "";
-                foreach (var v in CanvasElements)
+                foreach (var v in Connections)
                 {
-                    builder += v.ToGalileo();
+                    builder += $"{v.From.Title} -> {v.To.Title}\n";
                 }
                 if (String.IsNullOrWhiteSpace(builder))
                 {
-                    OutputText = "No output...";
+                    OutputText = "No connections...";
                 }
                 else
                 {
                     OutputText = builder;
                 }
-            });
-
-            ListConnectionsCommand = new RelayCommand(() =>
-            {
-                OutputText = GetGalileoString();
             });
 
             DeleteElementCommand = new RelayCommand(() =>
@@ -236,42 +238,12 @@ namespace FaultTreeEditor.ViewModels
 
             ToGalileoCommand = new RelayCommand(async () =>
             {
-                var savePicker = new FileSavePicker
-                {
-                    SuggestedStartLocation = PickerLocationId.DocumentsLibrary,
-                };
-                // Dropdown of file types the user can save the file as
-                savePicker.FileTypeChoices.Add("Galileo", new List<string>() { ".dft" });
-                savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
-                // Default file name if the user does not type one in or select a file to replace
-                savePicker.SuggestedFileName = "NewFaultTreeDocument";
+                await SaveToFileAsync(GetGalileoString());
+            });
 
-                Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
-                if (file != null)
-                {
-                    // Prevent updates to the remote version of the file until
-                    // we finish making changes and call CompleteUpdatesAsync.
-                    Windows.Storage.CachedFileManager.DeferUpdates(file);
-                    // write to file
-                    await Windows.Storage.FileIO.WriteTextAsync(file, GetGalileoString());
-                    // Let Windows know that we're finished changing the file so
-                    // the other app can update the remote version of the file.
-                    // Completing updates may require Windows to ask for user input.
-                    Windows.Storage.Provider.FileUpdateStatus status =
-                        await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
-                    if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
-                    {
-                        // File saved
-                    }
-                    else
-                    {
-                        // File couldn't be saved
-                    }
-                }
-                else
-                {
-                    // Operation cancelled.
-                }
+            ToJsonCommand = new RelayCommand(async () =>
+            {
+                await SaveToFileAsync(GetJsonString());
             });
         }
 
@@ -301,6 +273,11 @@ namespace FaultTreeEditor.ViewModels
             }
         }
 
+        private string GetJsonString()
+        {
+            return "JSON string";
+        }
+
         private void RemoveConnections(Element element)
         {
             foreach (var v in CanvasElements)
@@ -320,6 +297,47 @@ namespace FaultTreeEditor.ViewModels
             foreach (var v in toRemove)
             {
                 Connections.Remove(v);
+            }
+        }
+
+        private async Task SaveToFileAsync(string content)
+        {
+            var savePicker = new FileSavePicker
+            {
+                SuggestedStartLocation = PickerLocationId.DocumentsLibrary,
+            };
+            // Dropdown of file types the user can save the file as
+            savePicker.FileTypeChoices.Add("Galileo", new List<string>() { ".dft" });
+            savePicker.FileTypeChoices.Add("JSON Text", new List<string>() { ".json" });
+            savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
+            // Default file name if the user does not type one in or select a file to replace
+            savePicker.SuggestedFileName = "NewFaultTreeDocument";
+
+            Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
+            if (file != null)
+            {
+                // Prevent updates to the remote version of the file until
+                // we finish making changes and call CompleteUpdatesAsync.
+                Windows.Storage.CachedFileManager.DeferUpdates(file);
+                // write to file
+                await Windows.Storage.FileIO.WriteTextAsync(file, content);
+                // Let Windows know that we're finished changing the file so
+                // the other app can update the remote version of the file.
+                // Completing updates may require Windows to ask for user input.
+                Windows.Storage.Provider.FileUpdateStatus status =
+                    await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
+                if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
+                {
+                    // File saved
+                }
+                else
+                {
+                    // File couldn't be saved
+                }
+            }
+            else
+            {
+                // Operation cancelled.
             }
         }
     }
