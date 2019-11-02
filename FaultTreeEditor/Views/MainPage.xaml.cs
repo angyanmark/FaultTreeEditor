@@ -20,7 +20,9 @@ namespace FaultTreeEditor.Views
         private readonly UISettings uiSettings = new UISettings();
 
         private Color lineColor = Colors.Black;
-        private readonly int lineEdgeOffset = 56;
+        private readonly int lineEdgeOffset = 40;
+        private double ListBox_X = 0;
+        private double ListBox_Y = 0;
 
         public MainPage()
         {
@@ -72,35 +74,17 @@ namespace FaultTreeEditor.Views
         {
             StackPanel sp = sender as StackPanel;
             sp.Opacity = 0.4;
-
             Element element = sp.DataContext as Element;
             ViewModel.SelectedCanvasElement = element;
         }
 
-        [Obsolete]
         void SP_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
             StackPanel sp = sender as StackPanel;
-
-            // Set the center point of the transforms.
-            sp.RenderTransformOrigin = new Point(ViewModel.SelectedCanvasElement.X, ViewModel.SelectedCanvasElement.Y);
-
-            TranslateTransform myTranslateTransform = new TranslateTransform();
-
-            myTranslateTransform.X = e.Position.X;
-            myTranslateTransform.Y = e.Position.Y;
-
-            //myTranslateTransform.X = e.Delta.Translation.X;
-            //myTranslateTransform.Y = e.Delta.Translation.Y;
-
-            ViewModel.SelectedCanvasElement.X = e.Position.X;
-            ViewModel.SelectedCanvasElement.Y = e.Position.Y;
-
-            sp.RenderTransform = myTranslateTransform;
-
-            xValue.Text = ViewModel.SelectedCanvasElement.X.ToString();
-            yValue.Text = ViewModel.SelectedCanvasElement.Y.ToString();
-
+            Element element = sp.DataContext as Element;
+            float zf = MyScrollViewer.ZoomFactor;
+            element.X += e.Delta.Translation.X / zf;
+            element.Y += e.Delta.Translation.Y / zf;
             DrawLines();
         }
 
@@ -108,14 +92,12 @@ namespace FaultTreeEditor.Views
         {
             StackPanel sp = sender as StackPanel;
             sp.Opacity = 1;
-
             DrawLines();
         }
 
         void DrawLines()
         {
             Canvas1.Children.Clear();
-
             foreach(var v in ViewModel.Connections)
             {
                 Line line = new Line
@@ -132,13 +114,13 @@ namespace FaultTreeEditor.Views
             }
         }
 
-        private void myListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void MyListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Element myListBoxSelectedItem = myListBox.SelectedItem as Element;
-            if (myListBox.SelectedIndex == -1)
+            Element myListBoxSelectedItem = MyListBox.SelectedItem as Element;
+            if (MyListBox.SelectedIndex == -1)
                 return;
 
-            if ((bool)Add_Connection_Toggle_Button.IsChecked)
+            if (ViewModel.IsAddConnectionToggled)
             {
                 if(ViewModel.SelectedCanvasElement != myListBoxSelectedItem){
                     ViewModel.Connections.Add(new Connection
@@ -149,11 +131,11 @@ namespace FaultTreeEditor.Views
                     ViewModel.SelectedCanvasElement.Children.Add(myListBoxSelectedItem);
                     myListBoxSelectedItem.Parents.Add(ViewModel.SelectedCanvasElement);
 
-                    Add_Connection_Toggle_Button.IsChecked = false;
+                    ViewModel.IsAddConnectionToggled = false;
                     DrawLines();
                 }
             }
-            else if ((bool)Remove_Connection_Toggle_Button.IsChecked)
+            else if (ViewModel.IsRemoveConnectionToggled)
             {
                 var toRemove = new List<Connection>();
                 foreach (var v in ViewModel.Connections)
@@ -173,20 +155,19 @@ namespace FaultTreeEditor.Views
                 myListBoxSelectedItem.Children.Remove(ViewModel.SelectedCanvasElement);
                 myListBoxSelectedItem.Parents.Remove(ViewModel.SelectedCanvasElement);
 
-                Remove_Connection_Toggle_Button.IsChecked = false;
+                ViewModel.IsRemoveConnectionToggled = false;
                 DrawLines();
             }
             else
             {
                 ViewModel.SelectedCanvasElement = myListBoxSelectedItem;
             }
-            myListBox.SelectedIndex = -1;
+            MyListBox.SelectedIndex = -1;
         }
 
         private void Delete_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             ViewModel.DeleteElementCommand.Execute(null);
-
             DrawLines();
         }
 
@@ -225,23 +206,29 @@ namespace FaultTreeEditor.Views
         private void Delete_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             Element element = (sender as MenuFlyoutItem).DataContext as Element;
-
             ViewModel.SelectedCanvasElement = element;
-
             ViewModel.DeleteElementCommand.Execute(null);
-
             DrawLines();
         }
 
         private void Remove_Connections_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             Element element = (sender as MenuFlyoutItem).DataContext as Element;
-
             ViewModel.SelectedCanvasElement = element;
-
             ViewModel.RemoveConnectionsCommand.Execute(null);
-
             DrawLines();
+        }
+
+        private void Add_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            
+        }
+
+        private void MyListBox_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            Point p = e.GetCurrentPoint(sender as ListBox).Position;
+            ListBox_X = p.X;
+            ListBox_Y = p.Y;
         }
     }
 }

@@ -86,16 +86,16 @@ namespace FaultTreeEditor.ViewModels
         #endregion
 
         #region Commands
-        public ICommand AddItemToCanvasCommand { get; set; }
-        public ICommand SaveElementCommand { get; set; }
-        public ICommand GenerateOutputCommand { get; set; }
-        public ICommand ListConnectionsCommand { get; set; }
-        public ICommand RemoveConnectionsCommand { get; set; }
-        public ICommand DeleteElementCommand { get; set; }
-        public ICommand CopyCommand { get; set; }
-        public ICommand LoadCommand { get; set; }
-        public ICommand ToGalileoCommand { get; set; }
-        public ICommand ToJsonCommand { get; set; }
+        public RelayCommand AddItemToCanvasCommand { get; set; }
+        public RelayCommand SaveElementCommand { get; set; }
+        public RelayCommand GenerateOutputCommand { get; set; }
+        public RelayCommand ListConnectionsCommand { get; set; }
+        public RelayCommand RemoveConnectionsCommand { get; set; }
+        public RelayCommand DeleteElementCommand { get; set; }
+        public RelayCommand CopyCommand { get; set; }
+        public RelayCommand LoadCommand { get; set; }
+        public RelayCommand ToGalileoCommand { get; set; }
+        public RelayCommand ToJsonCommand { get; set; }
         #endregion
 
         public MainViewModel()
