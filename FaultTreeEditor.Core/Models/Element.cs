@@ -21,13 +21,13 @@ namespace FaultTreeEditor.Core.Models
         {
             get;
         }
-        private double x = 150;
+        private double x;
         public double X
         {
             get { return x; }
             set { Set(ref x, value); }
         }
-        private double y = 150;
+        private double y;
         public double Y
         {
             get { return y; }

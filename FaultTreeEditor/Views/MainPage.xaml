@@ -68,7 +68,7 @@
                           Grid.Row="1"
                           HorizontalScrollBarVisibility="Visible"
                           HorizontalScrollMode="Enabled"
-                          MaxZoomFactor="7"
+                          MaxZoomFactor="8"
                           MinZoomFactor="1"
                           VerticalScrollBarVisibility="Visible"
                           VerticalScrollMode="Enabled"
@@ -89,7 +89,9 @@
 
                             <ListBox.ContextFlyout>
                                 <MenuFlyout>
-                                    <MenuFlyoutItem Click="Add_MenuFlyoutItem_Click" Text="Add element">
+                                    <MenuFlyoutItem Command="{Binding AddItemToCanvasCommand}"
+                                                    CommandParameter="{Binding PointerPoint}"
+                                                    Text="Add element">
                                         <MenuFlyoutItem.Icon>
                                             <SymbolIcon Symbol="Add" />
                                         </MenuFlyoutItem.Icon>
@@ -104,7 +106,7 @@
                                                 ManipulationDelta="SP_ManipulationDelta"
                                                 ManipulationMode="TranslateX, TranslateY, System"
                                                 ManipulationStarted="SP_ManipulationStarted">
-                                        <Image Height="40" Source="{Binding ImageSource}" />
+                                        <Image Height="48" Source="{Binding ImageSource}" />
                                         <TextBlock HorizontalAlignment="Center" Text="{Binding Title}" />
                                         <TextBlock HorizontalAlignment="Center" Text="{Binding Lambda}" />
 
@@ -213,6 +215,7 @@
                         <TextBlock VerticalAlignment="Center" Text="{Binding SelectedElement.DisplayTitle}" />
                     </StackPanel>
                     <AppBarButton Command="{Binding AddItemToCanvasCommand}"
+                                  CommandParameter="{Binding PointerPoint}"
                                   Icon="Add"
                                   Label="Add"
                                   RelativePanel.AlignRightWithPanel="True"

@@ -21,8 +21,6 @@ namespace FaultTreeEditor.Views
 
         private Color lineColor = Colors.Black;
         private readonly int lineEdgeOffset = 40;
-        private double ListBox_X = 0;
-        private double ListBox_Y = 0;
 
         public MainPage()
         {
@@ -219,16 +217,10 @@ namespace FaultTreeEditor.Views
             DrawLines();
         }
 
-        private void Add_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            
-        }
-
         private void MyListBox_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
             Point p = e.GetCurrentPoint(sender as ListBox).Position;
-            ListBox_X = p.X;
-            ListBox_Y = p.Y;
+            ViewModel.PointerPoint = p;
         }
     }
 }

@@ -7,6 +7,7 @@ using FaultTreeEditor.Core.Models;
 using FaultTreeEditor.Helpers;
 using Newtonsoft.Json;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Foundation;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Shapes;
@@ -17,6 +18,13 @@ namespace FaultTreeEditor.ViewModels
     {
         #region Field and Properties
         readonly DataPackage dataPackage = new DataPackage();
+
+        private Point pointerPoint = new Point(150, 150);
+        public Point PointerPoint
+        {
+            get { return pointerPoint; }
+            set { Set(ref pointerPoint, value); }
+        }
 
         private int eventCounter = 0;
         private int basicEventCounter = 0;
@@ -86,7 +94,7 @@ namespace FaultTreeEditor.ViewModels
         #endregion
 
         #region Commands
-        public RelayCommand AddItemToCanvasCommand { get; set; }
+        public RelayCommand<Point> AddItemToCanvasCommand { get; set; }
         public RelayCommand SaveElementCommand { get; set; }
         public RelayCommand GenerateOutputCommand { get; set; }
         public RelayCommand ListConnectionsCommand { get; set; }
@@ -127,7 +135,7 @@ namespace FaultTreeEditor.ViewModels
 
         private void InitializeCommands()
         {
-            AddItemToCanvasCommand = new RelayCommand(() =>
+            AddItemToCanvasCommand = new RelayCommand<Point>((Point p) =>
             {
                 switch (SelectedElement.DisplayTitle)
                 {
@@ -135,6 +143,8 @@ namespace FaultTreeEditor.ViewModels
                         Event addEvent = new Event
                         {
                             Title = "event_" + ++eventCounter,
+                            X = p.X,
+                            Y = p.Y,
                         };
                         CanvasElements.Add(addEvent);
                         SelectedCanvasElement = addEvent;
@@ -143,6 +153,8 @@ namespace FaultTreeEditor.ViewModels
                         BasicEvent addLeafEvent = new BasicEvent
                         {
                             Title = "basic_event_" + ++basicEventCounter,
+                            X = p.X,
+                            Y = p.Y,
                         };
                         CanvasElements.Add(addLeafEvent);
                         SelectedCanvasElement = addLeafEvent;
@@ -151,6 +163,8 @@ namespace FaultTreeEditor.ViewModels
                         AndGate addAndGate = new AndGate
                         {
                             Title = "and_gate_" + ++andGateCounter,
+                            X = p.X,
+                            Y = p.Y,
                         };
                         CanvasElements.Add(addAndGate);
                         SelectedCanvasElement = addAndGate;
@@ -159,6 +173,8 @@ namespace FaultTreeEditor.ViewModels
                         OrGate addOrGate = new OrGate
                         {
                             Title = "or_gate_" + ++orGateCounter,
+                            X = p.X,
+                            Y = p.Y,
                         };
                         CanvasElements.Add(addOrGate);
                         SelectedCanvasElement = addOrGate;
@@ -167,6 +183,8 @@ namespace FaultTreeEditor.ViewModels
                         VoteGate addVoteGate = new VoteGate
                         {
                             Title = "vote_gate_" + ++voteGateCounter,
+                            X = p.X,
+                            Y = p.Y,
                         };
                         CanvasElements.Add(addVoteGate);
                         SelectedCanvasElement = addVoteGate;
