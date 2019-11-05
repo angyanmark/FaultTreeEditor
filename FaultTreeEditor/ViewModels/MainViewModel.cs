@@ -340,8 +340,8 @@ namespace FaultTreeEditor.ViewModels
             };
             // Dropdown of file types the user can save the file as
             savePicker.FileTypeChoices.Add("Galileo", new List<string>() { ".dft" });
-            savePicker.FileTypeChoices.Add("JSON Text", new List<string>() { ".json" });
-            savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
+            savePicker.FileTypeChoices.Add("JSON Document", new List<string>() { ".json" });
+            savePicker.FileTypeChoices.Add("Text Document", new List<string>() { ".txt" });
             // Default file name if the user does not type one in or select a file to replace
             savePicker.SuggestedFileName = "NewFaultTreeDocument";
 
@@ -375,7 +375,22 @@ namespace FaultTreeEditor.ViewModels
 
         private async Task LoadFromFileAsync()
         {
-            throw new NotImplementedException();
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".json");
+
+            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+            if (file != null)
+            {
+                // Application now has read/write access to the picked file
+                string text = await Windows.Storage.FileIO.ReadTextAsync(file);
+                var v = JsonConvert.DeserializeObject<Graph>(text);
+            }
+            else
+            {
+                // Operation cancelled.
+            }
         }
     }
 }
