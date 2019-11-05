@@ -240,6 +240,10 @@ namespace FaultTreeEditor.Views
         private async void From_JSON_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             await ViewModel.LoadFromFileAsync();
+            if(ViewModel.CanvasElements.Count > 0)
+            {
+                ViewModel.SelectedCanvasElement = ViewModel.CanvasElements[0];
+            }
             DrawLines();
         }
     }

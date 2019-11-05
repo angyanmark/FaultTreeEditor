@@ -104,6 +104,7 @@ namespace FaultTreeEditor.ViewModels
         public RelayCommand SaveElementCommand { get; set; }
         public RelayCommand GenerateOutputCommand { get; set; }
         public RelayCommand ListConnectionsCommand { get; set; }
+        public RelayCommand ShowJSONCommand { get; set; }
         public RelayCommand RemoveConnectionsCommand { get; set; }
         public RelayCommand DeleteElementCommand { get; set; }
         public RelayCommand CopyCommand { get; set; }
@@ -203,6 +204,11 @@ namespace FaultTreeEditor.ViewModels
             GenerateOutputCommand = new RelayCommand(() =>
             {
                 OutputText = GetGalileoString();
+            });
+
+            ShowJSONCommand = new RelayCommand(() =>
+            {
+                OutputText = GetJsonString();
             });
 
             ListConnectionsCommand = new RelayCommand(() =>
