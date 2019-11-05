@@ -236,5 +236,11 @@ namespace FaultTreeEditor.Views
             Point p = e.GetCurrentPoint(sender as ListBox).Position;
             ViewModel.PointerPoint = p;
         }
+
+        private async void From_JSON_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            await ViewModel.LoadFromFileAsync();
+            DrawLines();
+        }
     }
 }

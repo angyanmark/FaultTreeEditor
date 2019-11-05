@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using FaultTreeEditor.Core.Models;
@@ -55,7 +56,12 @@ namespace FaultTreeEditor.ViewModels
             set { Set(ref selectedCanvasElement, value); }
         }
 
-        public ObservableCollection<Connection> Connections { get; set; } = new ObservableCollection<Connection>();
+        private ObservableCollection<Connection> connections = new ObservableCollection<Connection>();
+        public ObservableCollection<Connection> Connections
+        {
+            get { return connections; }
+            set { Set(ref connections, value); }
+        }
 
         private string outputText = "";
         public string OutputText
@@ -104,7 +110,6 @@ namespace FaultTreeEditor.ViewModels
         public RelayCommand LoadCommand { get; set; }
         public RelayCommand ToGalileoCommand { get; set; }
         public RelayCommand ToJsonCommand { get; set; }
-        public RelayCommand FromJsonCommand { get; set; }
         #endregion
 
         public MainViewModel()
@@ -251,11 +256,6 @@ namespace FaultTreeEditor.ViewModels
                 Clipboard.SetContent(dataPackage);
             });
 
-            FromJsonCommand = new RelayCommand(async () =>
-            {
-                await LoadFromFileAsync();
-            });
-
             ToGalileoCommand = new RelayCommand(async () =>
             {
                 await SaveToFileAsync(GetGalileoString());
@@ -304,7 +304,8 @@ namespace FaultTreeEditor.ViewModels
             string output = JsonConvert.SerializeObject(graph, Formatting.Indented,
                 new JsonSerializerSettings
                 {
-                    PreserveReferencesHandling = PreserveReferencesHandling.Objects
+                    PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                    TypeNameHandling = TypeNameHandling.Auto
                 });
 
             return output;
@@ -373,7 +374,7 @@ namespace FaultTreeEditor.ViewModels
             }
         }
 
-        private async Task LoadFromFileAsync()
+        public async Task LoadFromFileAsync()
         {
             var picker = new Windows.Storage.Pickers.FileOpenPicker();
             picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
@@ -385,7 +386,15 @@ namespace FaultTreeEditor.ViewModels
             {
                 // Application now has read/write access to the picked file
                 string text = await Windows.Storage.FileIO.ReadTextAsync(file);
-                var v = JsonConvert.DeserializeObject<Graph>(text);
+
+                Graph graph = Newtonsoft.Json.JsonConvert.DeserializeObject<Graph>(text, new Newtonsoft.Json.JsonSerializerSettings
+                {
+                    TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
+                    NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+                });
+
+                CanvasElements = new ObservableCollection<Element>(graph.Elements);
+                Connections = new ObservableCollection<Connection>(graph.Connections);
             }
             else
             {

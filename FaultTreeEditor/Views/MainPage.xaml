@@ -51,7 +51,7 @@
                                   Label="Import">
                         <AppBarButton.Flyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem Command="{Binding FromJsonCommand}" Text="From JSON" />
+                                <MenuFlyoutItem Click="From_JSON_MenuFlyoutItem_Click"  Text="From JSON" />
                             </MenuFlyout>
                         </AppBarButton.Flyout>
                     </AppBarButton>
