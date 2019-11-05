@@ -104,6 +104,7 @@ namespace FaultTreeEditor.ViewModels
         public RelayCommand LoadCommand { get; set; }
         public RelayCommand ToGalileoCommand { get; set; }
         public RelayCommand ToJsonCommand { get; set; }
+        public RelayCommand FromJsonCommand { get; set; }
         #endregion
 
         public MainViewModel()
@@ -250,9 +251,9 @@ namespace FaultTreeEditor.ViewModels
                 Clipboard.SetContent(dataPackage);
             });
 
-            LoadCommand = new RelayCommand(() =>
+            FromJsonCommand = new RelayCommand(async () =>
             {
-                
+                await LoadFromFileAsync();
             });
 
             ToGalileoCommand = new RelayCommand(async () =>
@@ -370,6 +371,11 @@ namespace FaultTreeEditor.ViewModels
             {
                 // Operation cancelled.
             }
+        }
+
+        private async Task LoadFromFileAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

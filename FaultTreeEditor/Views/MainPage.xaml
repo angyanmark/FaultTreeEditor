@@ -27,14 +27,13 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-
             <RelativePanel Grid.Row="0">
                 <TextBlock Style="{StaticResource PageTitleStyle}" Text="Canvas" />
                 <StackPanel Padding="0,0,0,8"
                             Orientation="Horizontal"
                             RelativePanel.AlignRightWithPanel="True"
                             Spacing="8">
-                    <AppBarButton Command="{Binding LoadCommand}"
+                    <AppBarButton Width="80"
                                   Icon="Clear"
                                   Label="Clear">
                         <AppBarButton.Flyout>
@@ -47,9 +46,15 @@
                         </AppBarButton.Flyout>
                     </AppBarButton>
                     <AppBarSeparator />
-                    <AppBarButton Command="{Binding LoadCommand}"
+                    <AppBarButton Width="80"
                                   Icon="Import"
-                                  Label="Import" />
+                                  Label="Import">
+                        <AppBarButton.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Command="{Binding FromJsonCommand}" Text="From JSON" />
+                            </MenuFlyout>
+                        </AppBarButton.Flyout>
+                    </AppBarButton>
                     <AppBarButton Width="80" Label="Export">
                         <AppBarButton.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEDE1;" />
@@ -116,9 +121,19 @@
 
                                         <StackPanel.ContextFlyout>
                                             <MenuFlyout>
-                                                <MenuFlyoutItem Click="Remove_Connections_MenuFlyoutItem_Click" Text="Remove connections">
+                                                <MenuFlyoutItem Click="Add_Connection_MenuFlyoutItem_Click" Text="Add connection">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <SymbolIcon Symbol="Add" />
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                                <MenuFlyoutItem Click="Remove_Connection_MenuFlyoutItem_Click" Text="Remove connection">
                                                     <MenuFlyoutItem.Icon>
                                                         <SymbolIcon Symbol="Remove" />
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                                <MenuFlyoutItem Click="Remove_All_Connections_MenuFlyoutItem_Click" Text="Remove all connections">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF0B9;" />
                                                     </MenuFlyoutItem.Icon>
                                                 </MenuFlyoutItem>
                                                 <MenuFlyoutItem Click="Delete_MenuFlyoutItem_Click" Text="Delete">
@@ -285,15 +300,12 @@
                                              InputScope="Number"
                                              Text="{Binding SelectedCanvasElement.Lambda, Mode=TwoWay}"
                                              Visibility="{Binding SelectedCanvasElement, Converter={StaticResource LambdaToVisibilityConverter}}" />
-
-                                    <TextBox x:Name="xValue"
-                                             Grid.Row="1"
+                                    <TextBox Grid.Row="1"
                                              Grid.Column="0"
                                              Header="X"
                                              InputScope="Number"
                                              Text="{Binding SelectedCanvasElement.X, Mode=TwoWay}" />
-                                    <TextBox x:Name="yValue"
-                                             Grid.Row="1"
+                                    <TextBox Grid.Row="1"
                                              Grid.Column="1"
                                              Header="Y"
                                              InputScope="Number"

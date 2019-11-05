@@ -201,19 +201,33 @@ namespace FaultTreeEditor.Views
             DrawLines();
         }
 
+        private void Add_Connection_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Element element = (sender as MenuFlyoutItem).DataContext as Element;
+            ViewModel.SelectedCanvasElement = element;
+            ViewModel.IsAddConnectionToggled = true;
+        }
+
+        private void Remove_Connection_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Element element = (sender as MenuFlyoutItem).DataContext as Element;
+            ViewModel.SelectedCanvasElement = element;
+            ViewModel.IsRemoveConnectionToggled = true;
+        }
+
+        private void Remove_All_Connections_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Element element = (sender as MenuFlyoutItem).DataContext as Element;
+            ViewModel.SelectedCanvasElement = element;
+            ViewModel.RemoveConnectionsCommand.Execute(null);
+            DrawLines();
+        }
+
         private void Delete_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             Element element = (sender as MenuFlyoutItem).DataContext as Element;
             ViewModel.SelectedCanvasElement = element;
             ViewModel.DeleteElementCommand.Execute(null);
-            DrawLines();
-        }
-
-        private void Remove_Connections_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            Element element = (sender as MenuFlyoutItem).DataContext as Element;
-            ViewModel.SelectedCanvasElement = element;
-            ViewModel.RemoveConnectionsCommand.Execute(null);
             DrawLines();
         }
 
