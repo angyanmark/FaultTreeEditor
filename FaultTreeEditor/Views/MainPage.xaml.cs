@@ -22,6 +22,11 @@ namespace FaultTreeEditor.Views
         private Color lineColor = Colors.Black;
         private readonly int lineEdgeOffset = 40;
 
+        double CanvasWidth;
+        double CanvasHeight;
+        double ElementWidth;
+        double ElementHeight;
+
         public MainPage()
         {
             InitializeComponent();
@@ -74,6 +79,11 @@ namespace FaultTreeEditor.Views
             sp.Opacity = 0.4;
             Element element = sp.DataContext as Element;
             ViewModel.SelectedCanvasElement = element;
+
+            CanvasWidth = MyListBox.ActualWidth;
+            CanvasHeight = MyListBox.ActualHeight;
+            ElementWidth = sp.ActualWidth;
+            ElementHeight = sp.ActualHeight;
         }
 
         void SP_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
@@ -85,17 +95,11 @@ namespace FaultTreeEditor.Views
             double newX = element.X + e.Delta.Translation.X / zf;
             double newY = element.Y + e.Delta.Translation.Y / zf;
 
-            double width = MyListBox.ActualWidth;
-            double height = MyListBox.ActualHeight;
-
-            double elementWidth = sp.ActualWidth;
-            double elementHeight = sp.ActualHeight;
-
-            if (newX > 0 && newX < (width - elementWidth))
+            if (newX > 0 && newX < (CanvasWidth - ElementWidth - 20))
             {
                 element.X = newX;
             }
-            if (newY > 0 && newY < (height - elementHeight))
+            if (newY > 0 && newY < (CanvasHeight - ElementHeight - 10))
             {
                 element.Y = newY;
             }
