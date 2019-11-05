@@ -81,8 +81,25 @@ namespace FaultTreeEditor.Views
             StackPanel sp = sender as StackPanel;
             Element element = sp.DataContext as Element;
             float zf = MyScrollViewer.ZoomFactor;
-            element.X += e.Delta.Translation.X / zf;
-            element.Y += e.Delta.Translation.Y / zf;
+
+            double newX = element.X + e.Delta.Translation.X / zf;
+            double newY = element.Y + e.Delta.Translation.Y / zf;
+
+            double width = MyListBox.ActualWidth;
+            double height = MyListBox.ActualHeight;
+
+            double elementWidth = sp.ActualWidth;
+            double elementHeight = sp.ActualHeight;
+
+            if (newX > 0 && newX < (width - elementWidth))
+            {
+                element.X = newX;
+            }
+            if (newY > 0 && newY < (height - elementHeight))
+            {
+                element.Y = newY;
+            }
+            
             DrawLines();
         }
 

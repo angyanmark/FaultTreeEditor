@@ -111,7 +111,7 @@
                                                 ManipulationDelta="SP_ManipulationDelta"
                                                 ManipulationMode="TranslateX, TranslateY, System"
                                                 ManipulationStarted="SP_ManipulationStarted">
-                                        <Image Height="48" Source="{Binding ImageSource}" />
+                                        <Image Height="52" Source="{Binding ImageSource}" />
                                         <TextBlock HorizontalAlignment="Center" Text="{Binding Title}" />
                                         <TextBlock HorizontalAlignment="Center" Text="{Binding Lambda}" />
 
