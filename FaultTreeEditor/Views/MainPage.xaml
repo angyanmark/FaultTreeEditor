@@ -336,7 +336,14 @@
                                              Header="K"
                                              InputScope="Number"
                                              Text="{Binding SelectedCanvasElement.K, Mode=TwoWay}"
-                                             ToolTipService.ToolTip="Fails if at least K input fails"
+                                             ToolTipService.ToolTip="The gate fails if at least K input fails"
+                                             Visibility="{Binding SelectedCanvasElement, Converter={StaticResource KToVisibilityConverter}}" />
+                                    <TextBox Grid.Row="2"
+                                             Grid.Column="1"
+                                             Header="M"
+                                             IsReadOnly="True"
+                                             Text="{Binding SelectedCanvasElement.Children.Count}"
+                                             ToolTipService.ToolTip="Number of inputs"
                                              Visibility="{Binding SelectedCanvasElement, Converter={StaticResource KToVisibilityConverter}}" />
                                 </Grid>
 
