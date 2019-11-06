@@ -33,7 +33,7 @@ namespace FaultTreeEditor.ViewModels
         private int orGateCounter = 0;
         private int voteGateCounter = 0;
 
-        public List<Element> Elements { get; set; }
+        public ObservableCollection<Element> Elements { get; set; }
 
         private Element selectedElement;
         public Element SelectedElement
@@ -121,7 +121,7 @@ namespace FaultTreeEditor.ViewModels
 
         private void InitializeCanvas()
         {
-            Elements = new List<Element>
+            Elements = new ObservableCollection<Element>
             {
                 new Event(),
                 new BasicEvent(),

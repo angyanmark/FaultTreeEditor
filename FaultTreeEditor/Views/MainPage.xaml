@@ -251,13 +251,17 @@
                 </RelativePanel>
 
                 <GridView Grid.Row="2"
+                          AllowDrop="True"
+                          CanDragItems="True"
+                          CanReorderItems="True"
                           ItemsSource="{Binding Elements, Mode=TwoWay}"
                           SelectedItem="{Binding SelectedElement, Mode=TwoWay}"
                           SelectionMode="Single">
                     <GridView.ItemTemplate>
                         <DataTemplate x:Name="myDataTemplate" x:DataType="models:Element">
                             <StackPanel Padding="8" Spacing="8">
-                                <Image Height="76"
+                                <Image Width="100"
+                                       Height="76"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Source="{Binding ImageSource}" />
