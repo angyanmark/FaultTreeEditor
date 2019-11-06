@@ -12,6 +12,12 @@ namespace FaultTreeEditor.Core.Models
             get { return lambda; }
             set { Set(ref lambda, value); }
         }
+        private double dormancy = 0;
+        public double Dormancy
+        {
+            get { return dormancy; }
+            set { Set(ref dormancy, value); }
+        }
         public override string ImageSource
         {
             get
@@ -28,7 +34,7 @@ namespace FaultTreeEditor.Core.Models
         }
         public override string ToGalileo()
         {
-            return $"{Title} lambda={Lambda};\n";
+            return $"{Title} lambda={Lambda} dorm={Dormancy};\n";
         }
     }
 }

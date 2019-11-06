@@ -10,7 +10,8 @@
       mc:Ignorable="d">
 
     <Page.Resources>
-        <converters:LambdaToVisibilityConverter x:Key="LambdaToVisibilityConverter" />
+        <converters:LambdaDormancyToVisibilityConverter x:Key="LambdaDormancyToVisibilityConverter" />
+        <converters:KToVisibilityConverter x:Key="KToVisibilityConverter" />
     </Page.Resources>
 
     <Grid>
@@ -131,6 +132,11 @@
                                                         <SymbolIcon Symbol="Remove" />
                                                     </MenuFlyoutItem.Icon>
                                                 </MenuFlyoutItem>
+                                                <MenuFlyoutItem Click="List_Element_Connections_MenuFlyoutItem_Click" Text="List connections">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF003;" />
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
                                                 <MenuFlyoutItem Click="Remove_All_Connections_MenuFlyoutItem_Click" Text="Remove all connections">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF0B9;" />
@@ -213,7 +219,7 @@
                 <RelativePanel Grid.Row="0">
                     <TextBlock RelativePanel.AlignLeftWithPanel="True"
                                Style="{StaticResource PageTitleStyle}"
-                               Text="Items" />
+                               Text="Elements" />
                     <StackPanel Orientation="Horizontal"
                                 RelativePanel.AlignRightWithPanel="True"
                                 Spacing="8">
@@ -275,7 +281,7 @@
                                Text="{Binding SelectedCanvasElement.DisplayTitle}" />
                     <ComboBox Width="200"
                               DisplayMemberPath="Title"
-                              Header="Selected item"
+                              Header="Selected element"
                               ItemsSource="{Binding CanvasElements, Mode=TwoWay}"
                               RelativePanel.AlignRightWithPanel="True"
                               RelativePanel.AlignVerticalCenterWithPanel="True"
@@ -295,18 +301,14 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
 
                                     <TextBox Grid.Row="0"
                                              Grid.Column="0"
+                                             Grid.ColumnSpan="2"
                                              Header="Title"
                                              Text="{Binding SelectedCanvasElement.Title, Mode=TwoWay}" />
-                                    <TextBox Grid.Row="0"
-                                             Grid.Column="1"
-                                             Header="Lambda"
-                                             InputScope="Number"
-                                             Text="{Binding SelectedCanvasElement.Lambda, Mode=TwoWay}"
-                                             Visibility="{Binding SelectedCanvasElement, Converter={StaticResource LambdaToVisibilityConverter}}" />
                                     <TextBox Grid.Row="1"
                                              Grid.Column="0"
                                              Header="X"
@@ -317,6 +319,25 @@
                                              Header="Y"
                                              InputScope="Number"
                                              Text="{Binding SelectedCanvasElement.Y, Mode=TwoWay}" />
+                                    <TextBox Grid.Row="2"
+                                             Grid.Column="0"
+                                             Header="Lambda"
+                                             InputScope="Number"
+                                             Text="{Binding SelectedCanvasElement.Lambda, Mode=TwoWay}"
+                                             Visibility="{Binding SelectedCanvasElement, Converter={StaticResource LambdaDormancyToVisibilityConverter}}" />
+                                    <TextBox Grid.Row="2"
+                                             Grid.Column="1"
+                                             Header="Dormancy"
+                                             InputScope="Number"
+                                             Text="{Binding SelectedCanvasElement.Dormancy, Mode=TwoWay}"
+                                             Visibility="{Binding SelectedCanvasElement, Converter={StaticResource LambdaDormancyToVisibilityConverter}}" />
+                                    <TextBox Grid.Row="2"
+                                             Grid.Column="0"
+                                             Header="K"
+                                             InputScope="Number"
+                                             Text="{Binding SelectedCanvasElement.K, Mode=TwoWay}"
+                                             ToolTipService.ToolTip="Fails if at least K input fails"
+                                             Visibility="{Binding SelectedCanvasElement, Converter={StaticResource KToVisibilityConverter}}" />
                                 </Grid>
 
                                 <StackPanel HorizontalAlignment="Right"
@@ -329,28 +350,15 @@
                             </StackPanel>
                         </PivotItem>
 
-                        <PivotItem Header="Parents">
-                            <ListView x:Name="StudentsList"
-                                      Height="300"
-                                      ItemsSource="{Binding CanvasElements}"
-                                      SelectionMode="None">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="models:Element">
-                                        <StackPanel Padding="4"
-                                                    Orientation="Horizontal"
-                                                    Spacing="8">
-                                            <Image Height="100" Source="{Binding ImageSource}" />
-                                            <TextBlock VerticalAlignment="Center" Text="{Binding Title}" />
-                                            <ToggleSwitch OffContent="Parent" OnContent="Not parent" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                        <PivotItem Header="Pivot 2">
+                            <StackPanel>
+                                <TextBlock Text="Pivot 2 content" />
+                            </StackPanel>
                         </PivotItem>
 
-                        <PivotItem Header="Children">
+                        <PivotItem Header="Pivot 3">
                             <StackPanel>
-                                <TextBlock Text="Children" />
+                                <TextBlock Text="Pivot 3 content" />
                             </StackPanel>
                         </PivotItem>
                     </Pivot.Items>

@@ -7,7 +7,14 @@ namespace FaultTreeEditor.Core.Models
     public class VoteGate : Gate
     {
         public int K { get; set; }
-        public int M { get; set; }
+        public int M
+        {
+            get
+            {
+                return Children.Count;
+            }
+            set { }
+        }
         public override string ImageSource
         {
             get

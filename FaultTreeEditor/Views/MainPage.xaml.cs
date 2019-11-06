@@ -236,6 +236,21 @@ namespace FaultTreeEditor.Views
             ViewModel.IsRemoveConnectionToggled = true;
         }
 
+        private void List_Element_Connections_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Element element = (sender as MenuFlyoutItem).DataContext as Element;
+            string builder = "";
+            foreach(var v in element.Parents)
+            {
+                builder += $"{v.Title} -> {element.Title}\n";
+            }
+            foreach (var v in element.Children)
+            {
+                builder += $"{element.Title} -> {v.Title}\n";
+            }
+            ViewModel.OutputText = builder;
+        }
+
         private void Remove_All_Connections_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             Element element = (sender as MenuFlyoutItem).DataContext as Element;

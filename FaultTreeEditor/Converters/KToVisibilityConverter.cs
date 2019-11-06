@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Data;
 
 namespace FaultTreeEditor.Converters
 {
-    public class LambdaToVisibilityConverter : IValueConverter
+    public class KToVisibilityConverter : IValueConverter
     {
         // Define the Convert method to change a DateTime object to 
         // a month string.
@@ -18,7 +18,7 @@ namespace FaultTreeEditor.Converters
             var v = value as Element;
             if(v != null)
             {
-                if (v.DisplayTitle == "Basic event")
+                if (v.DisplayTitle == "Vote gate")
                 {
                     return Visibility.Visible;
                 }
