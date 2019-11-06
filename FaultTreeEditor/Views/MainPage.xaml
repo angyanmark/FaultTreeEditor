@@ -361,10 +361,18 @@
                             </StackPanel>
                         </PivotItem>
 
-                        <PivotItem Header="Pivot 2">
-                            <StackPanel>
-                                <TextBlock Text="Pivot 2 content" />
-                            </StackPanel>
+                        <PivotItem Header="Inputs">
+                            <ListView AllowDrop="True"
+                                      CanDragItems="True"
+                                      CanReorderItems="True"
+                                      IsSwipeEnabled="true"
+                                      ItemsSource="{Binding SelectedCanvasElement.Children, Mode=TwoWay}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Title}" />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </PivotItem>
 
                         <PivotItem Header="Pivot 3">
