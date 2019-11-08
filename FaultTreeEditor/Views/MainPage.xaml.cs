@@ -117,7 +117,7 @@ namespace FaultTreeEditor.Views
         void DrawLines()
         {
             Canvas1.Children.Clear();
-            foreach(var v in ViewModel.Connections)
+            foreach(var v in ViewModel.Project.FaultTree.Connections)
             {
                 Line line = new Line
                 {
@@ -142,7 +142,7 @@ namespace FaultTreeEditor.Views
             if (ViewModel.IsAddConnectionToggled)
             {
                 if(ViewModel.SelectedCanvasElement != myListBoxSelectedItem){
-                    ViewModel.Connections.Add(new Connection
+                    ViewModel.Project.FaultTree.Connections.Add(new Connection
                     {
                         From = ViewModel.SelectedCanvasElement,
                         To = myListBoxSelectedItem
@@ -157,7 +157,7 @@ namespace FaultTreeEditor.Views
             else if (ViewModel.IsRemoveConnectionToggled)
             {
                 var toRemove = new List<Connection>();
-                foreach (var v in ViewModel.Connections)
+                foreach (var v in ViewModel.Project.FaultTree.Connections)
                 {
                     if((v.From == ViewModel.SelectedCanvasElement && v.To == myListBoxSelectedItem) || (v.From == myListBoxSelectedItem && v.To == ViewModel.SelectedCanvasElement))
                     {
@@ -166,7 +166,7 @@ namespace FaultTreeEditor.Views
                 }
                 foreach (var v in toRemove)
                 {
-                    ViewModel.Connections.Remove(v);
+                    ViewModel.Project.FaultTree.Connections.Remove(v);
                 }
 
                 ViewModel.SelectedCanvasElement.Children.Remove(myListBoxSelectedItem);
@@ -192,9 +192,9 @@ namespace FaultTreeEditor.Views
 
         private void Clear_Canvas_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ViewModel.Connections.Clear();
+            ViewModel.Project.FaultTree.Connections.Clear();
             var toRemove = new List<Element>();
-            foreach (var v in ViewModel.CanvasElements)
+            foreach (var v in ViewModel.Project.FaultTree.Elements)
             {
                 if(v.DisplayTitle != "Top level event")
                 {
@@ -208,11 +208,11 @@ namespace FaultTreeEditor.Views
             }
             foreach(var v in toRemove)
             {
-                ViewModel.CanvasElements.Remove(v);
+                ViewModel.Project.FaultTree.Elements.Remove(v);
             }
-            if (ViewModel.CanvasElements.Count > 0)
+            if (ViewModel.Project.FaultTree.Elements.Count > 0)
             {
-                ViewModel.SelectedCanvasElement = ViewModel.CanvasElements[0];
+                ViewModel.SelectedCanvasElement = ViewModel.Project.FaultTree.Elements[0];
             }
             else
             {
@@ -276,9 +276,9 @@ namespace FaultTreeEditor.Views
         private async void From_JSON_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             await ViewModel.LoadFromFileAsync();
-            if(ViewModel.CanvasElements.Count > 0)
+            if(ViewModel.Project.FaultTree.Elements.Count > 0)
             {
-                ViewModel.SelectedCanvasElement = ViewModel.CanvasElements[0];
+                ViewModel.SelectedCanvasElement = ViewModel.Project.FaultTree.Elements[0];
             }
             DrawLines();
         }

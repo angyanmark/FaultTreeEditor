@@ -33,11 +33,11 @@ namespace FaultTreeEditor.ViewModels
         private int orGateCounter = 0;
         private int voteGateCounter = 0;
 
-        private string projectTitle = "New Project";
-        public string ProjectTitle
+        private Project project = new Project();
+        public Project Project
         {
-            get { return projectTitle; }
-            set { Set(ref projectTitle, value); }
+            get { return project; }
+            set { Set(ref project, value); }
         }
 
         public ObservableCollection<Element> Elements { get; set; }
@@ -49,25 +49,11 @@ namespace FaultTreeEditor.ViewModels
             set { Set(ref selectedElement, value); }
         }
 
-        private ObservableCollection<Element> canvasElements = new ObservableCollection<Element>();
-        public ObservableCollection<Element> CanvasElements
-        {
-            get { return canvasElements; }
-            set { Set(ref canvasElements, value); }
-        }
-
         private Element selectedCanvasElement;
         public Element SelectedCanvasElement
         {
             get { return selectedCanvasElement; }
             set { Set(ref selectedCanvasElement, value); }
-        }
-
-        private ObservableCollection<Connection> connections = new ObservableCollection<Connection>();
-        public ObservableCollection<Connection> Connections
-        {
-            get { return connections; }
-            set { Set(ref connections, value); }
         }
 
         private string outputText = "";
@@ -138,13 +124,13 @@ namespace FaultTreeEditor.ViewModels
             };
             SelectedElement = Elements[0];
 
-            CanvasElements.Add(new TopLevelEvent
+            Project.FaultTree.Elements.Add(new TopLevelEvent
             {
                 Title = "top_level_event",
                 X = 600,
                 Y = 0,
             });
-            SelectedCanvasElement = CanvasElements[0];
+            SelectedCanvasElement = Project.FaultTree.Elements[0];
         }
 
         private void InitializeCommands()
@@ -160,7 +146,7 @@ namespace FaultTreeEditor.ViewModels
                             X = p.X,
                             Y = p.Y,
                         };
-                        CanvasElements.Add(addEvent);
+                        Project.FaultTree.Elements.Add(addEvent);
                         SelectedCanvasElement = addEvent;
                         break;
                     case "Basic event":
@@ -170,7 +156,7 @@ namespace FaultTreeEditor.ViewModels
                             X = p.X,
                             Y = p.Y,
                         };
-                        CanvasElements.Add(addLeafEvent);
+                        Project.FaultTree.Elements.Add(addLeafEvent);
                         SelectedCanvasElement = addLeafEvent;
                         break;
                     case "AND gate":
@@ -180,7 +166,7 @@ namespace FaultTreeEditor.ViewModels
                             X = p.X,
                             Y = p.Y,
                         };
-                        CanvasElements.Add(addAndGate);
+                        Project.FaultTree.Elements.Add(addAndGate);
                         SelectedCanvasElement = addAndGate;
                         break;
                     case "OR gate":
@@ -190,7 +176,7 @@ namespace FaultTreeEditor.ViewModels
                             X = p.X,
                             Y = p.Y,
                         };
-                        CanvasElements.Add(addOrGate);
+                        Project.FaultTree.Elements.Add(addOrGate);
                         SelectedCanvasElement = addOrGate;
                         break;
                     case "Vote gate":
@@ -200,7 +186,7 @@ namespace FaultTreeEditor.ViewModels
                             X = p.X,
                             Y = p.Y,
                         };
-                        CanvasElements.Add(addVoteGate);
+                        Project.FaultTree.Elements.Add(addVoteGate);
                         SelectedCanvasElement = addVoteGate;
                         break;
                     default:
@@ -221,7 +207,7 @@ namespace FaultTreeEditor.ViewModels
             ListConnectionsCommand = new RelayCommand(() =>
             {
                 string builder = "";
-                foreach (var v in Connections)
+                foreach (var v in Project.FaultTree.Connections)
                 {
                     builder += $"{v.From.Title} -> {v.To.Title}\n";
                 }
@@ -244,13 +230,13 @@ namespace FaultTreeEditor.ViewModels
                     return;
                 }
 
-                CanvasElements.Remove(tempElement);
+                Project.FaultTree.Elements.Remove(tempElement);
 
                 RemoveConnections(tempElement);
 
-                if (CanvasElements.Count > 0)
+                if (Project.FaultTree.Elements.Count > 0)
                 {
-                    SelectedCanvasElement = CanvasElements[0];
+                    SelectedCanvasElement = Project.FaultTree.Elements[0];
                 }
                 else
                 {
@@ -292,7 +278,7 @@ namespace FaultTreeEditor.ViewModels
         private string GetGalileoString()
         {
             string builder = "";
-            foreach (var v in CanvasElements)
+            foreach (var v in Project.FaultTree.Elements)
             {
                 builder += v.ToGalileo();
             }
@@ -308,32 +294,24 @@ namespace FaultTreeEditor.ViewModels
 
         private string GetJsonString()
         {
-            Graph graph = new Graph()
-            {
-                Elements = new List<Element>(CanvasElements),
-                Connections = new List<Connection>(Connections)
-            };
-
-            string output = JsonConvert.SerializeObject(graph, Formatting.Indented,
+            return JsonConvert.SerializeObject(Project, Formatting.Indented,
                 new JsonSerializerSettings
                 {
                     PreserveReferencesHandling = PreserveReferencesHandling.Objects,
                     TypeNameHandling = TypeNameHandling.Auto
                 });
-
-            return output;
         }
 
         private void RemoveConnections(Element element)
         {
-            foreach (var v in CanvasElements)
+            foreach (var v in Project.FaultTree.Elements)
             {
                 v.Children.Remove(element);
                 v.Parents.Remove(element);
             }
 
             var toRemove = new List<Connection>();
-            foreach (var v in Connections)
+            foreach (var v in Project.FaultTree.Connections)
             {
                 if (v.From == element || v.To == element)
                 {
@@ -342,7 +320,7 @@ namespace FaultTreeEditor.ViewModels
             }
             foreach (var v in toRemove)
             {
-                Connections.Remove(v);
+                Project.FaultTree.Connections.Remove(v);
             }
         }
 
@@ -357,7 +335,7 @@ namespace FaultTreeEditor.ViewModels
             savePicker.FileTypeChoices.Add("JSON Document", new List<string>() { ".json" });
             savePicker.FileTypeChoices.Add("Text Document", new List<string>() { ".txt" });
             // Default file name if the user does not type one in or select a file to replace
-            savePicker.SuggestedFileName = ProjectTitle;
+            savePicker.SuggestedFileName = Project.Title;
 
             Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
             if (file != null)
@@ -400,16 +378,13 @@ namespace FaultTreeEditor.ViewModels
                 // Application now has read/write access to the picked file
                 string text = await Windows.Storage.FileIO.ReadTextAsync(file);
 
-                Graph graph = Newtonsoft.Json.JsonConvert.DeserializeObject<Graph>(text, new Newtonsoft.Json.JsonSerializerSettings
+                Project project = Newtonsoft.Json.JsonConvert.DeserializeObject<Project>(text, new Newtonsoft.Json.JsonSerializerSettings
                 {
                     TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
                     NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
                 });
 
-                CanvasElements = new ObservableCollection<Element>(graph.Elements);
-                Connections = new ObservableCollection<Connection>(graph.Connections);
-
-                ProjectTitle = file.DisplayName;
+                Project = project;
             }
             else
             {

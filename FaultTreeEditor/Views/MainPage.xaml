@@ -33,7 +33,7 @@
 
                 <TextBox Width="200"
                          RelativePanel.AlignHorizontalCenterWithPanel="True"
-                         Text="{Binding ProjectTitle, Mode=TwoWay}" />
+                         Text="{Binding Project.Title, Mode=TwoWay}" />
 
                 <StackPanel Padding="0,0,0,8"
                             Orientation="Horizontal"
@@ -89,7 +89,7 @@
                         <Canvas x:Name="Canvas1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                         <ListBox x:Name="MyListBox"
                                  Background="Transparent"
-                                 ItemsSource="{Binding CanvasElements}"
+                                 ItemsSource="{Binding Project.FaultTree.Elements}"
                                  PointerReleased="MyListBox_PointerReleased"
                                  SelectionChanged="MyListBox_SelectionChanged">
                             <ListBox.ItemsPanel>
@@ -291,7 +291,7 @@
                     <ComboBox Width="200"
                               DisplayMemberPath="Title"
                               Header="Selected element"
-                              ItemsSource="{Binding CanvasElements, Mode=TwoWay}"
+                              ItemsSource="{Binding Project.FaultTree.Elements, Mode=TwoWay}"
                               RelativePanel.AlignRightWithPanel="True"
                               RelativePanel.AlignVerticalCenterWithPanel="True"
                               SelectedItem="{Binding SelectedCanvasElement, Mode=TwoWay}" />
