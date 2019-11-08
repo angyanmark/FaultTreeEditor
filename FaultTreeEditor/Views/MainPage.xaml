@@ -79,7 +79,7 @@
                           VerticalScrollBarVisibility="Visible"
                           VerticalScrollMode="Enabled"
                           ZoomMode="Enabled">
-                <Border BorderBrush="White" BorderThickness="1">
+                <Border BorderBrush="{ThemeResource SystemAccentColor}" BorderThickness="1">
                     <Grid>
                         <Canvas x:Name="Canvas1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                         <ListBox x:Name="MyListBox"
