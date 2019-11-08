@@ -32,6 +32,7 @@
                 <TextBlock Style="{StaticResource PageTitleStyle}" Text="Canvas" />
 
                 <TextBox Width="200"
+                         BorderBrush="Transparent"
                          RelativePanel.AlignHorizontalCenterWithPanel="True"
                          Text="{Binding Project.Title, Mode=TwoWay}" />
 
