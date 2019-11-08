@@ -31,8 +31,9 @@
             <RelativePanel Grid.Row="0">
                 <TextBlock Style="{StaticResource PageTitleStyle}" Text="Canvas" />
 
-                <TextBox Width="200"
+                <TextBox Width="240"
                          BorderBrush="Transparent"
+                         FontSize="20"
                          RelativePanel.AlignHorizontalCenterWithPanel="True"
                          Text="{Binding Project.Title, Mode=TwoWay}" />
 
