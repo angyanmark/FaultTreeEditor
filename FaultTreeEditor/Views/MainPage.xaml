@@ -30,6 +30,11 @@
 
             <RelativePanel Grid.Row="0">
                 <TextBlock Style="{StaticResource PageTitleStyle}" Text="Canvas" />
+
+                <TextBox Width="200"
+                         RelativePanel.AlignHorizontalCenterWithPanel="True"
+                         Text="{Binding ProjectTitle, Mode=TwoWay}" />
+
                 <StackPanel Padding="0,0,0,8"
                             Orientation="Horizontal"
                             RelativePanel.AlignRightWithPanel="True"

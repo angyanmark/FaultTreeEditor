@@ -33,6 +33,13 @@ namespace FaultTreeEditor.ViewModels
         private int orGateCounter = 0;
         private int voteGateCounter = 0;
 
+        private string projectTitle = "New Project";
+        public string ProjectTitle
+        {
+            get { return projectTitle; }
+            set { Set(ref projectTitle, value); }
+        }
+
         public ObservableCollection<Element> Elements { get; set; }
 
         private Element selectedElement;
@@ -350,7 +357,7 @@ namespace FaultTreeEditor.ViewModels
             savePicker.FileTypeChoices.Add("JSON Document", new List<string>() { ".json" });
             savePicker.FileTypeChoices.Add("Text Document", new List<string>() { ".txt" });
             // Default file name if the user does not type one in or select a file to replace
-            savePicker.SuggestedFileName = "NewFaultTreeDocument";
+            savePicker.SuggestedFileName = ProjectTitle;
 
             Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
             if (file != null)
@@ -401,6 +408,8 @@ namespace FaultTreeEditor.ViewModels
 
                 CanvasElements = new ObservableCollection<Element>(graph.Elements);
                 Connections = new ObservableCollection<Connection>(graph.Connections);
+
+                ProjectTitle = file.DisplayName;
             }
             else
             {
