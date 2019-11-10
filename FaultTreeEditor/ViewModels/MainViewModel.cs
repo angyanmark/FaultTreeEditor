@@ -32,6 +32,8 @@ namespace FaultTreeEditor.ViewModels
         private int andGateCounter = 0;
         private int orGateCounter = 0;
         private int voteGateCounter = 0;
+        private int priorityAndGateCounter = 0;
+        private int priorityOrGateCounter = 0;
 
         private Project project = new Project();
         public Project Project
@@ -121,6 +123,8 @@ namespace FaultTreeEditor.ViewModels
                 new AndGate(),
                 new OrGate(),
                 new VoteGate(),
+                new PriorityAndGate(),
+                new PriorityOrGate(),
             };
             SelectedElement = Elements[0];
 
@@ -188,6 +192,26 @@ namespace FaultTreeEditor.ViewModels
                         };
                         Project.FaultTree.Elements.Add(addVoteGate);
                         SelectedCanvasElement = addVoteGate;
+                        break;
+                    case "Priority AND gate":
+                        PriorityAndGate addPriorityAndGate = new PriorityAndGate
+                        {
+                            Title = "priority_and_gate_" + ++priorityAndGateCounter,
+                            X = p.X,
+                            Y = p.Y,
+                        };
+                        Project.FaultTree.Elements.Add(addPriorityAndGate);
+                        SelectedCanvasElement = addPriorityAndGate;
+                        break;
+                    case "Priority OR gate":
+                        PriorityOrGate addPriorityOrGate = new PriorityOrGate
+                        {
+                            Title = "priority_or_gate_" + ++priorityOrGateCounter,
+                            X = p.X,
+                            Y = p.Y,
+                        };
+                        Project.FaultTree.Elements.Add(addPriorityOrGate);
+                        SelectedCanvasElement = addPriorityOrGate;
                         break;
                     default:
                         break;
@@ -273,6 +297,8 @@ namespace FaultTreeEditor.ViewModels
             andGateCounter = 0;
             orGateCounter = 0;
             voteGateCounter = 0;
+            priorityAndGateCounter = 0;
+            priorityOrGateCounter = 0;
         }
 
         private string GetGalileoString()
