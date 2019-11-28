@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using FaultTreeEditor.Core.Models;
 using FaultTreeEditor.Helpers;
+using FaultTreeEditor.Services;
 using Newtonsoft.Json;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
@@ -96,7 +97,6 @@ namespace FaultTreeEditor.ViewModels
 
         #region Commands
         public RelayCommand<Point> AddItemToCanvasCommand { get; set; }
-        public RelayCommand SaveElementCommand { get; set; }
         public RelayCommand GenerateOutputCommand { get; set; }
         public RelayCommand ListConnectionsCommand { get; set; }
         public RelayCommand ShowJSONCommand { get; set; }
@@ -379,6 +379,8 @@ namespace FaultTreeEditor.ViewModels
                 if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
                 {
                     // File saved
+                    FileInfo fileInfo = new FileInfo(file.Path);
+                    NotificationService.FileSavedNotification(fileInfo);
                 }
                 else
                 {

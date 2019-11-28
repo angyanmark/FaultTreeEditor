@@ -35,6 +35,9 @@ namespace FaultTreeEditor
         protected override async void OnActivated(IActivatedEventArgs args)
         {
             await ActivationService.ActivateAsync(args);
+
+            // Handle notification activation
+            await NotificationService.HandleNotificationActivationAsync(args);
         }
 
         private ActivationService CreateActivationService()
