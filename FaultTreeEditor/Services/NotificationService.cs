@@ -66,6 +66,9 @@ namespace FaultTreeEditor.Services
             {
                 var toastArgs = eargs as ToastNotificationActivatedEventArgs;
 
+                if (String.IsNullOrWhiteSpace(toastArgs.Argument))
+                    return;
+
                 // Parse the query string (using QueryString.NET)
                 QueryString args = QueryString.Parse(toastArgs.Argument);
 
@@ -74,7 +77,9 @@ namespace FaultTreeEditor.Services
                     case "openFolder":
                         string filePath = args["filePath"];
                         //await Launcher.LaunchFolderAsync(await StorageFolder.GetFolderFromPathAsync(filePath));
-                        await Launcher.LaunchUriAsync(new Uri(filePath));
+                        //await Launcher.LaunchUriAsync(new Uri(filePath));
+                        break;
+                    default:
                         break;
                 }
             }

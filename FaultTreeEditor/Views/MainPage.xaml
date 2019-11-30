@@ -385,10 +385,14 @@
                                       CanDragItems="True"
                                       CanReorderItems="True"
                                       IsSwipeEnabled="true"
-                                      ItemsSource="{Binding SelectedCanvasElement.Children, Mode=TwoWay}">
+                                      ItemsSource="{Binding SelectedCanvasElement.Children, Mode=TwoWay}"
+                                      SelectionMode="Extended">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Title}" />
+                                        <RelativePanel Width="432">
+                                            <TextBlock Text="{Binding Title}" />
+                                            <TextBlock RelativePanel.AlignRightWithPanel="True" Text="{Binding DisplayTitle}" />
+                                        </RelativePanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
