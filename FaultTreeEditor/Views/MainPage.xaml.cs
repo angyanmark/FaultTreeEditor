@@ -95,11 +95,11 @@ namespace FaultTreeEditor.Views
             double newX = element.X + e.Delta.Translation.X / zf;
             double newY = element.Y + e.Delta.Translation.Y / zf;
 
-            if (newX > 0 && newX < (CanvasWidth - ElementWidth - 20))
+            if (newX > 0 && newX < (CanvasWidth - ElementWidth))
             {
                 element.X = newX;
             }
-            if (newY > 0 && newY < (CanvasHeight - ElementHeight - 10))
+            if (newY > 0 && newY < (CanvasHeight - ElementHeight))
             {
                 element.Y = newY;
             }

@@ -398,10 +398,22 @@
                             </ListView>
                         </PivotItem>
 
-                        <PivotItem Header="Pivot 3">
-                            <StackPanel>
-                                <TextBlock Text="Pivot 3 content" />
-                            </StackPanel>
+                        <PivotItem Header="Outputs">
+                            <ListView AllowDrop="True"
+                                      CanDragItems="True"
+                                      CanReorderItems="True"
+                                      IsSwipeEnabled="true"
+                                      ItemsSource="{Binding SelectedCanvasElement.Parents, Mode=TwoWay}"
+                                      SelectionMode="Extended">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <RelativePanel Width="432">
+                                            <TextBlock Text="{Binding Title}" />
+                                            <TextBlock RelativePanel.AlignRightWithPanel="True" Text="{Binding DisplayTitle}" />
+                                        </RelativePanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </PivotItem>
                     </Pivot.Items>
                 </Pivot>
