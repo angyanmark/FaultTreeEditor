@@ -376,15 +376,16 @@ namespace FaultTreeEditor.ViewModels
                 // Completing updates may require Windows to ask for user input.
                 Windows.Storage.Provider.FileUpdateStatus status =
                     await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
+                FileInfo fileInfo = new FileInfo(file.Path);
                 if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
                 {
                     // File saved
-                    FileInfo fileInfo = new FileInfo(file.Path);
                     NotificationService.FileSavedNotification(fileInfo);
                 }
                 else
                 {
                     // File couldn't be saved
+                    NotificationService.FileNotSavedNotification(fileInfo);
                 }
             }
             else

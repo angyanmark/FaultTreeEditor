@@ -43,14 +43,40 @@ namespace FaultTreeEditor.Services
                     }
                 },
                 
-                Actions = new ToastActionsCustom()
+                /*Actions = new ToastActionsCustom()
                 {
                     Buttons =
                     {
                         new ToastButton("Open folder", $"action=openFolder;filePath={fileInfo.FullName}")
                     }
-                },
+                },*/
                 //Launch = "action=viewFriendRequest&userId=49183"
+            };
+
+            // Create the toast notification
+            var toastNotif = new ToastNotification(toastContent.GetXml());
+
+            // Send the notification
+            ToastNotificationManager.CreateToastNotifier().Show(toastNotif);
+        }
+
+        public static void FileNotSavedNotification(FileInfo fileInfo)
+        {
+            var toastContent = new ToastContent()
+            {
+                Visual = new ToastVisual()
+                {
+                    BindingGeneric = new ToastBindingGeneric()
+                    {
+                        Children =
+                        {
+                            new AdaptiveText()
+                            {
+                                Text = $"{fileInfo.Name} couldn't be saved."
+                            },
+                        },
+                    }
+                },
             };
 
             // Create the toast notification
