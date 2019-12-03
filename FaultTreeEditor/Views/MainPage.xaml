@@ -43,7 +43,8 @@
                             Spacing="8">
                     <AppBarButton Width="80"
                                   Icon="Clear"
-                                  Label="Clear">
+                                  Label="Clear"
+                                  ToolTipService.ToolTip="Remove all elements">
                         <AppBarButton.Flyout>
                             <Flyout>
                                 <StackPanel Spacing="12">
@@ -56,14 +57,17 @@
                     <AppBarSeparator />
                     <AppBarButton Width="80"
                                   Icon="Import"
-                                  Label="Import">
+                                  Label="Import"
+                                  ToolTipService.ToolTip="Import project">
                         <AppBarButton.Flyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Click="From_JSON_MenuFlyoutItem_Click" Text="From JSON" />
                             </MenuFlyout>
                         </AppBarButton.Flyout>
                     </AppBarButton>
-                    <AppBarButton Width="80" Label="Export">
+                    <AppBarButton Width="80"
+                                  Label="Export"
+                                  ToolTipService.ToolTip="Export project">
                         <AppBarButton.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEDE1;" />
                         </AppBarButton.Icon>
@@ -186,23 +190,28 @@
                             Spacing="8">
                     <AppBarButton Command="{Binding CopyCommand}"
                                   Icon="Copy"
-                                  Label="Copy" />
+                                  Label="Copy"
+                                  ToolTipService.ToolTip="Copy the output text to the clipboard" />
                     <AppBarSeparator />
                     <AppBarButton Width="80"
                                   Command="{Binding ShowJSONCommand}"
-                                  Label="JSON">
+                                  Label="JSON"
+                                  ToolTipService.ToolTip="Show JSON output">
                         <AppBarButton.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF168;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
                     <AppBarButton Width="80"
                                   Command="{Binding ListConnectionsCommand}"
-                                  Label="Connections">
+                                  Label="Connections"
+                                  ToolTipService.ToolTip="List all connections">
                         <AppBarButton.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF003;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
-                    <AppBarButton Command="{Binding GenerateOutputCommand}" Label="Galileo">
+                    <AppBarButton Command="{Binding GenerateOutputCommand}"
+                                  Label="Galileo"
+                                  ToolTipService.ToolTip="Show Galileo output">
                         <AppBarButton.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA37;" />
                         </AppBarButton.Icon>
@@ -274,7 +283,7 @@
                                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE946;" />
                             </AppBarButton.Icon>
                             <AppBarButton.Flyout>
-                                <Flyout>
+                                <Flyout Placement="Bottom">
                                     <Flyout.FlyoutPresenterStyle>
                                         <Style TargetType="FlyoutPresenter">
                                             <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
