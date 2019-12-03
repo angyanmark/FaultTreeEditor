@@ -269,10 +269,23 @@
                                       CommandParameter="{Binding PointerPoint}"
                                       Icon="Add"
                                       Label="Add" />
-                        <AppBarButton Label="Info" ToolTipService.ToolTip="{Binding SelectedElement.Info}">
+                        <AppBarButton Label="Info">
                             <AppBarButton.Icon>
                                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE946;" />
                             </AppBarButton.Icon>
+                            <AppBarButton.Flyout>
+                                <Flyout>
+                                    <Flyout.FlyoutPresenterStyle>
+                                        <Style TargetType="FlyoutPresenter">
+                                            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
+                                            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+                                            <Setter Property="IsTabStop" Value="True" />
+                                            <Setter Property="TabNavigation" Value="Cycle" />
+                                        </Style>
+                                    </Flyout.FlyoutPresenterStyle>
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding SelectedElement.Info}" />
+                                </Flyout>
+                            </AppBarButton.Flyout>
                         </AppBarButton>
                     </StackPanel>
                 </RelativePanel>
