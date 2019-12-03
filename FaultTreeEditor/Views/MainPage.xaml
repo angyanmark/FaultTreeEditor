@@ -261,12 +261,20 @@
                         <Image Height="80" Source="{Binding SelectedElement.ImageSource}" />
                         <TextBlock VerticalAlignment="Center" Text="{Binding SelectedElement.DisplayTitle}" />
                     </StackPanel>
-                    <AppBarButton Command="{Binding AddItemToCanvasCommand}"
-                                  CommandParameter="{Binding PointerPoint}"
-                                  Icon="Add"
-                                  Label="Add"
-                                  RelativePanel.AlignRightWithPanel="True"
-                                  RelativePanel.AlignVerticalCenterWithPanel="True" />
+                    <StackPanel Orientation="Horizontal"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True"
+                                Spacing="8">
+                        <AppBarButton Command="{Binding AddItemToCanvasCommand}"
+                                      CommandParameter="{Binding PointerPoint}"
+                                      Icon="Add"
+                                      Label="Add" />
+                        <AppBarButton Label="Info" ToolTipService.ToolTip="{Binding SelectedElement.Info}">
+                            <AppBarButton.Icon>
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE946;" />
+                            </AppBarButton.Icon>
+                        </AppBarButton>
+                    </StackPanel>
                 </RelativePanel>
 
                 <GridView Grid.Row="2"

@@ -47,5 +47,9 @@ namespace FaultTreeEditor.Core.Models
         {
             get;
         }
+        public abstract string Info
+        {
+            get;
+        }
     }
 }

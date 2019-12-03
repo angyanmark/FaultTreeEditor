@@ -20,6 +20,13 @@ namespace FaultTreeEditor.Core.Models
                 return "Event";
             }
         }
+        public override string Info
+        {
+            get
+            {
+                return "Event info.";
+            }
+        }
         public override string ToGalileo()
         {
             return "";

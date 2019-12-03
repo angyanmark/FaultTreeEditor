@@ -20,6 +20,13 @@ namespace FaultTreeEditor.Core.Models
                 return "Top level event";
             }
         }
+        public override string Info
+        {
+            get
+            {
+                return "Top level event info.";
+            }
+        }
         public override string ToGalileo()
         {
             return $"toplevel {Title};\n";

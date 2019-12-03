@@ -20,6 +20,13 @@ namespace FaultTreeEditor.Core.Models
                 return "OR gate";
             }
         }
+        public override string Info
+        {
+            get
+            {
+                return "OR gates (Galileo: ‹name› or ‹input1› ‹input2› . . . ;) fail if any of their inputs fail.";
+            }
+        }
         public override string ToGalileo()
         {
             string builder = "";

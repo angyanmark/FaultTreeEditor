@@ -21,6 +21,14 @@ namespace FaultTreeEditor.Core.Models
             }
         }
 
+        public override string Info
+        {
+            get
+            {
+                return "AND gates (Galileo: ‹name› and ‹input1› ‹input2› . . . ;) fail if all their inputs fail.";
+            }
+        }
+
         public override string ToGalileo()
         {
             string builder = "";

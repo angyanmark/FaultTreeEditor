@@ -20,6 +20,17 @@ namespace FaultTreeEditor.Core.Models
                 return "Priority OR gate";
             }
         }
+        public override string Info
+        {
+            get
+            {
+                return "Priority OR gates (Galileo: ‹name› por ‹input1› ‹input2› . . . ;) only fail " +
+                    "if input1 fails before any other input. By default, priority OR gates are " +
+                    "inclusive, i.e., fail if input1 fails simultaneously with some other input. " +
+                    "Inclusive and exclusive priority OR gates can be specified with the " +
+                    "por-inc and por-ex keywords, respectively.";
+            }
+        }
         public override string ToGalileo()
         {
             string builder = "";
