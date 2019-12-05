@@ -38,6 +38,7 @@ namespace FaultTreeEditor.ViewModels
         private int warmSpareGateCounter = 0;
         private int functionalDependencyCounter = 0;
         private int probabilisticDependencyCounter = 0;
+        private int sequenceEnforcerCounter = 0;
 
         private Project project = new Project();
         public Project Project
@@ -131,6 +132,7 @@ namespace FaultTreeEditor.ViewModels
                 new WarmSpareGate(),
                 new FunctionalDependency(),
                 new ProbabilisticDependency(),
+                new SequenceEnforcer(),
             };
             SelectedElement = Elements[0];
 
@@ -249,6 +251,16 @@ namespace FaultTreeEditor.ViewModels
                         Project.FaultTree.Elements.Add(addProbabilisticDependency);
                         SelectedCanvasElement = addProbabilisticDependency;
                         break;
+                    case "Sequence enforcer":
+                        SequenceEnforcer addSequenceEnforcer = new SequenceEnforcer
+                        {
+                            Title = "sequence_enforcer_" + ++sequenceEnforcerCounter,
+                            X = p.X,
+                            Y = p.Y,
+                        };
+                        Project.FaultTree.Elements.Add(addSequenceEnforcer);
+                        SelectedCanvasElement = addSequenceEnforcer;
+                        break;
                     default:
                         break;
                 }
@@ -338,6 +350,7 @@ namespace FaultTreeEditor.ViewModels
             warmSpareGateCounter = 0;
             functionalDependencyCounter = 0;
             probabilisticDependencyCounter = 0;
+            sequenceEnforcerCounter = 0;
         }
 
         private string GetGalileoString()
