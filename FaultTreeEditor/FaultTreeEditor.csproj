@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activation\ActivationHandler.cs" />
+    <Compile Include="Converters\ProbabilityToVisibilityConverter.cs" />
     <Compile Include="Converters\KToVisibilityConverter.cs" />
     <Compile Include="Converters\LambdaDormancyToVisibilityConverter.cs" />
     <Compile Include="Helpers\Observable.cs" />

@@ -11,8 +11,6 @@ namespace FaultTreeEditor.Converters
 {
     public class KToVisibilityConverter : IValueConverter
     {
-        // Define the Convert method to change a DateTime object to 
-        // a month string.
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var v = value as Element;
@@ -30,7 +28,6 @@ namespace FaultTreeEditor.Converters
             return Visibility.Collapsed;
         }
 
-        // ConvertBack is not implemented for a OneWay binding.
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();

@@ -9,14 +9,14 @@ using Windows.UI.Xaml.Data;
 
 namespace FaultTreeEditor.Converters
 {
-    public class LambdaDormancyToVisibilityConverter : IValueConverter
+    public class ProbabilityToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var v = value as Element;
-            if(v != null)
+            if (v != null)
             {
-                if (v.DisplayTitle == "Basic event")
+                if (v.DisplayTitle == "Probabilistic dependency")
                 {
                     return Visibility.Visible;
                 }

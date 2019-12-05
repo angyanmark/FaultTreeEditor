@@ -37,6 +37,7 @@ namespace FaultTreeEditor.ViewModels
         private int priorityOrGateCounter = 0;
         private int warmSpareGateCounter = 0;
         private int functionalDependencyCounter = 0;
+        private int probabilisticDependencyCounter = 0;
 
         private Project project = new Project();
         public Project Project
@@ -129,6 +130,7 @@ namespace FaultTreeEditor.ViewModels
                 new PriorityOrGate(),
                 new WarmSpareGate(),
                 new FunctionalDependency(),
+                new ProbabilisticDependency(),
             };
             SelectedElement = Elements[0];
 
@@ -237,6 +239,16 @@ namespace FaultTreeEditor.ViewModels
                         Project.FaultTree.Elements.Add(addFunctionalDependency);
                         SelectedCanvasElement = addFunctionalDependency;
                         break;
+                    case "Probabilistic dependency":
+                        ProbabilisticDependency addProbabilisticDependency = new ProbabilisticDependency
+                        {
+                            Title = "probabilistic_dependency_" + ++probabilisticDependencyCounter,
+                            X = p.X,
+                            Y = p.Y,
+                        };
+                        Project.FaultTree.Elements.Add(addProbabilisticDependency);
+                        SelectedCanvasElement = addProbabilisticDependency;
+                        break;
                     default:
                         break;
                 }
@@ -325,6 +337,7 @@ namespace FaultTreeEditor.ViewModels
             priorityOrGateCounter = 0;
             warmSpareGateCounter = 0;
             functionalDependencyCounter = 0;
+            probabilisticDependencyCounter = 0;
         }
 
         private string GetGalileoString()

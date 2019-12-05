@@ -12,6 +12,7 @@
     <Page.Resources>
         <converters:LambdaDormancyToVisibilityConverter x:Key="LambdaDormancyToVisibilityConverter" />
         <converters:KToVisibilityConverter x:Key="KToVisibilityConverter" />
+        <converters:ProbabilityToVisibilityConverter x:Key="ProbabilityToVisibilityConverter" />
     </Page.Resources>
 
     <Grid>
@@ -137,7 +138,15 @@
                                                 ManipulationStarted="SP_ManipulationStarted">
                                         <Image Height="52" Source="{Binding ImageSource}" />
                                         <TextBlock HorizontalAlignment="Center" Text="{Binding Title}" />
-                                        <TextBlock HorizontalAlignment="Center" Text="{Binding Lambda}" />
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   Text="{Binding Lambda}"
+                                                   Visibility="{Binding Converter={StaticResource LambdaDormancyToVisibilityConverter}}" />
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   Text="{Binding Dormancy}"
+                                                   Visibility="{Binding Converter={StaticResource LambdaDormancyToVisibilityConverter}}" />
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   Text="{Binding Probability}"
+                                                   Visibility="{Binding Converter={StaticResource ProbabilityToVisibilityConverter}}" />
 
                                         <StackPanel.RenderTransform>
                                             <TranslateTransform X="{Binding X, Mode=TwoWay}" Y="{Binding Y, Mode=TwoWay}" />
@@ -398,6 +407,12 @@
                                              Text="{Binding SelectedCanvasElement.Children.Count}"
                                              ToolTipService.ToolTip="Number of inputs"
                                              Visibility="{Binding SelectedCanvasElement, Converter={StaticResource KToVisibilityConverter}}" />
+                                    <TextBox Grid.Row="2"
+                                             Grid.Column="0"
+                                             Header="Probability"
+                                             InputScope="Number"
+                                             Text="{Binding SelectedCanvasElement.Probability, Mode=TwoWay}"
+                                             Visibility="{Binding SelectedCanvasElement, Converter={StaticResource ProbabilityToVisibilityConverter}}" />
                                 </Grid>
 
                                 <StackPanel HorizontalAlignment="Right"
