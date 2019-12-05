@@ -35,6 +35,8 @@ namespace FaultTreeEditor.ViewModels
         private int voteGateCounter = 0;
         private int priorityAndGateCounter = 0;
         private int priorityOrGateCounter = 0;
+        private int warmSpareGateCounter = 0;
+        private int functionalDependencyCounter = 0;
 
         private Project project = new Project();
         public Project Project
@@ -125,6 +127,8 @@ namespace FaultTreeEditor.ViewModels
                 new VoteGate(),
                 new PriorityAndGate(),
                 new PriorityOrGate(),
+                new WarmSpareGate(),
+                new FunctionalDependency(),
             };
             SelectedElement = Elements[0];
 
@@ -213,6 +217,26 @@ namespace FaultTreeEditor.ViewModels
                         Project.FaultTree.Elements.Add(addPriorityOrGate);
                         SelectedCanvasElement = addPriorityOrGate;
                         break;
+                    case "Warm spare gate":
+                        WarmSpareGate addWarmSpareGate = new WarmSpareGate
+                        {
+                            Title = "warm_spare_gate_" + ++warmSpareGateCounter,
+                            X = p.X,
+                            Y = p.Y,
+                        };
+                        Project.FaultTree.Elements.Add(addWarmSpareGate);
+                        SelectedCanvasElement = addWarmSpareGate;
+                        break;
+                    case "Functional dependency":
+                        FunctionalDependency addFunctionalDependency = new FunctionalDependency
+                        {
+                            Title = "functional_dependency_" + ++functionalDependencyCounter,
+                            X = p.X,
+                            Y = p.Y,
+                        };
+                        Project.FaultTree.Elements.Add(addFunctionalDependency);
+                        SelectedCanvasElement = addFunctionalDependency;
+                        break;
                     default:
                         break;
                 }
@@ -299,6 +323,8 @@ namespace FaultTreeEditor.ViewModels
             voteGateCounter = 0;
             priorityAndGateCounter = 0;
             priorityOrGateCounter = 0;
+            warmSpareGateCounter = 0;
+            functionalDependencyCounter = 0;
         }
 
         private string GetGalileoString()

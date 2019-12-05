@@ -267,7 +267,7 @@
                                 RelativePanel.AlignLeftWithPanel="True"
                                 RelativePanel.AlignVerticalCenterWithPanel="True"
                                 Spacing="8">
-                        <Image Height="80" Source="{Binding SelectedElement.ImageSource}" />
+                        <Image Height="60" Source="{Binding SelectedElement.ImageSource}" />
                         <TextBlock VerticalAlignment="Center" Text="{Binding SelectedElement.DisplayTitle}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
