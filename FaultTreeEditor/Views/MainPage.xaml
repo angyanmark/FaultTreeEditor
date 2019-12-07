@@ -136,7 +136,9 @@
                                                 ManipulationDelta="SP_ManipulationDelta"
                                                 ManipulationMode="TranslateX, TranslateY, System"
                                                 ManipulationStarted="SP_ManipulationStarted">
-                                        <Image Height="52" Source="{Binding ImageSource}" />
+                                        <Image MaxWidth="95"
+                                               MaxHeight="52"
+                                               Source="{Binding ImageSource}" />
                                         <TextBlock HorizontalAlignment="Center" Text="{Binding Title}" />
                                         <TextBlock HorizontalAlignment="Center"
                                                    Text="{Binding Lambda}"
@@ -276,6 +278,7 @@
                                 RelativePanel.AlignVerticalCenterWithPanel="True"
                                 Spacing="8">
                         <Image Height="60"
+                               MaxWidth="109"
                                HorizontalAlignment="Center"
                                Source="{Binding SelectedElement.ImageSource}" />
                         <TextBlock HorizontalAlignment="Center"
@@ -304,7 +307,7 @@
                                             <Setter Property="TabNavigation" Value="Cycle" />
                                         </Style>
                                     </Flyout.FlyoutPresenterStyle>
-                                    <StackPanel>
+                                    <StackPanel Spacing="8">
                                         <TextBlock HorizontalAlignment="Center"
                                                    Style="{StaticResource BaseTextBlockStyle}"
                                                    Text="{Binding SelectedElement.DisplayTitle}" />
@@ -326,8 +329,8 @@
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="models:Element">
                             <StackPanel Padding="8" Spacing="8">
-                                <Image Width="140"
-                                       Height="100"
+                                <Image MaxWidth="140"
+                                       MaxHeight="77"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Source="{Binding ImageSource}" />
