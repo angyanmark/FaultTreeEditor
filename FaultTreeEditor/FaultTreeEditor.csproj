@@ -172,10 +172,14 @@
     <Content Include="Assets\Images\Elements\basicevent.png" />
     <Content Include="Assets\Images\Elements\basiceventempty.png" />
     <Content Include="Assets\Images\Elements\event.png" />
+    <Content Include="Assets\Images\Elements\functionaldependency.png" />
     <Content Include="Assets\Images\Elements\orgate.png" />
     <Content Include="Assets\Images\Elements\priorityandgate.png" />
     <Content Include="Assets\Images\Elements\priorityorgate.png" />
+    <Content Include="Assets\Images\Elements\probabilisticdependency.png" />
+    <Content Include="Assets\Images\Elements\sequenceenforcer.png" />
     <Content Include="Assets\Images\Elements\votegate.png" />
+    <Content Include="Assets\Images\Elements\warmsparegate.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />

@@ -10,8 +10,7 @@ namespace FaultTreeEditor.Core.Models
         {
             get
             {
-                // TODO image
-                return "/Assets/Images/Elements/event.png";
+                return "/Assets/Images/Elements/sequenceenforcer.png";
             }
         }
         public override string DisplayTitle

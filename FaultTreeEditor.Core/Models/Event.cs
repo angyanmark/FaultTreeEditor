@@ -22,6 +22,7 @@ namespace FaultTreeEditor.Core.Models
         }
         public override string Info
         {
+            // TODO info
             get
             {
                 return "Event info.";

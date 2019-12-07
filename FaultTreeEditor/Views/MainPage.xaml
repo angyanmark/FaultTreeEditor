@@ -272,12 +272,15 @@
                 </RelativePanel>
 
                 <RelativePanel Grid.Row="1" Padding="60,0">
-                    <StackPanel Orientation="Horizontal"
-                                RelativePanel.AlignLeftWithPanel="True"
+                    <StackPanel RelativePanel.AlignLeftWithPanel="True"
                                 RelativePanel.AlignVerticalCenterWithPanel="True"
                                 Spacing="8">
-                        <Image Height="60" Source="{Binding SelectedElement.ImageSource}" />
-                        <TextBlock VerticalAlignment="Center" Text="{Binding SelectedElement.DisplayTitle}" />
+                        <Image Height="60"
+                               HorizontalAlignment="Center"
+                               Source="{Binding SelectedElement.ImageSource}" />
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding SelectedElement.DisplayTitle}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
                                 RelativePanel.AlignRightWithPanel="True"
@@ -301,7 +304,12 @@
                                             <Setter Property="TabNavigation" Value="Cycle" />
                                         </Style>
                                     </Flyout.FlyoutPresenterStyle>
-                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding SelectedElement.Info}" />
+                                    <StackPanel>
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   Style="{StaticResource BaseTextBlockStyle}"
+                                                   Text="{Binding SelectedElement.DisplayTitle}" />
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding SelectedElement.Info}" />
+                                    </StackPanel>
                                 </Flyout>
                             </AppBarButton.Flyout>
                         </AppBarButton>
