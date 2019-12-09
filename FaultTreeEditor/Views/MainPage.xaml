@@ -27,6 +27,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <RelativePanel Grid.Row="0">
@@ -131,8 +132,7 @@
 
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel x:Name="myStackPanel"
-                                                ManipulationCompleted="SP_ManipulationCompleted"
+                                    <StackPanel ManipulationCompleted="SP_ManipulationCompleted"
                                                 ManipulationDelta="SP_ManipulationDelta"
                                                 ManipulationMode="TranslateX, TranslateY, System"
                                                 ManipulationStarted="SP_ManipulationStarted">
@@ -191,7 +191,24 @@
                 </Border>
             </ScrollViewer>
 
-            <RelativePanel Grid.Row="2">
+            <Border Grid.Row="2"
+                    Margin="0,-1,0,0"
+                    Padding="4"
+                    BorderBrush="{ThemeResource SystemAccentColor}"
+                    BorderThickness="1">
+                <StackPanel Orientation="Horizontal" Spacing="16">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="Elements:" />
+                        <TextBlock Text="{Binding Project.FaultTree.Elements.Count}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="Connections:" />
+                        <TextBlock Text="{Binding Project.FaultTree.Connections.Count}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <RelativePanel Grid.Row="3">
                 <TextBlock RelativePanel.AlignLeftWithPanel="True"
                            Style="{StaticResource PageTitleStyle}"
                            Text="Output" />
@@ -230,7 +247,7 @@
                 </StackPanel>
             </RelativePanel>
 
-            <ScrollViewer Grid.Row="3"
+            <ScrollViewer Grid.Row="4"
                           Height="160"
                           HorizontalAlignment="Stretch">
                 <TextBlock x:Name="Output_TextBox"
