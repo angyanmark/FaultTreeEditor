@@ -323,6 +323,7 @@
                           AllowDrop="True"
                           CanDragItems="True"
                           CanReorderItems="True"
+                          DoubleTapped="Element_DoubleTapped"
                           ItemsSource="{Binding Elements, Mode=TwoWay}"
                           SelectedItem="{Binding SelectedElement, Mode=TwoWay}"
                           SelectionMode="Single">

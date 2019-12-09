@@ -290,5 +290,10 @@ namespace FaultTreeEditor.Views
             }
             DrawLines();
         }
+
+        private void Element_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            ViewModel.AddItemToCanvasCommand.Execute(ViewModel.PointerPoint);
+        }
     }
 }
