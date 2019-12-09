@@ -27,6 +27,13 @@ namespace FaultTreeEditor.Core.Models
                 return "Top level event info.";
             }
         }
+        public override string GalileoFormat
+        {
+            get
+            {
+                return "Top level event Galileo format.";
+            }
+        }
         public override string ToGalileo()
         {
             return $"toplevel {Title};\n";

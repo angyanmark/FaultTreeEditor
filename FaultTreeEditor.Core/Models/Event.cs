@@ -28,6 +28,14 @@ namespace FaultTreeEditor.Core.Models
                 return "Event info.";
             }
         }
+        public override string GalileoFormat
+        {
+            // TODO galileo format
+            get
+            {
+                return "Event Galileo format.";
+            }
+        }
         public override string ToGalileo()
         {
             return "";

@@ -24,7 +24,7 @@ namespace FaultTreeEditor.Core.Models
         {
             get
             {
-                return "Warm spare gates (Galileo: ‹name› wsp ‹primary› ‹spare1› ‹spare2› . . . ;) maintain a pool of spares. " +
+                return "Warm spare gates maintain a pool of spares. " +
                     "When the primary input fails, its first free spare is claimed. When the claimed spare fails, the gate " +
                     "claims a new one(from left to right) until the pool of spares is exhausted. If the last spare fails, " +
                     "the gate itself fails. Spares assigned to a spare gate may not have any common events, but a spare " +
@@ -32,6 +32,13 @@ namespace FaultTreeEditor.Core.Models
                     "at a time. Thus we can model contention between subsystems for shares spares. Rates of basic events in " +
                     "unclaimed spares are multiplied by their dormancy factors. While Storm - DFT accepts the keywords csp and " +
                     "hsp for cold and hot spares, respectively, they are treated as synonyms for warm spares.";
+            }
+        }
+        public override string GalileoFormat
+        {
+            get
+            {
+                return "Galileo: ‹name› wsp ‹primary› ‹spare1› ‹spare2› . . . ;";
             }
         }
         public override string ToGalileo()

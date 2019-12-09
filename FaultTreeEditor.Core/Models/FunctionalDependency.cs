@@ -24,10 +24,17 @@ namespace FaultTreeEditor.Core.Models
         {
             get
             {
-                return "Functional dependencies (Galileo: ‹name› fdep ‹trigger› ‹input1› ‹input2› . . . ;) cause their inputs " +
+                return "Functional dependencies cause their inputs " +
                     "to fail(provided they have not already failed) when their trigger event fails. Every input except the " +
                     "trigger must be a basic event. The outputs of functional dependencies are “dummy outputs”, because " +
                     "the event name will never actually fail.";
+            }
+        }
+        public override string GalileoFormat
+        {
+            get
+            {
+                return "Galileo: ‹name› fdep ‹trigger› ‹input1› ‹input2› . . . ;";
             }
         }
         public override string ToGalileo()

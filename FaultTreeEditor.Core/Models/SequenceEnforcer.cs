@@ -24,9 +24,16 @@ namespace FaultTreeEditor.Core.Models
         {
             get
             {
-                return "Sequence enforcers (Galileo: ‹name› seq ‹input1› ‹input2› . . . ;) ensure that their inputs " +
+                return "Sequence enforcers ensure that their inputs " +
                     "only fail in the specified order, i.e., input2 will never fail unless input1 has already failed. " +
                     "Similarly to the dependencies, their outputs are “dummy”.";
+            }
+        }
+        public override string GalileoFormat
+        {
+            get
+            {
+                return "Galileo: ‹name› seq ‹input1› ‹input2› . . . ;";
             }
         }
         public override string ToGalileo()

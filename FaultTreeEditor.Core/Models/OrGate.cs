@@ -24,7 +24,14 @@ namespace FaultTreeEditor.Core.Models
         {
             get
             {
-                return "OR gates (Galileo: ‹name› or ‹input1› ‹input2› . . . ;) fail if any of their inputs fail.";
+                return "OR gates fail if any of their inputs fail.";
+            }
+        }
+        public override string GalileoFormat
+        {
+            get
+            {
+                return "Galileo: ‹name› or ‹input1› ‹input2› . . . ;";
             }
         }
         public override string ToGalileo()

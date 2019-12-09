@@ -33,9 +33,16 @@ namespace FaultTreeEditor.Core.Models
         {
             get
             {
-                return "Vote gates (Galileo: ‹name› ‹k›of‹m› ‹input1› ‹input2› . . . ;) must have exactly m inputs. " +
+                return "Vote gates must have exactly m inputs. " +
                     "They fail if at least k of their m inputs fail. If one wishes to avoid specifying the number of " +
                     "inputs, alternative textual notation vot‹k› is available.";
+            }
+        }
+        public override string GalileoFormat
+        {
+            get
+            {
+                return "Galileo: ‹name› ‹k›of‹m› ‹input1› ‹input2› . . . ;";
             }
         }
         public override string ToGalileo()

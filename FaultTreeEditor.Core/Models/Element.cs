@@ -51,5 +51,9 @@ namespace FaultTreeEditor.Core.Models
         {
             get;
         }
+        public abstract string GalileoFormat
+        {
+            get;
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace FaultTreeEditor.Core.Models
         {
             get
             {
-                return "Priority AND gates (Galileo: ‹name› pand ‹input1› ‹input2› . . . ;) fail " +
+                return "Priority AND gates fail " +
                     "if all their inputs fail in the specified order, i.e., input2 must fail after input1. " +
                     "By default, priority AND gates are inclusive, and fail when input1 and input2 fail simultaneously. " +
                     "If desired, inclusiveness can be explicitly specified by the pand - inc keyword. The pand-ex " +
@@ -35,6 +35,13 @@ namespace FaultTreeEditor.Core.Models
                     "of the system, but if input1 fails first, the failure of input2 are let through. Inclusive and " +
                     "exclusive variation can specify the response of the gates to common - mode failures of the " +
                     "avoidance strategy and the monitored component.";
+            }
+        }
+        public override string GalileoFormat
+        {
+            get
+            {
+                return "Galileo: ‹name› pand ‹input1› ‹input2› . . . ;";
             }
         }
         public override string ToGalileo()

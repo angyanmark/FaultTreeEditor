@@ -36,11 +36,18 @@ namespace FaultTreeEditor.Core.Models
         {
             get
             {
-                return "Basic events (Galileo: ‹name› lambda=‹λ› dorm=‹dormancy›;) describe the independent " +
+                return "Basic events describe the independent " +
                     "failures that may occur in the system. The time first failure since mission start is " +
                     "exponentially distributed with a rate of λ, i.e., P(T(fail) < t)  1 − e^(−λt). When the basic " +
                     "event is serving as a warm spare, its failure rate is reduced to dormancy·λ. The dormancy " +
                     "factor may be omitted if it is equal to 1.";
+            }
+        }
+        public override string GalileoFormat
+        {
+            get
+            {
+                return "Galileo: ‹name› lambda=‹λ› dorm=‹dormancy›;";
             }
         }
         public override string ToGalileo()

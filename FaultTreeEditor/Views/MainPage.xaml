@@ -342,6 +342,7 @@
                                         <TextBlock HorizontalAlignment="Center"
                                                    Style="{StaticResource BaseTextBlockStyle}"
                                                    Text="{Binding SelectedElement.DisplayTitle}" />
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding SelectedElement.GalileoFormat}" />
                                         <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding SelectedElement.Info}" />
                                     </StackPanel>
                                 </Flyout>
