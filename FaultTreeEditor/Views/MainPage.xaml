@@ -362,11 +362,12 @@
                         <DataTemplate x:DataType="models:Element">
                             <StackPanel Padding="8" Spacing="8">
                                 <Image Width="100"
-                                       MaxHeight="55"
+                                       Height="55"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Source="{Binding ImageSource}" />
-                                <TextBlock Height="38"
+                                <TextBlock Width="100"
+                                           Height="38"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
                                            Style="{ThemeResource BaseTextBlockStyle}"
