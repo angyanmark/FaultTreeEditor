@@ -42,7 +42,7 @@ namespace FaultTreeEditor.Services
                         }*/
                     }
                 },
-                
+
                 /*Actions = new ToastActionsCustom()
                 {
                     Buttons =
@@ -50,7 +50,7 @@ namespace FaultTreeEditor.Services
                         new ToastButton("Open folder", $"action=openFolder;filePath={fileInfo.FullName}")
                     }
                 },*/
-                //Launch = "action=viewFriendRequest&userId=49183"
+                //Launch = $"action=openFolder;filePath={fileInfo.FullName}"
             };
 
             // Create the toast notification

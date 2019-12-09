@@ -249,7 +249,14 @@ namespace FaultTreeEditor.Views
             {
                 builder += $"{element.Title} -> {v.Title}\n";
             }
-            ViewModel.OutputText = builder;
+            if (String.IsNullOrWhiteSpace(builder))
+            {
+                ViewModel.OutputText = $"{element.Title} has no connections...";
+            }
+            else
+            {
+                ViewModel.OutputText = builder;
+            }
         }
 
         private void Remove_All_Connections_MenuFlyoutItem_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
