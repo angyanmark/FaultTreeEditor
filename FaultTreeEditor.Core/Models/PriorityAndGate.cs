@@ -27,7 +27,7 @@ namespace FaultTreeEditor.Core.Models
                 return "Priority AND gates (Galileo: ‹name› pand ‹input1› ‹input2› . . . ;) fail " +
                     "if all their inputs fail in the specified order, i.e., input2 must fail after input1. " +
                     "By default, priority AND gates are inclusive, and fail when input1 and input2 fail simultaneously. " +
-                    "If desired, inclusiveness can be explicitly specified by the pand - inc keyword.The pand-ex " +
+                    "If desired, inclusiveness can be explicitly specified by the pand - inc keyword. The pand-ex " +
                     "keyword specifies exclusive priority AND gates, which survive simultaneous failure. " +
                     "Inclusive and exclusive gates can be graphically distinguished with the ≤ and < symbols, respectively. " +
                     "Most commonly, priority AND gates represent failure avoidance strategies. If the failure avoidance " +

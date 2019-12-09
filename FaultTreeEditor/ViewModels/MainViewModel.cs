@@ -139,8 +139,8 @@ namespace FaultTreeEditor.ViewModels
             Project.FaultTree.Elements.Add(new TopLevelEvent
             {
                 Title = "top_level_event",
-                X = 600,
-                Y = 0,
+                X = 400,
+                Y = 20,
             });
             SelectedCanvasElement = Project.FaultTree.Elements[0];
         }

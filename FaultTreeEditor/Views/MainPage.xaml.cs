@@ -20,7 +20,8 @@ namespace FaultTreeEditor.Views
         private readonly UISettings uiSettings = new UISettings();
 
         private Color lineColor = Colors.Black;
-        private readonly int lineEdgeOffset = 40;
+        private readonly int lineEdgeOffsetX = 43;
+        private readonly int lineEdgeOffsetY = 26;
 
         double CanvasWidth;
         double CanvasHeight;
@@ -116,20 +117,20 @@ namespace FaultTreeEditor.Views
 
         void DrawLines()
         {
-            Canvas1.Children.Clear();
+            MainCanvas.Children.Clear();
             foreach(var v in ViewModel.Project.FaultTree.Connections)
             {
                 Line line = new Line
                 {
-                    X1 = lineEdgeOffset + v.From.X,
-                    X2 = lineEdgeOffset + v.To.X,
-                    Y1 = lineEdgeOffset + v.From.Y,
-                    Y2 = lineEdgeOffset + v.To.Y,
+                    X1 = lineEdgeOffsetX + v.From.X,
+                    X2 = lineEdgeOffsetX + v.To.X,
+                    Y1 = lineEdgeOffsetY + v.From.Y,
+                    Y2 = lineEdgeOffsetY + v.To.Y,
                     Stroke = new SolidColorBrush(lineColor),
                     StrokeThickness = 2
                 };
                 Canvas.SetZIndex(line, 1);
-                Canvas1.Children.Add(line);
+                MainCanvas.Children.Add(line);
             }
         }
 

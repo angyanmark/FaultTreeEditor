@@ -93,7 +93,7 @@
                           ZoomMode="Enabled">
                 <Border BorderBrush="{ThemeResource SystemAccentColor}" BorderThickness="1">
                     <Grid>
-                        <Canvas x:Name="Canvas1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                        <Canvas x:Name="MainCanvas" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                         <ListBox x:Name="MyListBox"
                                  Background="Transparent"
                                  ItemsSource="{Binding Project.FaultTree.Elements}"
