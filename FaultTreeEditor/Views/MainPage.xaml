@@ -329,15 +329,17 @@
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="models:Element">
                             <StackPanel Padding="8" Spacing="8">
-                                <Image MaxWidth="140"
-                                       MaxHeight="77"
+                                <Image Width="100"
+                                       MaxHeight="55"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Source="{Binding ImageSource}" />
-                                <TextBlock HorizontalAlignment="Center"
+                                <TextBlock Height="38"
+                                           HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
                                            Style="{ThemeResource BaseTextBlockStyle}"
-                                           Text="{Binding DisplayTitle}" />
+                                           Text="{Binding DisplayTitle}"
+                                           TextAlignment="Center" />
                             </StackPanel>
                         </DataTemplate>
                     </GridView.ItemTemplate>
