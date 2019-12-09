@@ -83,14 +83,15 @@
                 </StackPanel>
             </RelativePanel>
 
-            <ScrollViewer x:Name="MyScrollViewer"
+            <ScrollViewer x:Name="CanvasScrollViewer"
                           Grid.Row="1"
                           HorizontalScrollBarVisibility="Visible"
                           HorizontalScrollMode="Enabled"
-                          MaxZoomFactor="8"
-                          MinZoomFactor="1"
+                          MaxZoomFactor="{Binding MaxZoomFactor}"
+                          MinZoomFactor="{Binding MinZoomFactor}"
                           VerticalScrollBarVisibility="Visible"
                           VerticalScrollMode="Enabled"
+                          ViewChanged="CanvasScrollViewer_ViewChanged"
                           ZoomMode="Enabled">
                 <Border BorderBrush="{ThemeResource SystemAccentColor}" BorderThickness="1">
                     <Grid>
@@ -196,16 +197,29 @@
                     Padding="4"
                     BorderBrush="{ThemeResource SystemAccentColor}"
                     BorderThickness="1">
-                <StackPanel Orientation="Horizontal" Spacing="16">
-                    <StackPanel Orientation="Horizontal" Spacing="4">
-                        <TextBlock Text="Elements:" />
-                        <TextBlock Text="{Binding Project.FaultTree.Elements.Count}" />
+                <RelativePanel>
+                    <StackPanel Orientation="Horizontal"
+                                RelativePanel.AlignLeftWithPanel="True"
+                                Spacing="16">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="Elements:" />
+                            <TextBlock Text="{Binding Project.FaultTree.Elements.Count}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="Connections:" />
+                            <TextBlock Text="{Binding Project.FaultTree.Connections.Count}" />
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Spacing="4">
-                        <TextBlock Text="Connections:" />
-                        <TextBlock Text="{Binding Project.FaultTree.Connections.Count}" />
+
+                    <StackPanel Orientation="Horizontal"
+                                RelativePanel.AlignRightWithPanel="True"
+                                Spacing="16">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="Zoom:" />
+                            <TextBlock Text="{Binding ZoomFactorString}" />
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
+                </RelativePanel>
             </Border>
 
             <RelativePanel Grid.Row="3">

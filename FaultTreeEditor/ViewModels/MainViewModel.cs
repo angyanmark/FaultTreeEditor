@@ -97,6 +97,30 @@ namespace FaultTreeEditor.ViewModels
                 Set(ref isRemoveConnectionToggled, value);
             }
         }
+
+        public int MinZoomFactor
+        {
+            get { return 1; }
+        }
+
+        public int MaxZoomFactor
+        {
+            get { return 6; }
+        }
+
+        private float zoomFactor = 1.0f;
+        public float ZoomFactor
+        {
+            get { return zoomFactor; }
+            set { Set(ref zoomFactor, value); ZoomFactorString = ZoomFactor.ToString(); }
+        }
+
+        private string zoomFactorString = "";
+        public string ZoomFactorString
+        {
+            get { return ZoomFactor.ToString("N2") + "x"; }
+            set { Set(ref zoomFactorString, value); }
+        }
         #endregion
 
         #region Commands

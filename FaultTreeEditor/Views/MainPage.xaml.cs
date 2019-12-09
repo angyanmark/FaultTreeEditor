@@ -91,7 +91,7 @@ namespace FaultTreeEditor.Views
         {
             StackPanel sp = sender as StackPanel;
             Element element = sp.DataContext as Element;
-            float zf = MyScrollViewer.ZoomFactor;
+            float zf = CanvasScrollViewer.ZoomFactor;
 
             double newX = element.X + e.Delta.Translation.X / zf;
             double newY = element.Y + e.Delta.Translation.Y / zf;
@@ -294,6 +294,12 @@ namespace FaultTreeEditor.Views
         private void Element_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             ViewModel.AddItemToCanvasCommand.Execute(ViewModel.PointerPoint);
+        }
+
+        private void CanvasScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            ScrollViewer scrollViewer = sender as ScrollViewer;
+            ViewModel.ZoomFactor = scrollViewer.ZoomFactor;
         }
     }
 }
