@@ -116,6 +116,7 @@
     <Compile Include="Converters\ProbabilityToVisibilityConverter.cs" />
     <Compile Include="Converters\KToVisibilityConverter.cs" />
     <Compile Include="Converters\LambdaDormancyToVisibilityConverter.cs" />
+    <Compile Include="Converters\TopLevelDeleteToVisibilityConverter.cs" />
     <Compile Include="Helpers\Observable.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Services\ActivationService.cs" />

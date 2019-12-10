@@ -13,6 +13,7 @@
         <converters:LambdaDormancyToVisibilityConverter x:Key="LambdaDormancyToVisibilityConverter" />
         <converters:KToVisibilityConverter x:Key="KToVisibilityConverter" />
         <converters:ProbabilityToVisibilityConverter x:Key="ProbabilityToVisibilityConverter" />
+        <converters:TopLevelDeleteToVisibilityConverter x:Key="TopLevelDeleteToVisibilityConverter" />
     </Page.Resources>
 
     <Grid>
@@ -177,7 +178,9 @@
                                                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF0B9;" />
                                                     </MenuFlyoutItem.Icon>
                                                 </MenuFlyoutItem>
-                                                <MenuFlyoutItem Click="Delete_MenuFlyoutItem_Click" Text="Delete">
+                                                <MenuFlyoutItem Click="Delete_MenuFlyoutItem_Click"
+                                                                Text="Delete"
+                                                                Visibility="{Binding Converter={StaticResource TopLevelDeleteToVisibilityConverter}}">
                                                     <MenuFlyoutItem.Icon>
                                                         <SymbolIcon Symbol="Delete" />
                                                     </MenuFlyoutItem.Icon>
@@ -467,7 +470,8 @@
                                             Spacing="8">
                                     <AppBarButton Click="Delete_Button_Click"
                                                   Icon="Delete"
-                                                  Label="Delete" />
+                                                  Label="Delete"
+                                                  Visibility="{Binding SelectedCanvasElement, Converter={StaticResource TopLevelDeleteToVisibilityConverter}}" />
                                 </StackPanel>
                             </StackPanel>
                         </PivotItem>
