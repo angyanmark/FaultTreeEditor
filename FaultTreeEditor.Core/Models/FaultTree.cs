@@ -21,5 +21,67 @@ namespace FaultTreeEditor.Core.Models
             get { return connections; }
             set { Set(ref connections, value); }
         }
+
+        public string GetGalileoString()
+        {
+            string builder = "";
+            foreach (var v in Elements)
+            {
+                builder += v.ToGalileo();
+            }
+            if (String.IsNullOrWhiteSpace(builder))
+            {
+                return "No output...";
+            }
+            else
+            {
+                return builder;
+            }
+        }
+
+        public string ListConnections()
+        {
+            string builder = "";
+            foreach (var v in Connections)
+            {
+                builder += $"{v.From.Title} -> {v.To.Title}\n";
+            }
+            if (String.IsNullOrWhiteSpace(builder))
+            {
+                return "No connections...";
+            }
+            else
+            {
+                return builder;
+            }
+        }
+
+        public void RemoveConnections(Element element)
+        {
+            foreach (var v in Elements)
+            {
+                v.Children.Remove(element);
+                v.Parents.Remove(element);
+            }
+
+            var toRemove = new List<Connection>();
+            foreach (var v in Connections)
+            {
+                if (v.From == element || v.To == element)
+                {
+                    toRemove.Add(v);
+                }
+            }
+            foreach (var v in toRemove)
+            {
+                Connections.Remove(v);
+            }
+        }
+
+        public void RemoveElement(Element element)
+        {
+            Elements.Remove(element);
+            RemoveConnections(element);
+        }
     }
 }

@@ -292,7 +292,7 @@ namespace FaultTreeEditor.ViewModels
 
             GenerateOutputCommand = new RelayCommand(() =>
             {
-                OutputText = GetGalileoString();
+                OutputText = Project.FaultTree.GetGalileoString();
             });
 
             ShowJSONCommand = new RelayCommand(() =>
@@ -302,19 +302,7 @@ namespace FaultTreeEditor.ViewModels
 
             ListConnectionsCommand = new RelayCommand(() =>
             {
-                string builder = "";
-                foreach (var v in Project.FaultTree.Connections)
-                {
-                    builder += $"{v.From.Title} -> {v.To.Title}\n";
-                }
-                if (String.IsNullOrWhiteSpace(builder))
-                {
-                    OutputText = "No connections...";
-                }
-                else
-                {
-                    OutputText = builder;
-                }
+                OutputText = Project.FaultTree.ListConnections();
             });
 
             DeleteElementCommand = new RelayCommand(() =>
@@ -326,9 +314,7 @@ namespace FaultTreeEditor.ViewModels
                     return;
                 }
 
-                Project.FaultTree.Elements.Remove(tempElement);
-
-                RemoveConnections(tempElement);
+                Project.FaultTree.RemoveElement(tempElement);
 
                 if (Project.FaultTree.Elements.Count > 0)
                 {
@@ -342,7 +328,7 @@ namespace FaultTreeEditor.ViewModels
 
             RemoveConnectionsCommand = new RelayCommand(() =>
             {
-                RemoveConnections(SelectedCanvasElement);
+                Project.FaultTree.RemoveConnections(SelectedCanvasElement);
             });
 
             CopyCommand = new RelayCommand(() =>
@@ -353,7 +339,7 @@ namespace FaultTreeEditor.ViewModels
 
             ToGalileoCommand = new RelayCommand(async () =>
             {
-                await SaveToFileAsync(GetGalileoString());
+                await SaveToFileAsync(Project.FaultTree.GetGalileoString());
             });
 
             ToJsonCommand = new RelayCommand(async () =>
@@ -377,23 +363,6 @@ namespace FaultTreeEditor.ViewModels
             sequenceEnforcerCounter = 0;
         }
 
-        private string GetGalileoString()
-        {
-            string builder = "";
-            foreach (var v in Project.FaultTree.Elements)
-            {
-                builder += v.ToGalileo();
-            }
-            if (String.IsNullOrWhiteSpace(builder))
-            {
-                return "No output...";
-            }
-            else
-            {
-                return builder;
-            }
-        }
-
         private string GetJsonString()
         {
             return JsonConvert.SerializeObject(Project, Formatting.Indented,
@@ -402,28 +371,6 @@ namespace FaultTreeEditor.ViewModels
                     PreserveReferencesHandling = PreserveReferencesHandling.Objects,
                     TypeNameHandling = TypeNameHandling.Auto
                 });
-        }
-
-        private void RemoveConnections(Element element)
-        {
-            foreach (var v in Project.FaultTree.Elements)
-            {
-                v.Children.Remove(element);
-                v.Parents.Remove(element);
-            }
-
-            var toRemove = new List<Connection>();
-            foreach (var v in Project.FaultTree.Connections)
-            {
-                if (v.From == element || v.To == element)
-                {
-                    toRemove.Add(v);
-                }
-            }
-            foreach (var v in toRemove)
-            {
-                Project.FaultTree.Connections.Remove(v);
-            }
         }
 
         private async Task SaveToFileAsync(string content)

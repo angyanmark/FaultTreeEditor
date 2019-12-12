@@ -9,7 +9,12 @@ namespace FaultTreeEditor.Core.Models
 {
     public abstract class Element : Observable
     {
-        public ObservableCollection<Element> Parents { get; set; } = new ObservableCollection<Element>();
+        private ObservableCollection<Element> parents = new ObservableCollection<Element>();
+        public ObservableCollection<Element> Parents
+        {
+            get { return parents; }
+            set { Set(ref parents, value); }
+        }
         private ObservableCollection<Element> children = new ObservableCollection<Element>();
         public ObservableCollection<Element> Children
         {
