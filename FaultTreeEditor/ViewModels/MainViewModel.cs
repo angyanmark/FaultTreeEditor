@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -98,14 +99,14 @@ namespace FaultTreeEditor.ViewModels
             }
         }
 
-        public int MinZoomFactor
+        public float MinZoomFactor
         {
-            get { return 1; }
+            get { return 1.0f; }
         }
 
-        public int MaxZoomFactor
+        public float MaxZoomFactor
         {
-            get { return 6; }
+            get { return 3.8f; }
         }
 
         private float zoomFactor = 1.0f;
@@ -115,10 +116,11 @@ namespace FaultTreeEditor.ViewModels
             set { Set(ref zoomFactor, value); ZoomFactorString = ZoomFactor.ToString(); }
         }
 
-        private string zoomFactorString = "";
+        private string zoomFactorString = "1";
         public string ZoomFactorString
         {
-            get { return ZoomFactor.ToString("N2") + "x"; }
+            //get { return String.Format("{0:N2}x", float.Parse(zoomFactorString, CultureInfo.InvariantCulture.NumberFormat)); }
+            get { return String.Format("{0:N0}%", 100*float.Parse(zoomFactorString, CultureInfo.InvariantCulture.NumberFormat)); }
             set { Set(ref zoomFactorString, value); }
         }
         #endregion
