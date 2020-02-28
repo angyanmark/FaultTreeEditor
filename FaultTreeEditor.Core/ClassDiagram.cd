@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FaultTreeEditor.Core.Models.AndGate" Collapsed="true">
+    <Position X="13.75" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAIEAAAAAAAAAAAAEAAAgA=</HashCode>
+      <FileName>Models\AndGate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FaultTreeEditor.Core.Models.BasicEvent" Collapsed="true">
+    <Position X="16.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAIgAAAAIAAAAEAAAAIEAAAAAAAAAAAAEAAAgA=</HashCode>
+      <FileName>Models\BasicEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FaultTreeEditor.Core.Models.Element" Collapsed="true">
+    <Position X="16" Y="1.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAQAAAAEQAAAEEAAAIEAAAAAAIAABgAEAIYgA=</HashCode>
+      <FileName>Models\Element.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FaultTreeEditor.Core.Models.Event" Collapsed="true">
+    <Position X="17.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAIEAAAAAAAAAAAAEAAAgA=</HashCode>
+      <FileName>Models\Event.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FaultTreeEditor.Core.Models.FunctionalDependency" Collapsed="true">
+    <Position X="16.25" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAIEAAAAAAAAAAAAEAAAgA=</HashCode>
+      <FileName>Models\FunctionalDependency.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FaultTreeEditor.Core.Models.Gate" Collapsed="true">
+    <Position X="15" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Gate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FaultTreeEditor.Core.Models.OrGate" Collapsed="true">
+    <Position X="13.75" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAIEAAAAAAAAAAAAEAAAgA=</HashCode>
+      <FileName>Models\OrGate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FaultTreeEditor.Core.Models.PriorityAndGate" Collapsed="true">
+    <Position X="13.75" Y="8.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAIEAAAAAAAAAAAAEAAAgA=</HashCode>
+      <FileName>Models\PriorityAndGate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FaultTreeEditor.Core.Models.PriorityOrGate" Collapsed="true">
+    <Position X="16.25" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAIEAAAAAAAAAAAAEAAAgA=</HashCode>
+      <FileName>Models\PriorityOrGate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FaultTreeEditor.Core.Models.ProbabilisticDependency" Collapsed="true">
+    <Position X="13.75" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAEAAIAIEAAAAAAAAAAAAEAAAgA=</HashCode>
+      <FileName>Models\ProbabilisticDependency.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FaultTreeEditor.Core.Models.SequenceEnforcer" Collapsed="true">
+    <Position X="16.25" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAIEAAAAAAAAAAAAEAAAgA=</HashCode>
+      <FileName>Models\SequenceEnforcer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FaultTreeEditor.Core.Models.TopLevelEvent" Collapsed="true">
+    <Position X="18.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAIEAAAAAAAAAAAAEAAAgA=</HashCode>
+      <FileName>Models\TopLevelEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FaultTreeEditor.Core.Models.VoteGate" Collapsed="true">
+    <Position X="13.75" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAIEAAAAAAAAAAAAMIAAgA=</HashCode>
+      <FileName>Models\VoteGate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FaultTreeEditor.Core.Models.WarmSpareGate" Collapsed="true">
+    <Position X="16.25" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAIEAAAAAAAAAAAAEAAAgA=</HashCode>
+      <FileName>Models\WarmSpareGate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
