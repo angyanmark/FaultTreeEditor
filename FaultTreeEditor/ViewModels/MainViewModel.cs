@@ -64,7 +64,7 @@ namespace FaultTreeEditor.ViewModels
             set { Set(ref selectedCanvasElement, value); }
         }
 
-        private string outputText = "";
+        private string outputText = string.Empty;
         public string OutputText
         {
             get { return outputText; }
@@ -133,6 +133,7 @@ namespace FaultTreeEditor.ViewModels
         public RelayCommand RemoveConnectionsCommand { get; set; }
         public RelayCommand DeleteElementCommand { get; set; }
         public RelayCommand CopyCommand { get; set; }
+        public RelayCommand ClearCommand { get; set; }
         public RelayCommand LoadCommand { get; set; }
         public RelayCommand ToGalileoCommand { get; set; }
         public RelayCommand ToJsonCommand { get; set; }
@@ -337,6 +338,11 @@ namespace FaultTreeEditor.ViewModels
             {
                 dataPackage.SetText(OutputText);
                 Clipboard.SetContent(dataPackage);
+            });
+
+            ClearCommand = new RelayCommand(() =>
+            {
+                OutputText = string.Empty;
             });
 
             ToGalileoCommand = new RelayCommand(async () =>

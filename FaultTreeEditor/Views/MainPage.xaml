@@ -45,20 +45,6 @@
                             RelativePanel.AlignRightWithPanel="True"
                             Spacing="8">
                     <AppBarButton Width="80"
-                                  Icon="Clear"
-                                  Label="Clear"
-                                  ToolTipService.ToolTip="Remove all elements">
-                        <AppBarButton.Flyout>
-                            <Flyout>
-                                <StackPanel Spacing="12">
-                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="All elements will be removed. Do you want to continue?" />
-                                    <Button Click="Clear_Canvas_Button_Click" Content="Yes, remove elements" />
-                                </StackPanel>
-                            </Flyout>
-                        </AppBarButton.Flyout>
-                    </AppBarButton>
-                    <AppBarSeparator />
-                    <AppBarButton Width="80"
                                   Icon="Import"
                                   Label="Import"
                                   ToolTipService.ToolTip="Import project">
@@ -79,6 +65,20 @@
                                 <MenuFlyoutItem Command="{Binding ToGalileoCommand}" Text="To Galileo" />
                                 <MenuFlyoutItem Command="{Binding ToJsonCommand}" Text="To JSON" />
                             </MenuFlyout>
+                        </AppBarButton.Flyout>
+                    </AppBarButton>
+                    <AppBarSeparator />
+                    <AppBarButton Width="80"
+                                  Icon="Clear"
+                                  Label="Clear"
+                                  ToolTipService.ToolTip="Remove all elements">
+                        <AppBarButton.Flyout>
+                            <Flyout>
+                                <StackPanel Spacing="12">
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="All elements will be removed. Do you want to continue?" />
+                                    <Button Click="Clear_Canvas_Button_Click" Content="Yes, remove elements" />
+                                </StackPanel>
+                            </Flyout>
                         </AppBarButton.Flyout>
                     </AppBarButton>
                 </StackPanel>
@@ -236,11 +236,6 @@
                             Orientation="Horizontal"
                             RelativePanel.AlignRightWithPanel="True"
                             Spacing="8">
-                    <AppBarButton Command="{Binding CopyCommand}"
-                                  Icon="Copy"
-                                  Label="Copy"
-                                  ToolTipService.ToolTip="Copy the output text to the clipboard" />
-                    <AppBarSeparator />
                     <AppBarButton Width="80"
                                   Command="{Binding ShowJSONCommand}"
                                   Label="JSON"
@@ -264,6 +259,15 @@
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA37;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
+                    <AppBarSeparator />
+                    <AppBarButton Command="{Binding CopyCommand}"
+                                  Icon="Copy"
+                                  Label="Copy"
+                                  ToolTipService.ToolTip="Copy the output text to the clipboard" />
+                    <AppBarButton Command="{Binding ClearCommand}"
+                                  Icon="Clear"
+                                  Label="Clear"
+                                  ToolTipService.ToolTip="Clear the output text" />
                 </StackPanel>
             </RelativePanel>
 
