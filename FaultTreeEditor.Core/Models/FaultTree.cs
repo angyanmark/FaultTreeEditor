@@ -58,10 +58,13 @@ namespace FaultTreeEditor.Core.Models
 
         public void RemoveConnections(Element element)
         {
+            element.Parents.Clear();
+            element.Children.Clear();
+
             foreach (var v in Elements)
             {
-                v.Children.Remove(element);
                 v.Parents.Remove(element);
+                v.Children.Remove(element);
             }
 
             var toRemove = new List<Connection>();
