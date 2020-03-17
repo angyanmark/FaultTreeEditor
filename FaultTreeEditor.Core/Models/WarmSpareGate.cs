@@ -10,7 +10,7 @@ namespace FaultTreeEditor.Core.Models
         {
             get
             {
-                return "/Assets/Images/Elements/warmsparegate.png";
+                return "/Assets/Images/Elements/Dark/warmsparegate.png";
             }
         }
         public override string DisplayTitle

@@ -19,7 +19,7 @@ namespace FaultTreeEditor.Core.Models
         {
             get
             {
-                return "/Assets/Images/Elements/votegate.png";
+                return "/Assets/Images/Elements/Dark/votegate.png";
             }
         }
         public override string DisplayTitle

@@ -20,7 +20,7 @@ namespace FaultTreeEditor.Views
         private readonly UISettings uiSettings = new UISettings();
 
         private Color lineColor = Colors.Black;
-        private readonly int lineEdgeOffsetX = 48;
+        private readonly int lineEdgeOffsetX = 40;
         private readonly int lineEdgeOffsetY = 26;
 
         double CanvasWidth;

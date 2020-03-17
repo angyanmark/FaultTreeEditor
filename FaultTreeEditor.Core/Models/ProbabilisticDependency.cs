@@ -16,7 +16,7 @@ namespace FaultTreeEditor.Core.Models
         {
             get
             {
-                return "/Assets/Images/Elements/probabilisticdependency.png";
+                return "/Assets/Images/Elements/Dark/probabilisticdependency.png";
             }
         }
         public override string DisplayTitle
