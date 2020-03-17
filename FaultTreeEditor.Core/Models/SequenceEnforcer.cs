@@ -6,11 +6,11 @@ namespace FaultTreeEditor.Core.Models
 {
     public class SequenceEnforcer : Gate
     {
-        public override string ImageSource
+        public override string Source
         {
             get
             {
-                return "/Assets/Images/Elements/Dark/sequenceenforcer.png";
+                return "sequenceenforcer.png";
             }
         }
         public override string DisplayTitle

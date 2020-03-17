@@ -6,11 +6,11 @@ namespace FaultTreeEditor.Core.Models
 {
     public class OrGate : Gate
     {
-        public override string ImageSource
+        public override string Source
         {
             get
             {
-                return "/Assets/Images/Elements/Dark/orgate.png";
+                return "orgate.png";
             }
         }
         public override string DisplayTitle

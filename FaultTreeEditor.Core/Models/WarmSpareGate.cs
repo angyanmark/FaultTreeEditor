@@ -6,11 +6,11 @@ namespace FaultTreeEditor.Core.Models
 {
     public class WarmSpareGate : Gate
     {
-        public override string ImageSource
+        public override string Source
         {
             get
             {
-                return "/Assets/Images/Elements/Dark/warmsparegate.png";
+                return "warmsparegate.png";
             }
         }
         public override string DisplayTitle

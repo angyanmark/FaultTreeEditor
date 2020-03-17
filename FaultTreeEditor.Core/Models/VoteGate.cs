@@ -15,11 +15,11 @@ namespace FaultTreeEditor.Core.Models
             }
             set { }
         }
-        public override string ImageSource
+        public override string Source
         {
             get
             {
-                return "/Assets/Images/Elements/Dark/votegate.png";
+                return "votegate.png";
             }
         }
         public override string DisplayTitle

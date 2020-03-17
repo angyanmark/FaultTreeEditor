@@ -12,11 +12,11 @@ namespace FaultTreeEditor.Core.Models
             get { return probability; }
             set { Set(ref probability, value); }
         }
-        public override string ImageSource
+        public override string Source
         {
             get
             {
-                return "/Assets/Images/Elements/Dark/probabilisticdependency.png";
+                return "probabilisticdependency.png";
             }
         }
         public override string DisplayTitle

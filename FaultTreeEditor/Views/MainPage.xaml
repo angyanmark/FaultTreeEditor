@@ -84,116 +84,119 @@
                 </StackPanel>
             </RelativePanel>
 
-            <ScrollViewer x:Name="CanvasScrollViewer"
-                          Grid.Row="1"
-                          HorizontalScrollBarVisibility="Visible"
-                          HorizontalScrollMode="Enabled"
-                          MaxZoomFactor="{Binding MaxZoomFactor}"
-                          MinZoomFactor="{Binding MinZoomFactor}"
-                          VerticalScrollBarVisibility="Visible"
-                          VerticalScrollMode="Enabled"
-                          ViewChanged="CanvasScrollViewer_ViewChanged"
-                          ZoomMode="Enabled">
-                <Border BorderBrush="{ThemeResource SystemAccentColor}" BorderThickness="1">
-                    <Grid>
-                        <Canvas x:Name="MainCanvas" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-                        <ListBox x:Name="MyListBox"
-                                 Background="Transparent"
-                                 ItemsSource="{Binding Project.FaultTree.Elements}"
-                                 PointerReleased="MyListBox_PointerReleased"
-                                 SelectionChanged="MyListBox_SelectionChanged">
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="ListBoxItem">
-                                    <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}" />
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="ListBoxItem">
-                                                <ContentPresenter />
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <Canvas />
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
+            <Border Grid.Row="1"
+                    BorderBrush="{ThemeResource SystemAccentColor}"
+                    BorderThickness="1">
+                <ScrollViewer x:Name="CanvasScrollViewer"
+                              HorizontalScrollBarVisibility="Visible"
+                              HorizontalScrollMode="Enabled"
+                              MaxZoomFactor="{Binding MaxZoomFactor}"
+                              MinZoomFactor="{Binding MinZoomFactor}"
+                              VerticalScrollBarVisibility="Visible"
+                              VerticalScrollMode="Enabled"
+                              ViewChanged="CanvasScrollViewer_ViewChanged"
+                              ZoomMode="Enabled">
+                    <Border BorderBrush="Transparent" BorderThickness="1">
+                        <Grid>
+                            <Canvas x:Name="MainCanvas" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                            <ListBox x:Name="MyListBox"
+                                     Background="Transparent"
+                                     ItemsSource="{Binding Project.FaultTree.Elements}"
+                                     PointerReleased="MyListBox_PointerReleased"
+                                     SelectionChanged="MyListBox_SelectionChanged">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <ContentPresenter />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Canvas />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
 
-                            <ListBox.ContextFlyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Command="{Binding AddItemToCanvasCommand}"
-                                                    CommandParameter="{Binding PointerPoint}"
-                                                    Text="Add element">
-                                        <MenuFlyoutItem.Icon>
-                                            <SymbolIcon Symbol="Add" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-                                </MenuFlyout>
-                            </ListBox.ContextFlyout>
+                                <ListBox.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Command="{Binding AddItemToCanvasCommand}"
+                                                        CommandParameter="{Binding PointerPoint}"
+                                                        Text="Add element">
+                                            <MenuFlyoutItem.Icon>
+                                                <SymbolIcon Symbol="Add" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </ListBox.ContextFlyout>
 
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel ManipulationCompleted="SP_ManipulationCompleted"
-                                                ManipulationDelta="SP_ManipulationDelta"
-                                                ManipulationMode="TranslateX, TranslateY, System"
-                                                ManipulationStarted="SP_ManipulationStarted">
-                                        <Image MaxWidth="95"
-                                               MaxHeight="52"
-                                               Source="{Binding ImageSource}" />
-                                        <TextBlock HorizontalAlignment="Center" Text="{Binding Title}" />
-                                        <TextBlock HorizontalAlignment="Center"
-                                                   Text="{Binding Lambda}"
-                                                   Visibility="{Binding Converter={StaticResource LambdaDormancyToVisibilityConverter}}" />
-                                        <TextBlock HorizontalAlignment="Center"
-                                                   Text="{Binding Dormancy}"
-                                                   Visibility="{Binding Converter={StaticResource LambdaDormancyToVisibilityConverter}}" />
-                                        <TextBlock HorizontalAlignment="Center"
-                                                   Text="{Binding Probability}"
-                                                   Visibility="{Binding Converter={StaticResource ProbabilityToVisibilityConverter}}" />
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel ManipulationCompleted="SP_ManipulationCompleted"
+                                                    ManipulationDelta="SP_ManipulationDelta"
+                                                    ManipulationMode="TranslateX, TranslateY, System"
+                                                    ManipulationStarted="SP_ManipulationStarted">
+                                            <Image MaxWidth="95"
+                                                   MaxHeight="52"
+                                                   Source="{Binding ImageSource}" />
+                                            <TextBlock HorizontalAlignment="Center" Text="{Binding Title}" />
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       Text="{Binding Lambda}"
+                                                       Visibility="{Binding Converter={StaticResource LambdaDormancyToVisibilityConverter}}" />
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       Text="{Binding Dormancy}"
+                                                       Visibility="{Binding Converter={StaticResource LambdaDormancyToVisibilityConverter}}" />
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       Text="{Binding Probability}"
+                                                       Visibility="{Binding Converter={StaticResource ProbabilityToVisibilityConverter}}" />
 
-                                        <StackPanel.RenderTransform>
-                                            <TranslateTransform X="{Binding X, Mode=TwoWay}" Y="{Binding Y, Mode=TwoWay}" />
-                                        </StackPanel.RenderTransform>
+                                            <StackPanel.RenderTransform>
+                                                <TranslateTransform X="{Binding X, Mode=TwoWay}" Y="{Binding Y, Mode=TwoWay}" />
+                                            </StackPanel.RenderTransform>
 
-                                        <StackPanel.ContextFlyout>
-                                            <MenuFlyout>
-                                                <MenuFlyoutItem Click="Add_Connection_MenuFlyoutItem_Click" Text="Add connection">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <SymbolIcon Symbol="Add" />
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                                <MenuFlyoutItem Click="Remove_Connection_MenuFlyoutItem_Click" Text="Remove connection">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <SymbolIcon Symbol="Remove" />
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                                <MenuFlyoutItem Click="List_Element_Connections_MenuFlyoutItem_Click" Text="List connections">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF003;" />
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                                <MenuFlyoutItem Click="Remove_All_Connections_MenuFlyoutItem_Click" Text="Remove all connections">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF0B9;" />
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                                <MenuFlyoutItem Click="Delete_MenuFlyoutItem_Click"
-                                                                Text="Delete"
-                                                                Visibility="{Binding Converter={StaticResource TopLevelDeleteToVisibilityConverter}}">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <SymbolIcon Symbol="Delete" />
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                            </MenuFlyout>
-                                        </StackPanel.ContextFlyout>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
-                </Border>
-            </ScrollViewer>
+                                            <StackPanel.ContextFlyout>
+                                                <MenuFlyout>
+                                                    <MenuFlyoutItem Click="Add_Connection_MenuFlyoutItem_Click" Text="Add connection">
+                                                        <MenuFlyoutItem.Icon>
+                                                            <SymbolIcon Symbol="Add" />
+                                                        </MenuFlyoutItem.Icon>
+                                                    </MenuFlyoutItem>
+                                                    <MenuFlyoutItem Click="Remove_Connection_MenuFlyoutItem_Click" Text="Remove connection">
+                                                        <MenuFlyoutItem.Icon>
+                                                            <SymbolIcon Symbol="Remove" />
+                                                        </MenuFlyoutItem.Icon>
+                                                    </MenuFlyoutItem>
+                                                    <MenuFlyoutItem Click="List_Element_Connections_MenuFlyoutItem_Click" Text="List connections">
+                                                        <MenuFlyoutItem.Icon>
+                                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF003;" />
+                                                        </MenuFlyoutItem.Icon>
+                                                    </MenuFlyoutItem>
+                                                    <MenuFlyoutItem Click="Remove_All_Connections_MenuFlyoutItem_Click" Text="Remove all connections">
+                                                        <MenuFlyoutItem.Icon>
+                                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF0B9;" />
+                                                        </MenuFlyoutItem.Icon>
+                                                    </MenuFlyoutItem>
+                                                    <MenuFlyoutItem Click="Delete_MenuFlyoutItem_Click"
+                                                                    Text="Delete"
+                                                                    Visibility="{Binding Converter={StaticResource TopLevelDeleteToVisibilityConverter}}">
+                                                        <MenuFlyoutItem.Icon>
+                                                            <SymbolIcon Symbol="Delete" />
+                                                        </MenuFlyoutItem.Icon>
+                                                    </MenuFlyoutItem>
+                                                </MenuFlyout>
+                                            </StackPanel.ContextFlyout>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </Border>
+                </ScrollViewer>
+            </Border>
 
             <Border Grid.Row="2"
                     Margin="0,-1,0,0"

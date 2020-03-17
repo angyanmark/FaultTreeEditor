@@ -18,11 +18,11 @@ namespace FaultTreeEditor.Core.Models
             get { return dormancy; }
             set { Set(ref dormancy, value); }
         }
-        public override string ImageSource
+        public override string Source
         {
             get
             {
-                return "/Assets/Images/Elements/Dark/basicevent.png";
+                return "basicevent.png";
             }
         }
         public override string DisplayTitle

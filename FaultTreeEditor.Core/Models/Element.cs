@@ -21,15 +21,32 @@ namespace FaultTreeEditor.Core.Models
             get { return children; }
             set { Set(ref children, value); }
         }
+        protected string imageSource;
+        public string ImageSource
+        {
+            get
+            {
+                return "/Assets/Images/Elements/" + ThemeColor + "/" + Source;
+            }
+            set
+            {
+                { Set(ref imageSource, value); }
+            }
+        }
+        public abstract string Source
+        {
+            get;
+        }
+        public static string ThemeColor
+        {
+            get;
+            set;
+        }
         private string title;
         public string Title
         {
             get { return title; }
             set { Set(ref title, value); }
-        }
-        public abstract string ImageSource
-        {
-            get;
         }
         private double x;
         public double X

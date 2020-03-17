@@ -6,11 +6,11 @@ namespace FaultTreeEditor.Core.Models
 {
     public class TopLevelEvent : Event
     {
-        public override string ImageSource
+        public override string Source
         {
             get
             {
-                return "/Assets/Images/Elements/Dark/event.png";
+                return "event.png";
             }
         }
         public override string DisplayTitle

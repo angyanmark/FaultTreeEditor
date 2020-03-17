@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FaultTreeEditor.Core.Models;
 using FaultTreeEditor.ViewModels;
 using Windows.Foundation;
@@ -31,7 +32,7 @@ namespace FaultTreeEditor.Views
         public MainPage()
         {
             InitializeComponent();
-            uiSettings.ColorValuesChanged += ColorValuesChanged;
+            uiSettings.ColorValuesChanged += ColorValuesChangedAsync;
             InitializeLineColor();
         }
 
@@ -42,17 +43,17 @@ namespace FaultTreeEditor.Views
             SetLineColor(uiThemeColor);
         }
 
-        private void ColorValuesChanged(UISettings sender, object args)
+        private async void ColorValuesChangedAsync(UISettings sender, object args)
         {
             //Color accentColor = sender.GetColorValue(UIColorType.Accent);
             //or
             //Color accentColor = (Color)Resources["SystemAccentColor"];
             var uiThemeColor = sender.GetColorValue(UIColorType.Background);
-            SetLineColor(uiThemeColor);
-
-            _ = Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
                 {
+                    SetLineColor(uiThemeColor);
                     DrawLines();
                 }
             );
@@ -62,15 +63,26 @@ namespace FaultTreeEditor.Views
         {
             if (color == Colors.Black)
             {
+                Element.ThemeColor = "Dark";
                 lineColor = Colors.White;
             }
             else if (color == Colors.White)
             {
+                Element.ThemeColor = "Light";
                 lineColor = Colors.Black;
             }
             else // some new theme color
             {
                 lineColor = Colors.Black;
+            }
+            SetElementImageSources();
+        }
+
+        private void SetElementImageSources()
+        {
+            foreach (var e in ViewModel.Elements.Union(ViewModel.Project.FaultTree.Elements))
+            {
+                e.ImageSource = "/Assets/Images/Elements/" + Element.ThemeColor + "/" + e.Source;
             }
         }
 
@@ -127,7 +139,8 @@ namespace FaultTreeEditor.Views
                     Y1 = lineEdgeOffsetY + v.From.Y,
                     Y2 = lineEdgeOffsetY + v.To.Y,
                     Stroke = new SolidColorBrush(lineColor),
-                    StrokeThickness = 2
+                    StrokeThickness = 1.6,
+                    Opacity = 0.4
                 };
                 Canvas.SetZIndex(line, 1);
                 MainCanvas.Children.Add(line);

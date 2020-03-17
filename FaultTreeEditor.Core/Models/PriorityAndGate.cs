@@ -6,11 +6,11 @@ namespace FaultTreeEditor.Core.Models
 {
     public class PriorityAndGate : Gate
     {
-        public override string ImageSource
+        public override string Source
         {
             get
             {
-                return "/Assets/Images/Elements/Dark/priorityandgate.png";
+                return "priorityandgate.png";
             }
         }
         public override string DisplayTitle

@@ -6,11 +6,11 @@ namespace FaultTreeEditor.Core.Models
 {
     public class FunctionalDependency : Gate
     {
-        public override string ImageSource
+        public override string Source
         {
             get
             {
-                return "/Assets/Images/Elements/Dark/functionaldependency.png";
+                return "functionaldependency.png";
             }
         }
         public override string DisplayTitle
