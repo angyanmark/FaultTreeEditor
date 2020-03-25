@@ -48,7 +48,7 @@ namespace FaultTreeEditor.Core.Models
             string builder = "";
             foreach (var v in Parents)
             {
-                builder += $"{v.Title} pdep={Probability} {getChildrenString()};\n";
+                builder += $"{Title} pdep={Probability} {getChildrenString()};\n";
             }
             return builder;
         }

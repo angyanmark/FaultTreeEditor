@@ -41,7 +41,7 @@ namespace FaultTreeEditor.Core.Models
             string builder = "";
             foreach (var v in Parents)
             {
-                builder += $"{v.Title} seq {getChildrenString()};\n";
+                builder += $"{Title} seq {getChildrenString()};\n";
             }
             return builder;
         }
