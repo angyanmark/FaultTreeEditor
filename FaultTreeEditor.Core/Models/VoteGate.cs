@@ -59,7 +59,7 @@ namespace FaultTreeEditor.Core.Models
             {
                 foreach (var v in Parents)
                 {
-                    builder += $"{Title} {K}of{M} {getChildrenString()};\n";
+                    builder += $"{v.Title} {K}of{M} {getChildrenString()};\n";
                 }
             }
             return builder;
